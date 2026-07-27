@@ -143,8 +143,13 @@ const server = http.createServer((req, res) => {
   let filePath = path.join(ROOT, rel);
   if (!filePath.startsWith(ROOT)) return send(res, 403, 'forbidden');
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
-    if (fs.existsSync(filePath + '.html')) filePath += '.html';
-    else return send(res, 404, 'não encontrado: ' + pathname);
+    if (fs.existsSync(filePath) && fs.statSync(filePath).isDirectory() && fs.existsSync(path.join(filePath, 'index.html'))) {
+      filePath = path.join(filePath, 'index.html');
+    } else if (fs.existsSync(filePath + '.html')) {
+      filePath += '.html';
+    } else {
+      return send(res, 404, 'não encontrado: ' + pathname);
+    }
   }
   const ext = path.extname(filePath);
   fs.readFile(filePath, (err, data) => {
