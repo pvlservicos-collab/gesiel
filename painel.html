@@ -1,0 +1,3686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Painel · Aldo Maurício</title>
+  <link rel="icon" type="image/webp" href="img/logo.webp">
+  <meta name="robots" content="noindex" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --ink: #f2f2ec;
+      --muted: #9a9d97;
+      --dim: #6e716b;
+      --line: rgba(52,211,153,.14);
+      --line-strong: rgba(52,211,153,.26);
+      --glass: rgba(52,211,153,.06);
+      --glass2: rgba(52,211,153,.025);
+      --glass-hi: rgba(52,211,153,.11);
+      --field: rgba(5, 8, 7, .82);
+      --cyan: #34d399;
+      --blue: #fde047;
+      --royal: #22c55e;
+      --indigo: #eab308;
+      --green: #4ade80;
+      --amber: #fbbf24;
+      --red: #f87171;
+      --grad-accent: linear-gradient(135deg, #059669 0%, #34d399 100%);
+      --grad-card: linear-gradient(160deg, var(--glass) 0%, var(--glass2) 100%);
+      --shadow-card: 0 10px 34px rgba(1, 4, 14, .55);
+      --shadow-pop: 0 18px 50px rgba(1, 4, 14, .7);
+      --r-lg: 16px;
+      --r-md: 12px;
+      --t-fast: .18s cubic-bezier(.4, 0, .2, 1);
+      --t-med: .32s cubic-bezier(.4, 0, .2, 1);
+      --font-num: 'Outfit', sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html,
+    body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      letter-spacing: -.01em
+    }
+
+    .num {
+      font-family: var(--font-num);
+      font-weight: 200;
+      letter-spacing: -.02em;
+      font-variant-numeric: tabular-nums;
+      line-height: 1
+    }
+
+    .num small {
+      font-size: .42em;
+      font-weight: 400;
+      color: rgba(255, 255, 255, .8);
+      margin-left: 4px;
+      letter-spacing: 0
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(1000px 560px at 10% -10%, rgba(5,150,105,.22), transparent 60%),
+        radial-gradient(800px 500px at 98% 0%, rgba(234,179,8,.13), transparent 60%),
+        radial-gradient(1100px 760px at 50% 115%, rgba(52,211,153,.08), transparent 60%);
+    }
+
+    #screen-login,
+    #screen-painel {
+      position: relative;
+      z-index: 1
+    }
+
+    ::selection {
+      background: rgba(52,211,153,.35)
+    }
+
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: rgba(52,211,153,.18);
+      border-radius: 99px;
+      border: 2px solid var(--bg)
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(52,211,153,.32)
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    @keyframes glowPulse {
+
+      0%,
+      100% {
+        text-shadow: 0 0 22px rgba(52,211,153,.4)
+      }
+
+      50% {
+        text-shadow: 0 0 36px rgba(52,211,153,.7)
+      }
+    }
+
+    /* ===== LOGIN ===== */
+    #screen-login {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: radial-gradient(760px 480px at 50% -12%, rgba(5,150,105,.35), transparent 62%)
+    }
+
+    .login-card {
+      background: var(--grad-card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 40px 34px;
+      width: 100%;
+      max-width: 375px;
+      text-align: center;
+      box-shadow: var(--shadow-pop);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      position: relative;
+      animation: fadeUp .5s var(--t-med) both
+    }
+
+    .login-card::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 1px;
+      border-radius: 20px 20px 0 0;
+      background: linear-gradient(90deg, transparent, rgba(52,211,153,.8), transparent)
+    }
+
+    .login-card img {
+      height: 46px;
+      width: auto;
+      margin-bottom: 14px;
+      filter: drop-shadow(0 0 16px rgba(52,211,153,.4))
+    }
+
+    .login-card h1 {
+      font-size: 28px;
+      font-weight: 500;
+      margin-bottom: 4px;
+      background: linear-gradient(90deg, #f2f2ec 20%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent
+    }
+
+    .login-card p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 28px
+    }
+
+    .login-field {
+      text-align: left;
+      margin-bottom: 14px
+    }
+
+    .login-field label {
+      display: block;
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-weight: 600
+    }
+
+    .login-field input {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      font: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      transition: border-color var(--t-fast), box-shadow var(--t-fast)
+    }
+
+    .login-field input:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(52,211,153,.14)
+    }
+
+    .login-err {
+      font-size: 12px;
+      color: var(--red);
+      margin-bottom: 12px;
+      display: none
+    }
+
+    .btn-login {
+      width: 100%;
+      padding: 13px;
+      background: var(--grad-accent);
+      border: none;
+      border-radius: 11px;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(5,150,105,.45);
+      transition: transform var(--t-fast), box-shadow var(--t-fast), filter var(--t-fast)
+    }
+
+    .btn-login:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px)
+    }
+
+    .btn-login:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none
+    }
+
+    /* ===== SHELL ===== */
+    #screen-painel {
+      display: none;
+      min-height: 100vh
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 222px;
+      height: 100vh;
+      background: linear-gradient(180deg, rgba(8, 17, 36, .9), rgba(5,5,5,.9));
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-right: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      z-index: 10
+    }
+
+    .sidebar-logo {
+      padding: 20px 18px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 2px
+    }
+
+    .sidebar-logo img {
+      height: 66px;
+      width: auto;
+      align-self: flex-start;
+      margin-bottom: 8px;
+      filter: drop-shadow(0 0 14px rgba(52,211,153,.3))
+    }
+
+    .sidebar-logo .title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 19px;
+      color: var(--ink);
+      font-weight: 600
+    }
+
+    .sidebar-logo .sub {
+      font-size: 10px;
+      color: var(--cyan);
+      letter-spacing: .26em;
+      margin-top: 3px;
+      font-weight: 600
+    }
+
+    nav {
+      flex: 1;
+      padding: 12px 10px
+    }
+
+    nav .nav-secao {
+      font-size: 10px;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-weight: 600;
+      margin: 14px 12px 6px;
+      padding-top: 10px;
+      border-top: 1px solid var(--line)
+    }
+
+    nav a {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      padding: 9px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      color: var(--muted);
+      text-decoration: none;
+      cursor: pointer;
+      margin-bottom: 3px;
+      transition: background var(--t-fast), color var(--t-fast), transform var(--t-fast)
+    }
+
+    nav a svg {
+      width: 17px;
+      height: 17px;
+      flex: none;
+      stroke: currentColor
+    }
+
+    nav a:hover {
+      background: var(--glass-hi);
+      color: var(--ink);
+      transform: translateX(2px)
+    }
+
+    nav a.active {
+      background: var(--grad-accent);
+      color: #fff;
+      font-weight: 600;
+      box-shadow: 0 5px 18px rgba(5,150,105,.5)
+    }
+
+    .sidebar-bottom {
+      padding: 12px 12px 14px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 10px
+    }
+
+    .estagio-block label {
+      display: block;
+      font-size: 10px;
+      color: var(--dim);
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-weight: 600;
+      margin-bottom: 6px
+    }
+
+    .select-estagio {
+      width: 100%;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 7px 11px;
+      border-radius: 9px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      cursor: pointer;
+      background: #6b6b6b;
+      color: #16181a;
+      transition: filter var(--t-fast)
+    }
+
+    .select-estagio:hover {
+      filter: brightness(1.08)
+    }
+
+    .btn-sair {
+      width: 100%;
+      padding: 9px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font: inherit;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .btn-sair:hover {
+      border-color: var(--red);
+      color: var(--red);
+      background: rgba(248, 113, 113, .07)
+    }
+
+    .main {
+      margin-left: 222px;
+      padding: 0 26px 60px;
+      min-height: 100vh
+    }
+
+    .page-header {
+      margin-bottom: 18px
+    }
+
+    .page-header h2 {
+      font-size: 24px
+    }
+
+    .page-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 3px
+    }
+
+    .tab-content {
+      display: none
+    }
+
+    .tab-content.active {
+      display: block;
+      padding-top: 18px;
+      animation: fadeUp .35s var(--t-med) both
+    }
+
+    /* ===== TOPO FIXO — fino, colado nas bordas ===== */
+    .topo-fixo {
+      position: relative;
+      z-index: 12;
+      display: grid;
+      grid-template-columns: auto 2.1fr 0.72fr 0.72fr 1.15fr;
+      align-items: stretch;
+      background: linear-gradient(165deg, rgba(10, 20, 42, .96), rgba(4, 9, 22, .96));
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+      border-bottom: 1px solid var(--line);
+      margin: 0 -26px 2px;
+      padding: 10px 16px 10px 0;
+      gap: 0;
+      box-shadow: var(--shadow-card)
+    }
+
+    .topo-fixo::before {
+      content: '';
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 5%, rgba(52,211,153,.65) 30%, rgba(234,179,8,.5) 70%, transparent 95%)
+    }
+
+    .topo-foto {
+      display: flex;
+      align-items: stretch;
+      margin: -10px 18px -10px 0
+    }
+
+    .topo-foto img {
+      aspect-ratio: 1/1;
+      width: auto;
+      height: 196px;
+      object-fit: cover;
+      display: block;
+      border-right: 1px solid var(--line-strong)
+    }
+
+    .tbl {
+      position: relative;
+      padding: 10px 22px 2px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 4px;
+      min-width: 0
+    }
+
+    .tbl::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      bottom: 6px;
+      width: 3px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--tbl-accent, #fde047), transparent 130%)
+    }
+
+    .tbl-camp {
+      --tbl-accent: var(--cyan)
+    }
+
+    .tbl-camp .eyebrow {
+      font-size: 12.5px
+    }
+
+    .btn-privacidade {
+      position: absolute;
+      top: 10px;
+      right: 16px;
+      z-index: 5;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--glass2);
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .btn-privacidade:hover {
+      color: var(--ink);
+      border-color: var(--line-strong)
+    }
+
+    .btn-privacidade svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor
+    }
+
+    .btn-privacidade .icone-olho-fechado {
+      display: none
+    }
+
+    .btn-privacidade.oculto .icone-olho {
+      display: none
+    }
+
+    .btn-privacidade.oculto .icone-olho-fechado {
+      display: block;
+      color: var(--cyan)
+    }
+
+    .btn-privacidade.oculto {
+      border-color: var(--cyan);
+      color: var(--cyan)
+    }
+
+    /* traço mascarado: mesma cara do número real (mesma largura/peso), só
+       troca o dígito — evita a caixa "ficar feia" ou pular de tamanho */
+    .mascaravel {
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .02em;
+    }
+
+    .tbl-camp .big-stat .num {
+      font-size: 58px
+    }
+
+    .tbl-camp .big-stat .lbl {
+      font-size: 15.5px
+    }
+
+    .tbl-camp .big-stat .sub {
+      font-size: 13px
+    }
+
+    .tbl-ap {
+      --tbl-accent: var(--blue)
+    }
+
+    .tbl-mcp {
+      --tbl-accent: var(--indigo)
+    }
+
+    .mostrar-toggle {
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      user-select: none;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      margin-top: 2px;
+      transition: color var(--t-fast)
+    }
+
+    .mostrar-toggle:hover {
+      color: var(--cyan)
+    }
+
+    .tbl-toggle-arrow {
+      font-size: 15px;
+      line-height: 1;
+      color: var(--cyan);
+      transition: transform var(--t-fast)
+    }
+
+    .dot-vivo {
+      display: inline-flex;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      vertical-align: 1px;
+      margin-left: 1px;
+      animation: alarmVivo 2.2s ease-in-out infinite
+    }
+
+    @keyframes alarmVivo {
+
+      0%,
+      100% {
+        opacity: 1
+      }
+
+      50% {
+        opacity: .3
+      }
+    }
+
+    .tbl-collapsible .tbl-body {
+      display: none
+    }
+
+    .tbl-collapsible.aberto .tbl-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 4px
+    }
+
+    .tbl-collapsible.aberto .tbl-toggle-arrow {
+      transform: rotate(180deg)
+    }
+
+    .tbl-past {
+      --tbl-accent: var(--amber);
+      background: rgba(255, 255, 255, .045);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      margin: 8px 8px 8px 0;
+      padding: 16px 20px 16px 22px
+    }
+
+    .eyebrow {
+      font-size: 9.5px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--tbl-accent, #fde047)
+    }
+
+    /* labels brancas em todo o topo */
+    .big-stat .lbl,
+    .num-row .lbl,
+    .faltam-row .lbl {
+      font-size: 12px;
+      color: #fff
+    }
+
+    .big-stat .sub {
+      font-size: 11px;
+      color: rgba(255, 255, 255, .78);
+      margin-top: 1px
+    }
+
+    .mini-row {
+      font-size: 12px;
+      color: rgba(240, 246, 255, .88)
+    }
+
+    .mini-row b {
+      color: #fff;
+      font-weight: 600;
+      font-variant-numeric: tabular-nums
+    }
+
+    .mini-row.dim {
+      color: rgba(240, 246, 255, .68);
+      font-size: 11.5px
+    }
+
+    .mini-row.dim b {
+      color: rgba(255, 255, 255, .9)
+    }
+
+    /* TABELA 01 */
+    .camp-stats {
+      display: flex;
+      gap: 22px;
+      align-items: flex-start;
+      flex-wrap: wrap
+    }
+
+    .big-stat {
+      display: flex;
+      flex-direction: column;
+      flex: 0 1 auto;
+      white-space: normal
+    }
+
+    .big-stat .num {
+      font-size: 40px;
+      color: var(--ink)
+    }
+
+    .big-stat.hero .num {
+      color: var(--cyan);
+      animation: glowPulse 4.5s ease-in-out infinite
+    }
+
+    .big-stat.st-green .num {
+      color: var(--green)
+    }
+
+    .big-stat.st-amber .num {
+      color: var(--amber)
+    }
+
+    .big-stat .lbl {
+      margin-top: 4px
+    }
+
+    /* TABELAS 02/03 */
+    .num-row {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 2px;
+      white-space: nowrap
+    }
+
+    .num-row .num {
+      font-size: 32px
+    }
+
+    .tbl-ap .num-row .num {
+      color: var(--blue)
+    }
+
+    .tbl-mcp .num-row .num {
+      color: var(--indigo)
+    }
+
+    /* TABELA 04 */
+    .cargo-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: #fff;
+      flex-wrap: wrap
+    }
+
+    .select-cargo {
+      font: inherit;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 4px 9px;
+      border-radius: 7px;
+      border: 1px solid var(--line-strong);
+      background: var(--field);
+      color: var(--ink);
+      cursor: pointer;
+      transition: border-color var(--t-fast)
+    }
+
+    .select-cargo:hover,
+    .select-cargo:focus {
+      border-color: var(--amber);
+      outline: none
+    }
+
+    .faltam-box {
+      background: rgba(255, 255, 255, .05);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 14px;
+      margin-top: 4px
+    }
+
+    .progress-track {
+      margin-top: 8px;
+      height: 5px;
+      background: rgba(255, 255, 255, .14);
+      border-radius: 99px;
+      overflow: hidden
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #059669, var(--cyan));
+      border-radius: 99px;
+      transition: width .5s ease
+    }
+
+    .faltam-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: nowrap;
+      white-space: nowrap
+    }
+
+    .faltam-row .num {
+      font-size: 32px;
+      color: #fff
+    }
+
+    .faltam-row .num.ok {
+      color: var(--green);
+      font-size: 19px;
+      font-weight: 500;
+      white-space: normal
+    }
+
+    /* ===== filtro de período ===== */
+    .period-filter {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 18px;
+      flex-wrap: wrap
+    }
+
+    .period-filter button {
+      padding: 7px 16px;
+      border-radius: 99px;
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      font: inherit;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .period-filter button:hover {
+      border-color: var(--line-strong);
+      color: var(--ink)
+    }
+
+    .period-filter button.active {
+      background: var(--grad-accent);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 16px rgba(5,150,105,.45)
+    }
+
+    /* ===== popup calendário ===== */
+    .cal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(2, 6, 16, .65);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px
+    }
+
+    .cal-overlay.open {
+      display: flex;
+      animation: fadeUp .25s var(--t-med) both
+    }
+
+    .cal-panel {
+      background: linear-gradient(165deg, rgba(12, 23, 48, .98), rgba(5, 10, 24, .98));
+      border: 1px solid var(--line-strong);
+      border-radius: 18px;
+      padding: 18px;
+      width: 100%;
+      max-width: 330px;
+      box-shadow: var(--shadow-pop)
+    }
+
+    .cal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px
+    }
+
+    .cal-head .cal-mes {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: capitalize
+    }
+
+    .cal-head button {
+      background: var(--glass2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: var(--ink);
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .cal-head button:hover {
+      border-color: var(--cyan);
+      color: var(--cyan)
+    }
+
+    .cal-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px
+    }
+
+    .cal-grid .wd {
+      font-size: 10px;
+      color: var(--dim);
+      text-align: center;
+      padding: 4px 0;
+      font-weight: 600;
+      text-transform: uppercase
+    }
+
+    .cal-grid .dia {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9px;
+      font-size: 13px;
+      cursor: pointer;
+      color: var(--ink);
+      border: 1px solid transparent;
+      font-variant-numeric: tabular-nums;
+      transition: all var(--t-fast)
+    }
+
+    .cal-grid .dia:hover:not(.fut):not(.off) {
+      border-color: var(--cyan)
+    }
+
+    .cal-grid .dia.off {
+      color: var(--dim);
+      opacity: .35
+    }
+
+    .cal-grid .dia.fut {
+      color: var(--dim);
+      opacity: .3;
+      cursor: not-allowed
+    }
+
+    .cal-grid .dia.hoje {
+      border-color: var(--line-strong)
+    }
+
+    .cal-grid .dia.inrange {
+      background: rgba(52,211,153,.14);
+      border-radius: 0
+    }
+
+    .cal-grid .dia.sel {
+      background: var(--grad-accent);
+      color: #fff;
+      font-weight: 700;
+      border-radius: 9px
+    }
+
+    .cal-hint {
+      font-size: 11px;
+      color: var(--muted);
+      margin: 12px 0 10px;
+      text-align: center
+    }
+
+    .cal-actions {
+      display: flex;
+      gap: 8px
+    }
+
+    .cal-actions button {
+      flex: 1;
+      padding: 9px;
+      border-radius: 9px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .cal-limpar {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--muted)
+    }
+
+    .cal-limpar:hover {
+      color: var(--ink);
+      border-color: var(--line-strong)
+    }
+
+    .cal-aplicar {
+      background: var(--grad-accent);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      box-shadow: 0 4px 14px rgba(5,150,105,.4)
+    }
+
+    .cal-aplicar:hover {
+      filter: brightness(1.1)
+    }
+
+    .cal-aplicar:disabled {
+      opacity: .4;
+      cursor: not-allowed
+    }
+
+    .cal-head button {
+      cursor: pointer
+    }
+
+    #apoLidTitulo {
+      text-transform: none;
+      text-align: left;
+    }
+
+    .btn-expand-apo {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font: inherit;
+      padding: 2px 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      color: inherit;
+      border-radius: 6px;
+      transition: background var(--t-fast)
+    }
+
+    .btn-expand-apo:hover {
+      background: var(--glass2)
+    }
+
+    .btn-expand-apo .expand-arrow {
+      font-size: 10px;
+      color: var(--muted)
+    }
+
+    .apo-lid-lista {
+      max-height: 50vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .apo-lid-item {
+      padding: 10px 12px;
+      background: var(--glass2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .apo-lid-item .nome {
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .apo-lid-item .data {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ===== cards de estatística ===== */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      gap: 14px;
+      margin-bottom: 22px
+    }
+
+    .stat-card {
+      background: var(--grad-card);
+      border: 1px solid var(--line);
+      border-radius: var(--r-md);
+      padding: 18px;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-card);
+      transition: transform var(--t-fast), border-color var(--t-fast), box-shadow var(--t-fast)
+    }
+
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 12px;
+      bottom: 12px;
+      width: 3px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--sc-accent, var(--cyan)), transparent 130%)
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--line-strong);
+      box-shadow: var(--shadow-pop)
+    }
+
+    .stat-card .lbl {
+      font-size: 11px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+      font-weight: 600
+    }
+
+    .stat-card .val {
+      font-family: var(--font-num);
+      font-weight: 200;
+      font-size: 42px;
+      line-height: 1;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -.02em
+    }
+
+    .stat-card.sc-cyan {
+      --sc-accent: var(--cyan)
+    }
+
+    .stat-card.sc-indigo {
+      --sc-accent: var(--indigo)
+    }
+
+    .stat-card.sc-indigo .val {
+      color: var(--indigo)
+    }
+
+    .stat-card.sc-green {
+      --sc-accent: var(--green)
+    }
+
+    .stat-card.sc-green .val {
+      color: var(--green)
+    }
+
+    .stat-card.sc-blue {
+      --sc-accent: var(--blue)
+    }
+
+    .stat-card.sc-blue .val {
+      color: var(--blue)
+    }
+
+    /* ===== caixas ===== */
+    .chart-box {
+      background: var(--grad-card);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      padding: 20px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-card)
+    }
+
+    .chart-box h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 14px;
+      font-family: 'Inter';
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .chart-box h3::before {
+      content: '';
+      width: 3px;
+      height: 14px;
+      border-radius: 2px;
+      background: var(--grad-accent)
+    }
+
+    .chart-box canvas {
+      max-height: 240px
+    }
+
+    .ip-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--line);
+      font-size: 13px
+    }
+
+    .ip-row:last-child {
+      border-bottom: none
+    }
+
+    .ip-row .ip-val {
+      flex: 1;
+      font-family: monospace;
+      color: var(--cyan)
+    }
+
+    .ip-row button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--muted);
+      font-size: 13px;
+      border-radius: 6px;
+      padding: 3px 7px;
+      transition: all var(--t-fast)
+    }
+
+    .ip-row button:hover {
+      color: var(--red);
+      background: rgba(248, 113, 113, .1)
+    }
+
+    .btn-ignore-mine {
+      padding: 9px 16px;
+      background: var(--grad-accent);
+      border: none;
+      border-radius: 9px;
+      font: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(5,150,105,.4);
+      transition: transform var(--t-fast), filter var(--t-fast)
+    }
+
+    .btn-ignore-mine:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px)
+    }
+
+    .btn-ignore-mine:disabled {
+      opacity: .5;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none
+    }
+
+    /* ===== toolbar / formulários ===== */
+    .toolbar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+      align-items: center
+    }
+
+    .toolbar input,
+    .form-agenda input,
+    .form-agenda textarea {
+      padding: 10px 13px;
+      background: var(--field);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink);
+      transition: border-color var(--t-fast), box-shadow var(--t-fast)
+    }
+
+    .toolbar input {
+      flex: 1;
+      min-width: 200px
+    }
+
+    .toolbar input:focus,
+    .form-agenda input:focus,
+    .form-agenda textarea:focus {
+      outline: none;
+      border-color: var(--cyan);
+      box-shadow: 0 0 0 3px rgba(52,211,153,.12)
+    }
+
+    .toolbar input[type=date] {
+      flex: none;
+      min-width: 0;
+      color-scheme: dark
+    }
+
+    .toolbar .datesep {
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .toolbar .btn-clear {
+      flex: none;
+      padding: 10px 13px;
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font: inherit;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .toolbar .btn-clear:hover {
+      color: var(--ink);
+      border-color: var(--line-strong);
+      background: var(--glass2)
+    }
+
+    .btn-export {
+      flex: none;
+      margin-left: auto;
+      padding: 10px 18px;
+      background: linear-gradient(135deg, #16a34a, var(--green));
+      border: none;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: #03170c;
+      cursor: pointer;
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(74, 222, 128, .3);
+      transition: transform var(--t-fast), filter var(--t-fast)
+    }
+
+    .btn-export:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px)
+    }
+
+    /* agenda */
+    .form-agenda {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 0.9fr 2fr;
+      gap: 10px;
+      margin-bottom: 10px
+    }
+
+    .form-agenda input[type=date],
+    .form-agenda input[type=time] {
+      color-scheme: dark
+    }
+
+    .form-agenda .full {
+      grid-column: 1/-1
+    }
+
+    .form-agenda textarea {
+      resize: vertical;
+      min-height: 44px;
+      font-family: inherit
+    }
+
+    .btn-add-agenda {
+      padding: 11px 22px;
+      background: var(--grad-accent);
+      border: none;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(5,150,105,.4);
+      transition: transform var(--t-fast), filter var(--t-fast)
+    }
+
+    .btn-add-agenda:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px)
+    }
+
+    .badge-hoje {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      color: #03170c;
+      background: var(--green);
+      border-radius: 99px;
+      padding: 2px 8px;
+      margin-left: 6px;
+      vertical-align: 1px
+    }
+
+    tr.ag-passado td {
+      opacity: .45
+    }
+
+    .agenda-nota {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 14px
+    }
+
+    /* ===== visão semanal da agenda ===== */
+    .week-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px
+    }
+
+    .week-nav .week-label {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 15px;
+      text-transform: capitalize
+    }
+
+    .week-nav button {
+      background: var(--glass2);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      color: var(--ink);
+      width: 34px;
+      height: 34px;
+      font-size: 17px;
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .week-nav button:hover {
+      border-color: var(--cyan);
+      color: var(--cyan)
+    }
+
+    .week-nav .btn-hoje {
+      width: auto;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 600
+    }
+
+    .week-hourgrid {
+      display: grid;
+      grid-template-columns: 48px repeat(7, minmax(86px, 1fr));
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      touch-action: pan-y;
+      min-width: 640px;
+      background: rgba(255, 255, 255, .015)
+    }
+
+    .whg-corner {
+      background: rgba(5,5,5,.6);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line-strong)
+    }
+
+    .whg-daycol {
+      background: rgba(5,5,5,.6);
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line-strong);
+      text-align: center;
+      padding: 9px 4px
+    }
+
+    .whg-daycol:last-child {
+      border-right: none
+    }
+
+    .whg-daycol .whg-wd {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-weight: 700
+    }
+
+    .whg-daycol .whg-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-top: 1px
+    }
+
+    .whg-daycol.hoje .whg-num {
+      color: var(--cyan)
+    }
+
+    .whg-hora {
+      font-size: 10px;
+      color: var(--dim);
+      text-align: right;
+      padding: 6px 8px 0 0;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid rgba(52,211,153,.07);
+      white-space: nowrap
+    }
+
+    .whg-cell {
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid rgba(52,211,153,.07);
+      min-height: 40px;
+      padding: 3px 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      cursor: pointer;
+      transition: background var(--t-fast)
+    }
+
+    .whg-cell:hover {
+      background: rgba(52,211,153,.08)
+    }
+
+    .whg-cell:last-child {
+      border-right: none
+    }
+
+    .whg-cell.hoje {
+      background: rgba(52,211,153,.045)
+    }
+
+    .week-item {
+      background: var(--glass-hi);
+      border-left: 2px solid var(--cyan);
+      border-radius: 6px;
+      padding: 4px 7px;
+      margin: 1px;
+      font-size: 11px;
+      line-height: 1.35;
+      cursor: pointer;
+      overflow: hidden;
+      white-space: normal;
+      z-index: 2;
+      position: relative;
+      transition: background var(--t-fast)
+    }
+
+    .week-item:hover {
+      background: rgba(52,211,153,.18)
+    }
+
+    .week-item .wi-hora {
+      font-weight: 700;
+      color: var(--cyan);
+      margin-right: 3px
+    }
+
+    /* ===== tabelas ===== */
+    .table-scroll {
+      overflow-x: auto;
+      background: var(--grad-card);
+      border: 1px solid var(--line);
+      border-radius: var(--r-lg);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: var(--shadow-card)
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse
+    }
+
+    thead th {
+      text-align: left;
+      font-size: 10.5px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      padding: 12px;
+      border-bottom: 1px solid var(--line-strong);
+      white-space: nowrap;
+      background: rgba(5,5,5,.55);
+      font-weight: 600
+    }
+
+    tbody td {
+      padding: 10px 12px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--line);
+      max-width: 280px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap
+    }
+
+    tbody td.msg {
+      white-space: normal;
+      max-width: 340px
+    }
+
+    .msg-content {
+      line-height: 1.4
+    }
+
+    .msg-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--cyan);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 3px 0 0;
+    }
+
+    tbody tr {
+      transition: background var(--t-fast)
+    }
+
+    tbody tr:last-child td {
+      border-bottom: none
+    }
+
+    tbody tr:hover {
+      background: var(--glass-hi)
+    }
+
+    .wa-link {
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--t-fast)
+    }
+
+    .wa-link:hover {
+      text-decoration: underline;
+      color: #86efac
+    }
+
+    .btn-del-lead,
+    .btn-del-lid,
+    .btn-del-apo,
+    .btn-del-ag {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 3px 6px;
+      border-radius: 7px;
+      opacity: .6;
+      transition: all var(--t-fast)
+    }
+
+    .btn-del-lead:hover,
+    .btn-del-lid:hover,
+    .btn-del-apo:hover,
+    .btn-del-ag:hover {
+      opacity: 1;
+      background: rgba(248, 113, 113, .12)
+    }
+
+    .btn-del-lead:disabled {
+      opacity: .3;
+      cursor: not-allowed
+    }
+
+    .empty-msg {
+      padding: 34px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px
+    }
+
+    .pager {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+      align-items: center;
+      font-size: 13px;
+      color: var(--muted)
+    }
+
+    .pager button {
+      padding: 7px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--glass2);
+      color: var(--ink);
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all var(--t-fast)
+    }
+
+    .pager button:hover:not(:disabled) {
+      border-color: var(--cyan);
+      color: var(--cyan);
+      background: rgba(52,211,153,.08)
+    }
+
+    .pager button:disabled {
+      opacity: .35;
+      cursor: not-allowed
+    }
+
+    .mapa-frame {
+      width: 100%;
+      height: 78vh;
+      min-height: 520px;
+      border: none;
+      border-radius: var(--r-lg)
+    }
+
+    .hidden {
+      display: none !important
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 2px
+    }
+
+    @media (prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important
+      }
+    }
+
+    /* ===== responsivo ===== */
+    @media (max-width:1360px) {
+      .big-stat .num {
+        font-size: 34px
+      }
+
+      .num-row .num,
+      .faltam-row .num {
+        font-size: 28px
+      }
+
+      .camp-stats {
+        gap: 16px
+      }
+    }
+
+    @media (max-width:1180px) {
+      .topo-fixo {
+        grid-template-columns: auto 1fr 1fr;
+        row-gap: 12px;
+        padding-right: 16px
+      }
+
+      .topo-foto {
+        grid-row: span 2
+      }
+
+      .tbl-camp {
+        grid-column: span 2
+      }
+    }
+
+    @media (max-width:768px) {
+      .sidebar {
+        position: sticky;
+        top: 0;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        border-right: none;
+        border-bottom: 1px solid var(--line);
+        z-index: 40;
+        /* backdrop-filter cria containing block pra descendentes fixed —
+           sem isso o nav (position:fixed;bottom:0) ancora no .sidebar em vez
+           da viewport, e some pro topo da tela em vez de colar embaixo */
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none
+      }
+
+      .sidebar-logo {
+        padding: 10px 12px;
+        border-bottom: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        white-space: nowrap;
+        flex: 1;
+        min-width: 0
+      }
+
+      .sidebar-logo img {
+        margin-bottom: 0 !important;
+        height: 24px
+      }
+
+      .sidebar-logo .title {
+        font-size: 14px;
+        overflow: hidden;
+        text-overflow: ellipsis
+      }
+
+      .sidebar-logo .sub {
+        display: none
+      }
+
+      /* menu vira barra inferior estilo app */
+      nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 60;
+        display: flex;
+        flex: none;
+        padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+        gap: 0;
+        background: linear-gradient(180deg, rgba(8, 17, 36, .97), rgba(5,5,5,.99));
+        backdrop-filter: blur(22px);
+        -webkit-backdrop-filter: blur(22px);
+        border-top: 1px solid var(--line-strong);
+        box-shadow: 0 -10px 30px rgba(1, 4, 14, .6)
+      }
+
+      /* divisor "Extra:" só faz sentido no menu vertical — na barra
+         inferior de ícones ele ficaria espremido e sem espaço pra aparecer */
+      nav .nav-secao {
+        display: none
+      }
+
+      nav a {
+        flex: 1;
+        flex-direction: column;
+        justify-content: center;
+        gap: 3px;
+        margin: 0;
+        padding: 6px 2px;
+        font-size: 9.5px;
+        font-weight: 500;
+        text-align: center;
+        border-radius: 11px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis
+      }
+
+      nav a svg {
+        width: 20px;
+        height: 20px
+      }
+
+      nav a:hover {
+        transform: none;
+        background: transparent
+      }
+
+      nav a.active {
+        background: rgba(52,211,153,.13);
+        color: var(--cyan);
+        box-shadow: none;
+        font-weight: 600
+      }
+
+      .sidebar-bottom {
+        padding: 6px 10px;
+        border-top: none;
+        flex: none;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px
+      }
+
+      .estagio-block label {
+        display: none
+      }
+
+      .select-estagio {
+        width: auto;
+        font-size: 11px;
+        padding: 6px 9px
+      }
+
+      .btn-sair {
+        width: auto;
+        padding: 7px 10px;
+        font-size: 12px;
+        white-space: nowrap
+      }
+
+      .main {
+        margin-left: 0;
+        padding: 0 14px calc(96px + env(safe-area-inset-bottom))
+      }
+
+      .page-header h2 {
+        font-size: 20px
+      }
+
+      .topo-fixo {
+        position: static;
+        grid-template-columns: 1fr 1fr;
+        margin: 0 -14px 2px;
+        padding: 10px 12px;
+        row-gap: 10px;
+        column-gap: 10px
+      }
+
+      .topo-foto {
+        display: none
+      }
+
+      .tbl-camp,
+      .tbl-past {
+        grid-column: 1 / -1
+      }
+
+      .tbl {
+        padding: 6px 8px 4px 12px
+      }
+
+      .camp-stats {
+        flex-wrap: nowrap;
+        gap: 10px
+      }
+
+      .big-stat {
+        white-space: normal;
+        min-width: 0
+      }
+
+      .tbl-camp .big-stat .num {
+        font-size: 30px
+      }
+
+      .tbl-camp .big-stat .lbl {
+        font-size: 11px
+      }
+
+      .tbl-camp .big-stat .sub {
+        font-size: 10px
+      }
+
+      .big-stat .num {
+        font-size: 30px
+      }
+
+      .num-row .num,
+      .faltam-row .num {
+        font-size: 26px
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px
+      }
+
+      .stat-card .val {
+        font-size: 32px
+      }
+
+      .chart-box canvas {
+        max-height: 200px
+      }
+
+      .toolbar #leadSearch {
+        flex-basis: 100%
+      }
+
+      .toolbar .btn-export {
+        flex-basis: 100%;
+        margin-left: 0
+      }
+
+      .form-agenda {
+        grid-template-columns: 1fr 1fr
+      }
+
+      .form-agenda .full {
+        grid-column: 1/-1
+      }
+
+      .mapa-frame {
+        height: calc(100vh - 220px);
+        min-height: 70vh
+      }
+
+      tbody td.msg {
+        max-width: 180px
+      }
+
+      .msg-content {
+        max-height: 2.8em;
+        overflow: hidden
+      }
+
+      .msg-content.expanded {
+        max-height: none
+      }
+
+      .msg-toggle {
+        display: inline-block
+      }
+    }
+    /* ===== aba IA do Aldo ===== */
+    .ia-top { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: start }
+    .ia-foto-prev {
+      width: 110px; height: 110px; border-radius: 50%; object-fit: cover;
+      border: 2px solid var(--line-strong); background: var(--field);
+      box-shadow: 0 8px 26px rgba(1, 4, 14, .55);
+    }
+    .ia-campos { display: grid; gap: 10px }
+    .ia-campos label { font-size: 12px; color: var(--muted); display: block; margin-bottom: 4px }
+    .ia-campos input[type=text] {
+      width: 100%; background: var(--field); border: 1px solid var(--line);
+      border-radius: 10px; color: var(--ink); padding: 9px 12px; font-size: 14px;
+    }
+    .ia-campos input[type=text]:focus { outline: none; border-color: var(--line-strong) }
+    .ia-file { font-size: 12.5px; color: var(--muted) }
+
+    .ia-passo {
+      background: var(--grad-card); border: 1px solid var(--line);
+      border-radius: var(--r-lg); padding: 16px; margin-bottom: 14px;
+    }
+    .ia-passo.inicio { border-color: rgba(52,211,153,.45) }
+    .ia-passo-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px }
+    .ia-badge {
+      font-family: var(--font-num); font-weight: 500; font-size: 12px; letter-spacing: .04em;
+      background: rgba(52,211,153,.12); border: 1px solid var(--line);
+      border-radius: 999px; padding: 4px 11px; white-space: nowrap;
+    }
+    .ia-badge.ini { background: rgba(52,211,153,.16); border-color: rgba(52,211,153,.4); color: var(--cyan) }
+    .ia-passo-head input {
+      flex: 1; min-width: 150px; background: var(--field); border: 1px solid var(--line);
+      border-radius: 10px; color: var(--ink); padding: 8px 11px; font-size: 14px;
+    }
+    .ia-mini {
+      background: rgba(52,211,153,.08); border: 1px solid var(--line); color: var(--muted);
+      border-radius: 8px; padding: 5px 9px; font-size: 12.5px; cursor: pointer;
+      transition: var(--t-fast);
+    }
+    .ia-mini:hover { color: var(--ink); border-color: var(--line-strong) }
+    .ia-mini.perigo:hover { color: var(--red); border-color: rgba(248, 113, 113, .5) }
+
+    .ia-sec { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--dim); margin: 12px 0 7px }
+    .ia-msg-row { display: flex; gap: 7px; align-items: flex-start; margin-bottom: 7px }
+    .ia-msg-row textarea {
+      flex: 1; background: var(--field); border: 1px solid var(--line); border-radius: 10px;
+      color: var(--ink); padding: 8px 11px; font-size: 13.5px; resize: vertical; min-height: 40px;
+      font-family: inherit; line-height: 1.4;
+    }
+    .ia-msg-row textarea:focus, .ia-passo-head input:focus { outline: none; border-color: var(--line-strong) }
+    .ia-opt-row { display: grid; grid-template-columns: 1fr 220px auto; gap: 7px; margin-bottom: 7px }
+    .ia-opt-row input, .ia-opt-row select {
+      background: var(--field); border: 1px solid var(--line); border-radius: 10px;
+      color: var(--ink); padding: 8px 11px; font-size: 13.5px; width: 100%;
+    }
+    .ia-add {
+      background: none; border: 1px dashed var(--line-strong); color: var(--muted);
+      border-radius: 10px; padding: 7px 13px; font-size: 12.5px; cursor: pointer; transition: var(--t-fast);
+    }
+    .ia-add:hover { color: var(--ink); border-color: var(--blue) }
+
+    .ia-rodape {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      position: sticky; bottom: 0; padding: 14px 0;
+      background: linear-gradient(to top, var(--bg) 65%, transparent);
+    }
+    .ia-salvar {
+      background: var(--grad-accent); border: none; color: #fff; font-weight: 600;
+      border-radius: 12px; padding: 11px 22px; font-size: 14px; cursor: pointer;
+      box-shadow: 0 8px 22px rgba(5,150,105,.35); transition: var(--t-fast);
+    }
+    .ia-salvar:hover { transform: translateY(-1px) }
+    .ia-salvar:disabled { opacity: .55; cursor: default; transform: none }
+    .ia-status-txt { font-size: 13px; color: var(--muted) }
+    .ia-status-txt.ok { color: var(--green) }
+    .ia-status-txt.pendente { color: var(--amber) }
+    .ia-abrir { color: var(--cyan); font-size: 13px; text-decoration: none; margin-left: auto }
+    .ia-abrir:hover { text-decoration: underline }
+    @media (max-width: 640px) {
+      .ia-top { grid-template-columns: 1fr; justify-items: center }
+      .ia-opt-row { grid-template-columns: 1fr }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="screen-login">
+    <div class="login-card">
+      <img src="img/logo.webp" alt="Aldo Maurício">
+      <h1>Painel</h1>
+      <p>Aldo Maurício · Pré-Candidato a Deputado Estadual</p>
+      <div class="login-field"><label>Usuário</label><input id="l-user" type="text" autocomplete="username"
+          autocapitalize="off" autocorrect="off" spellcheck="false"
+          onkeydown="if(event.key==='Enter')document.getElementById('l-senha').focus()"></div>
+      <div class="login-field"><label>Senha</label><input id="l-senha" type="password" autocomplete="current-password"
+          onkeydown="if(event.key==='Enter')fazerLogin()"></div>
+      <div class="login-err" id="login-err"></div>
+      <button class="btn-login" id="btn-login" onclick="fazerLogin()">Entrar</button>
+    </div>
+  </div>
+
+  <div id="screen-painel">
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="img/logo.webp" alt="">
+        <div class="title">Aldo Maurício</div>
+        <div class="sub">PAINEL</div>
+      </div>
+      <nav>
+        <a data-tab="metricas" class="active" onclick="mudarTab('metricas')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <path d="M4 20V10M10 20V4M16 20v-7M22 20H2" />
+          </svg>
+          <span>Métricas</span></a>
+        <a data-tab="mapa" onclick="mudarTab('mapa')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 21s7-5.1 7-11a7 7 0 1 0-14 0c0 5.9 7 11 7 11z" />
+            <circle cx="12" cy="10" r="2.5" />
+          </svg>
+          <span>Mapa</span></a>
+        <a data-tab="leads" onclick="mudarTab('leads')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="M3 7l9 6 9-6" />
+          </svg>
+          <span>Formulário</span></a>
+        <a data-tab="liderancas" onclick="mudarTab('liderancas')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="8" r="3.5" />
+            <path d="M2.5 20c0-3.6 2.9-6 6.5-6s6.5 2.4 6.5 6" />
+            <path d="M16 5.5a3.5 3.5 0 0 1 0 5" />
+            <path d="M18.5 14.5c2 1 3 2.9 3 5.5" />
+          </svg>
+          <span>Lideranças</span></a>
+        <a data-tab="apoiadores" onclick="mudarTab('apoiadores')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12l4 4L19 6" />
+            <rect x="3" y="17" width="18" height="4" rx="1" />
+          </svg>
+          <span>Apoiadores</span></a>
+        <div class="nav-secao">Extra:</div>
+        <a data-tab="agenda" onclick="mudarTab('agenda')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="5" width="18" height="16" rx="2" />
+            <path d="M8 3v4M16 3v4M3 10h18" />
+          </svg>
+          <span>Agenda</span></a>
+        <a data-tab="iadoaldo" onclick="mudarTab('iadoaldo')">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a8 8 0 0 1-8 8H4l1.6-3.2A8 8 0 1 1 21 12z" />
+            <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
+          </svg>
+          <span>IA do Aldo</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="estagio-block">
+          <label for="tf-estagio">Estágio da campanha</label>
+          <select id="tf-estagio" class="select-estagio">
+            <option value="pre" style="background:#6b6b6b;color:#16181a">Pré campanha</option>
+            <option value="campanha" style="background:#34d399;color:#04140f">Em campanha</option>
+            <option value="eleicoes" style="background:#fbbf24;color:#1f1503">Eleições</option>
+            <option value="eleito" style="background:#4ade80;color:#03170c">Eleito</option>
+            <option value="naoeleito" style="background:#f87171;color:#1f0606">Não eleito</option>
+          </select>
+        </div>
+        <button class="btn-sair" onclick="logout()">Sair</button>
+      </div>
+    </div>
+
+    <div class="main">
+      <!-- TOPO FIXO -->
+      <div class="topo-fixo" id="topoFixo">
+        <div class="topo-foto"><img src="img/fotocandidato.webp" alt="Aldo Maurício"></div>
+
+        <section class="tbl tbl-camp">
+          <button type="button" class="btn-privacidade" id="btnPrivacidade" onclick="alternarPrivacidade()" title="Ocultar valores">
+            <svg class="icone-olho" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7Z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+            <svg class="icone-olho-fechado" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-7-11-7a20.3 20.3 0 0 1 4.22-5.94" />
+              <path d="M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 7 11 7a20.3 20.3 0 0 1-2.16 3.19" />
+              <path d="M14.12 14.12a3 3 0 1 1-4.24-4.24" />
+              <line x1="1" y1="1" x2="23" y2="23" />
+            </svg>
+          </button>
+          <div class="eyebrow">Campanha ao vivo <span class="dot-vivo"></span></div>
+          <div class="camp-stats">
+            <div class="big-stat hero">
+              <div class="num mascaravel" id="tf-votos">—</div>
+              <div class="lbl">Votos previstos</div>
+              <div class="sub" style="color:var(--muted)">Média de 30 votos por liderança</div>
+            </div>
+            <div class="big-stat st-green">
+              <div class="num mascaravel" id="tf-liderancas">—</div>
+              <div class="lbl">Lideranças cadastradas</div>
+            </div>
+            <div class="big-stat st-amber">
+              <div class="num mascaravel" id="tf-bairros">—</div>
+              <div class="lbl">Bairros com liderança</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="tbl tbl-ap tbl-collapsible" id="secAmapa">
+          <div class="eyebrow">Dados Amapá 2026</div>
+          <div class="mostrar-toggle" onclick="toggleSecao('secAmapa')">Mostrar: <span class="tbl-toggle-arrow">▾</span></div>
+          <div class="tbl-body">
+            <div class="num-row"><span class="num mascaravel">577<small>mil</small></span><span class="lbl">Total de eleitores</span>
+            </div>
+            <div class="mini-row">Locais de votação: <b class="mascaravel">382</b></div>
+            <div class="mini-row dim" style="color:var(--muted)">Santana: <b class="mascaravel" style="color:#fff">86.030</b> · Laranjal: <b class="mascaravel" style="color:#fff">28.236</b></div>
+          </div>
+        </section>
+
+        <section class="tbl tbl-mcp tbl-collapsible" id="secMacapa">
+          <div class="eyebrow">Dados Macapá 2026</div>
+          <div class="mostrar-toggle" onclick="toggleSecao('secMacapa')">Mostrar: <span class="tbl-toggle-arrow">▾</span></div>
+          <div class="tbl-body">
+            <div class="num-row"><span class="num mascaravel">321.591</span><span class="lbl">Total de eleitores</span></div>
+            <div class="mini-row" style="color:var(--muted)">Locais de votação: <b class="mascaravel" style="color:#fff">158</b> · Bairros: <b class="mascaravel" style="color:#fff">64</b></div>
+          </div>
+        </section>
+
+        <section class="tbl tbl-past">
+          <div class="eyebrow" id="tf-cargo">Eleição de 2022 :</div>
+          <div class="cargo-row">
+            <span>Candidato a</span>
+            <select id="cargo-select" class="select-cargo">
+              <option selected>Deputado Federal</option>
+              <option>Deputado Estadual</option>
+              <option>Senador</option>
+              <option>Governador</option>
+            </select>
+          </div>
+          <div class="mini-row" style="color:var(--muted)">Nota de corte 2022: <b class="mascaravel" style="color:#fff">3.898 votos</b> · R Nelson (PL)</div>
+          <div class="faltam-box">
+            <div class="faltam-row">
+              <span class="num mascaravel" id="tf-faltam">—</span>
+              <span class="lbl">faltam para a nota de corte</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="tf-progresso"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- MÉTRICAS -->
+      <div class="tab-content active" id="tab-metricas">
+        <div class="page-header">
+          <h2>Métricas do site</h2>
+          <p>Visitas, mensagens e cadastros no período selecionado</p>
+        </div>
+        <div class="period-filter" id="periodFilter">
+          <button data-period="hoje">Hoje</button>
+          <button data-period="7d" class="active">7 dias</button>
+          <button data-period="30d">30 dias</button>
+          <button data-period="custom" id="btnPeriodoCustom" onclick="abrirCalendario(event)">📅 Escolher datas</button>
+        </div>
+        <div class="cards-grid">
+          <div class="stat-card sc-cyan">
+            <div class="lbl">Visitas</div>
+            <div class="val mascaravel" id="st-site">—</div>
+          </div>
+          <div class="stat-card sc-indigo">
+            <div class="lbl">Mensagens recebidas</div>
+            <div class="val mascaravel" id="st-leads">—</div>
+          </div>
+          <div class="stat-card sc-green">
+            <div class="lbl">Lideranças cadastradas</div>
+            <div class="val mascaravel" id="st-lid">—</div>
+          </div>
+          <div class="stat-card sc-blue">
+            <div class="lbl">Apoiadores cadastrados</div>
+            <div class="val mascaravel" id="st-apo">—</div>
+          </div>
+        </div>
+        <div class="chart-box">
+          <h3>Evolução diária</h3>
+          <canvas id="chartMetricas"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Lideranças cadastradas por dia</h3>
+          <canvas id="chartLid"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Apoiadores cadastrados por dia</h3>
+          <canvas id="chartApo"></canvas>
+        </div>
+        <div class="chart-box">
+          <h3>Ignorar meus acessos nas métricas</h3>
+          <p style="font-size:12.5px;color:var(--muted);margin-bottom:12px">IPs na lista abaixo não contam em visitas ou
+            mensagens no gráfico acima — leads que você criar testando ainda aparecem na aba Formulário, é só excluir
+            manualmente.</p>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap">
+            <span style="font-size:13px;color:var(--muted)">Seu IP agora: <b id="meuIp"
+                style="color:var(--ink);font-family:monospace">—</b></span>
+            <button type="button" class="btn-ignore-mine" id="btnIgnoreMine" onclick="ignorarMeuIp()">Ignorar meu
+              IP</button>
+          </div>
+          <div id="ignoredIpsList"></div>
+        </div>
+      </div>
+
+      <!-- MAPA -->
+      <div class="tab-content" id="tab-mapa">
+        <div class="page-header">
+          <h2>Mapa de eleitores</h2>
+        </div>
+        <iframe src="mapa.html" class="mapa-frame" id="mapaFrame"></iframe>
+      </div>
+
+      <!-- AGENDA -->
+      <div class="tab-content" id="tab-agenda">
+        <div class="page-header">
+          <h2>Agenda</h2>
+          <p>Compromissos da campanha — adicione e exporte para o Google Maps</p>
+        </div>
+        <div class="chart-box">
+          <h3>Novo compromisso</h3>
+          <div class="form-agenda">
+            <input id="ag-titulo" type="text" placeholder="Compromisso (ex.: Reunião com lideranças do Buritizal)">
+            <input id="ag-data" type="date">
+            <input id="ag-hora" type="time">
+            <input id="ag-duracao" type="number" min="0.5" step="0.5" placeholder="Duração (h)">
+            <input id="ag-local" type="text" placeholder="Endereço (ex.: Av. FAB, 1234 — Centro, Macapá)">
+            <textarea id="ag-obs" class="full" placeholder="Observações (opcional)"></textarea>
+          </div>
+          <button type="button" class="btn-add-agenda" onclick="adicionarAgenda()">+ Adicionar à agenda</button>
+        </div>
+        <p class="agenda-nota">💡 A agenda fica salva neste navegador. O CSV exportado já sai no formato do Google My
+          Maps: importe em <b>mymaps.google.com</b> usando a coluna <b>Endereço</b> para posicionar os pontos.</p>
+        <div class="toolbar">
+          <span style="font-size:13px;color:var(--muted)"><b id="agTotal" style="color:var(--ink)">0</b>
+            compromissos</span>
+          <button type="button" class="btn-export" style="background:#6b6b6b;color:#16181a;box-shadow:none" onclick="exportarCsvAgenda()">⬇ Exportar CSV para google maps</button>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Hora</th>
+                <th>Compromisso</th>
+                <th>Endereço</th>
+                <th>Observações</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="agendaBody"></tbody>
+          </table>
+        </div>
+        <div id="agendaEmpty" class="empty-msg hidden">Nenhum compromisso ainda. Adicione o primeiro acima.</div>
+
+        <div class="chart-box" style="overflow-x:auto">
+          <div class="week-nav">
+            <button type="button" onclick="semanaNavegar(-1)" aria-label="Semana anterior">‹</button>
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="week-label" id="semanaLabel">—</div>
+              <button type="button" class="btn-hoje" onclick="semanaHoje()">Hoje</button>
+            </div>
+            <button type="button" onclick="semanaNavegar(1)" aria-label="Próxima semana">›</button>
+          </div>
+          <div class="week-hourgrid" id="weekGrid"></div>
+        </div>
+      </div>
+
+      <!-- LEADS -->
+      <div class="tab-content" id="tab-leads">
+        <div class="page-header">
+          <h2>Formulário</h2>
+          <p>Pessoas que preencheram o formulário de contato no site</p>
+        </div>
+        <div class="toolbar">
+          <input id="leadSearch" type="text" placeholder="Buscar por nome ou WhatsApp…"
+            oninput="buscarLeadsDebounced()">
+          <input id="leadFrom" type="date" onchange="aplicarFiltroData()">
+          <span class="datesep">até</span>
+          <input id="leadTo" type="date" onchange="aplicarFiltroData()">
+          <button type="button" class="btn-clear" onclick="limparFiltroData()">Limpar datas</button>
+          <button type="button" class="btn-export" onclick="exportarCsv()">⬇ Exportar CSV</button>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>Cidade</th>
+                <th>Mensagem</th>
+                <th>Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="leadsBody"></tbody>
+          </table>
+        </div>
+        <div id="leadsEmpty" class="empty-msg hidden">Nenhum lead encontrado.</div>
+        <div class="pager">
+          <button id="pgPrev" onclick="mudarPagina(-1)">← Anterior</button>
+          <span id="pgInfo">página 1</span>
+          <button id="pgNext" onclick="mudarPagina(1)">Próxima →</button>
+        </div>
+      </div>
+
+      <!-- LIDERANÇAS -->
+      <div class="tab-content" id="tab-liderancas">
+        <div class="page-header">
+          <h2>Lideranças</h2>
+          <p>Pessoas que se cadastraram na página /liderancas</p>
+        </div>
+        <div class="toolbar">
+          <input id="lidSearch" type="text" placeholder="Buscar por nome, WhatsApp, bairro, mãe ou endereço…"
+            oninput="buscarLiderancasDebounced()">
+          <input id="lidFrom" type="date" onchange="aplicarFiltroDataLid()">
+          <span class="datesep">até</span>
+          <input id="lidTo" type="date" onchange="aplicarFiltroDataLid()">
+          <button type="button" class="btn-clear" onclick="limparFiltroDataLid()">Limpar datas</button>
+          <button type="button" class="btn-export" onclick="exportarCsvLid()">⬇ Exportar CSV</button>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>Bairro</th>
+                <th>Nome da mãe</th>
+                <th>Nascimento</th>
+                <th>Endereço</th>
+                <th>Apoiadores</th>
+                <th>Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="liderancasBody"></tbody>
+          </table>
+        </div>
+        <div id="liderancasEmpty" class="empty-msg hidden">Nenhuma liderança cadastrada ainda.</div>
+        <div class="pager">
+          <button id="pgPrevLid" onclick="mudarPaginaLid(-1)">← Anterior</button>
+          <span id="pgInfoLid">página 1</span>
+          <button id="pgNextLid" onclick="mudarPaginaLid(1)">Próxima →</button>
+        </div>
+      </div>
+
+      <!-- APOIADORES -->
+      <div class="tab-content" id="tab-apoiadores">
+        <div class="page-header">
+          <h2>Apoiadores</h2>
+          <p>Pessoas que se cadastraram na página /apoiadores</p>
+        </div>
+        <div class="toolbar">
+          <input id="apoSearch" type="text" placeholder="Buscar por nome, WhatsApp, bairro, mãe ou endereço…"
+            oninput="buscarApoiadoresDebounced()">
+          <input id="apoFrom" type="date" onchange="aplicarFiltroDataApo()">
+          <span class="datesep">até</span>
+          <input id="apoTo" type="date" onchange="aplicarFiltroDataApo()">
+          <button type="button" class="btn-clear" onclick="limparFiltroDataApo()">Limpar datas</button>
+          <button type="button" class="btn-export" onclick="exportarCsvApo()">⬇ Exportar CSV</button>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>Bairro</th>
+                <th>Nome da mãe</th>
+                <th>Nascimento</th>
+                <th>Endereço</th>
+                <th>Indicado por</th>
+                <th>Data</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="apoiadoresBody"></tbody>
+          </table>
+        </div>
+        <div id="apoiadoresEmpty" class="empty-msg hidden">Nenhum apoiador cadastrado ainda.</div>
+        <div class="pager">
+          <button id="pgPrevApo" onclick="mudarPaginaApo(-1)">← Anterior</button>
+          <span id="pgInfoApo">página 1</span>
+          <button id="pgNextApo" onclick="mudarPaginaApo(1)">Próxima →</button>
+        </div>
+      </div>
+
+      <!-- IA DO ALDO -->
+      <div class="tab-content" id="tab-iadoaldo">
+        <div class="page-header">
+          <h2>IA do Aldo</h2>
+          <p>Monte a conversa da página <b>/iadoaldo</b> — foto, mensagens e a rede de respostas. Salvar já atualiza a página no ar.</p>
+        </div>
+
+        <div class="chart-box">
+          <h3>Aparência</h3>
+          <div class="ia-top" style="margin-top:12px">
+            <img class="ia-foto-prev" id="iaFotoPrev" src="img/fotocandidato.webp" alt="Foto do Aldo">
+            <div class="ia-campos">
+              <div>
+                <label>Trocar a foto (bolinha do topo)</label>
+                <input type="file" accept="image/*" class="ia-file" onchange="iaFotoArquivo(this)">
+              </div>
+              <div>
+                <label>…ou colar o link de uma imagem</label>
+                <input type="text" id="iaFotoUrl" placeholder="img/fotocandidato.webp ou https://…" oninput="iaMudarFotoUrl(this.value)">
+              </div>
+              <div>
+                <label>Nome exibido</label>
+                <input type="text" id="iaNome" oninput="iaCfg.nome=this.value;iaSujo()">
+              </div>
+              <div>
+                <label>Frase abaixo do nome</label>
+                <input type="text" id="iaStatus" placeholder="Pode perguntar 👇" oninput="iaCfg.status=this.value;iaSujo()">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="chart-box">
+          <h3>Conversa</h3>
+          <p style="font-size:13px;color:var(--muted);margin-top:6px">
+            Cada <b>passo</b> é uma resposta do Aldo em vários balõezinhos, seguida dos botões que a pessoa pode clicar.
+            Cada botão leva pra outro passo — pode inclusive voltar pra um passo anterior e formar uma rede.
+          </p>
+          <div id="iaPassos" style="margin-top:14px"><div class="empty-msg">Carregando…</div></div>
+          <button type="button" class="ia-add" onclick="iaAddPasso()">+ Adicionar passo</button>
+        </div>
+
+        <div class="ia-rodape">
+          <button type="button" class="ia-salvar" id="iaSalvarBtn" onclick="salvarIA()">Salvar e publicar</button>
+          <span class="ia-status-txt" id="iaStatusTxt"></span>
+          <button type="button" class="ia-mini perigo" onclick="restaurarIA()">Restaurar padrão</button>
+          <a class="ia-abrir" href="/iadoaldo" target="_blank">Abrir a página /iadoaldo ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP CALENDÁRIO -->
+  <div class="cal-overlay" id="calOverlay" onclick="if(event.target===this)fecharCalendario()">
+    <div class="cal-panel">
+      <div class="cal-head">
+        <button type="button" onclick="calNavegar(-1)">‹</button>
+        <div class="cal-mes" id="calMes">—</div>
+        <button type="button" onclick="calNavegar(1)">›</button>
+      </div>
+      <div class="cal-grid" id="calGrid"></div>
+      <div class="cal-hint" id="calHint">Toque em um dia (ou em dois, para um intervalo)</div>
+      <div class="cal-actions">
+        <button type="button" class="cal-limpar" onclick="calLimpar()">Limpar</button>
+        <button type="button" class="cal-aplicar" id="calAplicar" onclick="calAplicar()" disabled>Aplicar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP NOVO EVENTO (clique num quadrado da agenda) -->
+  <div class="cal-overlay" id="eventoOverlay" onclick="if(event.target===this)fecharEvento()">
+    <div class="cal-panel">
+      <div class="cal-head">
+        <div class="cal-mes" id="eventoQuando">—</div>
+      </div>
+      <div class="login-field"><label>Compromisso</label><input id="ev-titulo" type="text" placeholder="Ex.: Reunião com lideranças"></div>
+      <div class="login-field"><label>Endereço (opcional)</label><input id="ev-local" type="text" placeholder="Ex.: Av. FAB, 1234 — Centro, Macapá"></div>
+      <div class="cal-actions">
+        <button type="button" class="cal-limpar" onclick="fecharEvento()">Cancelar</button>
+        <button type="button" class="cal-aplicar" onclick="salvarEventoRapido()">Adicionar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- POPUP APOIADORES DE UMA LIDERANÇA (clique no número na aba Lideranças) -->
+  <div class="cal-overlay" id="apoLidOverlay" onclick="if(event.target===this)fecharApoiadoresLid()">
+    <div class="cal-panel">
+      <div class="cal-head">
+        <div class="cal-mes" id="apoLidTitulo">—</div>
+        <button type="button" onclick="fecharApoiadoresLid()">✕</button>
+      </div>
+      <div class="apo-lid-lista" id="apoLidLista"></div>
+    </div>
+  </div>
+
+  <script>
+    let periodoAtual = '7d', paginaAtual = 1, buscaAtual = '', dataDe = '', dataAte = '', totalLeads = 0, chart = null, chartLid = null, chartApo = null;
+    let paginaAtualLid = 1, buscaAtualLid = '', dataDeLid = '', dataAteLid = '', totalLiderancas = 0;
+    let paginaAtualApo = 1, buscaAtualApo = '', dataDeApo = '', dataAteApo = '', totalApoiadores = 0;
+    let resumoVotosTimer = null;
+
+    /* ===== modo privacidade: oculta os números pra quem tá com a tela
+       compartilhada, sem esconder o painel inteiro — sempre começa
+       mostrando os valores; ocultar é uma escolha do momento, não padrão ===== */
+    let privacidadeAtiva = false;
+
+    function mascararTexto(html) {
+      return String(html).replace(/[0-9]/g, '0');
+    }
+
+    // toda vez que algum valor mascarável for atualizado (métricas, resumo de
+    // votos etc.) passa por aqui em vez de setar textContent direto — assim,
+    // se o modo privacidade tiver ativo, o dado novo já chega mascarado
+    function definirValor(id, valor) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.dataset.privReal = valor;
+      el.innerHTML = privacidadeAtiva ? mascararTexto(valor) : valor;
+    }
+
+    function atualizarIconePrivacidade() {
+      const btn = document.getElementById('btnPrivacidade');
+      if (!btn) return;
+      btn.classList.toggle('oculto', privacidadeAtiva);
+      btn.title = privacidadeAtiva ? 'Mostrar valores' : 'Ocultar valores';
+    }
+
+    function alternarPrivacidade() {
+      privacidadeAtiva = !privacidadeAtiva;
+      document.querySelectorAll('.mascaravel').forEach(el => {
+        if (el.dataset.privReal === undefined) el.dataset.privReal = el.innerHTML;
+        el.innerHTML = privacidadeAtiva ? mascararTexto(el.dataset.privReal) : el.dataset.privReal;
+      });
+      atualizarIconePrivacidade();
+    }
+
+    // valores estáticos (Dados Amapá/Macapá, nota de corte) já vêm prontos no
+    // HTML — só guarda o valor real deles pra caso a pessoa clique no olho
+    document.querySelectorAll('.mascaravel').forEach(el => {
+      el.dataset.privReal = el.innerHTML;
+    });
+    atualizarIconePrivacidade();
+    let customFrom = '', customTo = '';
+    const NOTA_DE_CORTE = 3898;
+
+    async function api(path, opts) {
+      const res = await fetch(path, Object.assign({ credentials: 'same-origin' }, opts || {}));
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data.error || ('Erro ' + res.status));
+      return data;
+    }
+
+    async function fazerLogin() {
+      const user = document.getElementById('l-user').value.trim();
+      const senha = document.getElementById('l-senha').value;
+      const err = document.getElementById('login-err');
+      const btn = document.getElementById('btn-login');
+      err.style.display = 'none';
+      if (!user || !senha) { err.textContent = 'Preencha usuário e senha.'; err.style.display = 'block'; return; }
+      btn.disabled = true; btn.textContent = 'Entrando…';
+      try {
+        await api('/api/admin/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ user, senha }) });
+        mostrarPainel();
+      } catch (e) {
+        err.textContent = e.message; err.style.display = 'block';
+      } finally {
+        btn.disabled = false; btn.textContent = 'Entrar';
+      }
+    }
+
+    const ESTAGIO_CORES = { pre: '#6b6b6b', campanha: '#34d399', eleicoes: '#fbbf24', eleito: '#4ade80', naoeleito: '#f87171' };
+    const ESTAGIO_TEXTO = { pre: '#16181a', campanha: '#04140f', eleicoes: '#1f1503', eleito: '#03170c', naoeleito: '#1f0606' };
+    const selEstagio = document.getElementById('tf-estagio');
+    function aplicarCorEstagio() {
+      selEstagio.style.background = ESTAGIO_CORES[selEstagio.value] || ESTAGIO_CORES.pre;
+      selEstagio.style.color = ESTAGIO_TEXTO[selEstagio.value] || ESTAGIO_TEXTO.pre;
+    }
+    selEstagio.addEventListener('change', aplicarCorEstagio);
+    aplicarCorEstagio();
+
+    function logout() {
+      api('/api/admin/auth', { method: 'DELETE' }).catch(() => { }).finally(() => {
+        document.getElementById('screen-painel').style.display = 'none';
+        document.getElementById('screen-login').style.display = 'flex';
+      });
+    }
+
+    function mostrarPainel() {
+      document.getElementById('screen-login').style.display = 'none';
+      document.getElementById('screen-painel').style.display = 'block';
+      carregarMetricas();
+      carregarIgnoredIps();
+      carregarLeads();
+      carregarLiderancas();
+      carregarApoiadores();
+      carregarAgenda();
+      carregarResumoVotos();
+      if (!resumoVotosTimer) resumoVotosTimer = setInterval(carregarResumoVotos, 20000);
+    }
+
+    function mudarTab(tab) {
+      document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.dataset.tab === tab));
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.toggle('active', c.id === 'tab-' + tab));
+      const mostraTopo = (tab === 'metricas' || tab === 'mapa');
+      document.getElementById('topoFixo').style.display = mostraTopo ? 'grid' : 'none';
+      if (mostraTopo) carregarResumoVotos();
+      if (tab === 'iadoaldo') carregarIA();
+      if (tab === 'mapa') {
+        const f = document.getElementById('mapaFrame');
+        f.src = 'mapa.html?_=' + Date.now();
+      }
+    }
+
+    async function carregarResumoVotos() {
+      try {
+        const d = await api('/api/admin/resumo-votos');
+        definirValor('tf-votos', d.votosPrevistos.toLocaleString('pt-BR'));
+        definirValor('tf-liderancas', d.liderancas.toLocaleString('pt-BR'));
+        definirValor('tf-bairros', d.bairros.toLocaleString('pt-BR'));
+        const faltamEl = document.getElementById('tf-faltam');
+        const faltam = NOTA_DE_CORTE - d.votosPrevistos;
+        if (faltam > 0) {
+          definirValor('tf-faltam', faltam.toLocaleString('pt-BR'));
+          faltamEl.classList.remove('ok');
+        } else {
+          definirValor('tf-faltam', 'Meta atingida! 🎉');
+          faltamEl.classList.add('ok');
+        }
+        const pct = Math.min(100, Math.max(0, (d.votosPrevistos / NOTA_DE_CORTE) * 100));
+        document.getElementById('tf-progresso').style.width = pct + '%';
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    /* ===== período / calendário ===== */
+    function isoLocal(d) {
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+    function rangeDoPeriodo() {
+      if (periodoAtual === 'custom' && customFrom && customTo) return { from: customFrom, to: customTo };
+      const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+      const dias = periodoAtual === 'hoje' ? 1 : periodoAtual === '30d' ? 30 : 7;
+      const ini = new Date(hoje); ini.setDate(ini.getDate() - (dias - 1));
+      return { from: isoLocal(ini), to: isoLocal(hoje) };
+    }
+
+    document.getElementById('periodFilter').addEventListener('click', e => {
+      const b = e.target.closest('button[data-period]'); if (!b) return;
+      if (b.dataset.period === 'custom') return; /* o popup abre no onclick do próprio botão */
+      periodoAtual = b.dataset.period;
+      document.querySelectorAll('#periodFilter button').forEach(x => x.classList.toggle('active', x === b));
+      document.getElementById('btnPeriodoCustom').textContent = '📅 Escolher datas';
+      customFrom = ''; customTo = '';
+      carregarMetricas();
+    });
+
+    /* calendário */
+    let calAno, calMes, calSelIni = null, calSelFim = null;
+    const MESES = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
+    function abrirCalendario(ev) {
+      if (ev) ev.stopPropagation();
+      const hoje = new Date();
+      if (customFrom) { const p = customFrom.split('-'); calAno = +p[0]; calMes = +p[1] - 1; }
+      else { calAno = hoje.getFullYear(); calMes = hoje.getMonth(); }
+      calSelIni = customFrom || null; calSelFim = customTo || null;
+      if (calSelIni && calSelFim && calSelIni === calSelFim) calSelFim = null;
+      renderCal();
+      document.getElementById('calOverlay').classList.add('open');
+    }
+    function fecharCalendario() { document.getElementById('calOverlay').classList.remove('open'); }
+    function calNavegar(delta) {
+      calMes += delta;
+      if (calMes < 0) { calMes = 11; calAno--; }
+      if (calMes > 11) { calMes = 0; calAno++; }
+      renderCal();
+    }
+    function calLimpar() { calSelIni = null; calSelFim = null; renderCal(); }
+    function calAplicar() {
+      if (!calSelIni) return;
+      customFrom = calSelIni;
+      customTo = calSelFim || calSelIni;
+      if (customFrom > customTo) { const t = customFrom; customFrom = customTo; customTo = t; }
+      periodoAtual = 'custom';
+      document.querySelectorAll('#periodFilter button').forEach(x => x.classList.toggle('active', x.dataset.period === 'custom'));
+      const fmt = s => s.slice(5).split('-').reverse().join('/');
+      document.getElementById('btnPeriodoCustom').textContent =
+        customFrom === customTo ? ('📅 ' + fmt(customFrom)) : ('📅 ' + fmt(customFrom) + ' – ' + fmt(customTo));
+      fecharCalendario();
+      carregarMetricas();
+    }
+    function renderCal() {
+      document.getElementById('calMes').textContent = MESES[calMes] + ' ' + calAno;
+      const grid = document.getElementById('calGrid');
+      const hojeIso = isoLocal(new Date());
+      let html = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'].map(w => '<div class="wd">' + w + '</div>').join('');
+      const prim = new Date(calAno, calMes, 1);
+      const iniGrade = new Date(prim); iniGrade.setDate(1 - prim.getDay());
+      let ini = calSelIni, fim = calSelFim;
+      if (ini && fim && ini > fim) { const t = ini; ini = fim; fim = t; }
+      for (let i = 0; i < 42; i++) {
+        const d = new Date(iniGrade); d.setDate(iniGrade.getDate() + i);
+        const iso = isoLocal(d);
+        const cls = ['dia'];
+        if (d.getMonth() !== calMes) cls.push('off');
+        if (iso > hojeIso) cls.push('fut');
+        if (iso === hojeIso) cls.push('hoje');
+        if (iso === ini || iso === fim) cls.push('sel');
+        else if (ini && fim && iso > ini && iso < fim) cls.push('inrange');
+        html += '<div class="' + cls.join(' ') + '" data-iso="' + iso + '">' + d.getDate() + '</div>';
+      }
+      grid.innerHTML = html;
+      const hint = document.getElementById('calHint');
+      if (!calSelIni) hint.textContent = 'Toque em um dia (ou em dois, para um intervalo)';
+      else if (!calSelFim) hint.textContent = 'Dia escolhido — toque em outro para fechar o intervalo, ou aplique só esse dia';
+      else hint.textContent = 'Intervalo selecionado — toque em Aplicar';
+      document.getElementById('calAplicar').disabled = !calSelIni;
+    }
+    document.getElementById('calGrid').addEventListener('click', e => {
+      const c = e.target.closest('.dia'); if (!c || c.classList.contains('fut')) return;
+      const iso = c.dataset.iso;
+      if (!calSelIni || (calSelIni && calSelFim)) { calSelIni = iso; calSelFim = null; }
+      else if (iso === calSelIni) { calSelFim = null; }
+      else { calSelFim = iso; }
+      renderCal();
+    });
+
+    async function carregarMetricas() {
+      try {
+        const r = rangeDoPeriodo();
+        const urlMetrics = periodoAtual === 'custom'
+          ? ('/api/admin/metrics?from=' + r.from + '&to=' + r.to)
+          : ('/api/admin/metrics?period=' + periodoAtual);
+        const [d, lid, apo] = await Promise.all([
+          api(urlMetrics),
+          api('/api/admin/liderancas?from=' + r.from + '&to=' + r.to + '&page=1').catch(() => null),
+          api('/api/admin/apoiadores?from=' + r.from + '&to=' + r.to + '&page=1').catch(() => null),
+        ]);
+        definirValor('st-site', d.site_view);
+        definirValor('st-leads', d.leads);
+        definirValor('st-lid', lid ? lid.total : '—');
+        definirValor('st-apo', apo ? apo.total : '—');
+        desenharGrafico(d.serie);
+        desenharGraficoLid(d.serie);
+        desenharGraficoApo(d.serie);
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    function desenharGrafico(serie) {
+      const labels = serie.map(s => s.data.slice(5).split('-').reverse().join('/'));
+      const ctx = document.getElementById('chartMetricas').getContext('2d');
+      const gVisitas = ctx.createLinearGradient(0, 0, 0, 240);
+      gVisitas.addColorStop(0, 'rgba(52,211,153,.22)');
+      gVisitas.addColorStop(1, 'rgba(52,211,153,0)');
+      const gMsgs = ctx.createLinearGradient(0, 0, 0, 240);
+      gMsgs.addColorStop(0, 'rgba(234,179,8,.22)');
+      gMsgs.addColorStop(1, 'rgba(234,179,8,0)');
+      const cfg = {
+        type: 'line',
+        data: {
+          labels, datasets: [
+            {
+              label: 'Visitas', data: serie.map(s => s.site_view), borderColor: '#34d399', backgroundColor: gVisitas,
+              fill: true, tension: .35, borderWidth: 2, pointRadius: 2.5, pointHoverRadius: 5,
+              pointBackgroundColor: '#34d399', pointBorderColor: 'rgba(52,211,153,.35)', pointBorderWidth: 3
+            },
+            {
+              label: 'Mensagens', data: serie.map(s => s.leads), borderColor: '#eab308', backgroundColor: gMsgs,
+              fill: true, tension: .35, borderWidth: 2, pointRadius: 2.5, pointHoverRadius: 5,
+              pointBackgroundColor: '#eab308', pointBorderColor: 'rgba(234,179,8,.35)', pointBorderWidth: 3
+            },
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          scales: {
+            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } },
+            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#f2f2ec', usePointStyle: true, pointStyle: 'circle', boxWidth: 7, padding: 16 } },
+            tooltip: {
+              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(52,211,153,.25)', borderWidth: 1,
+              titleColor: '#f2f2ec', bodyColor: '#9a9d97', cornerRadius: 10, padding: 12
+            }
+          }
+        }
+      };
+      if (chart) { chart.data = cfg.data; chart.options = cfg.options; chart.update(); }
+      else chart = new Chart(ctx, cfg);
+    }
+
+    // gráfico de uma métrica só (lideranças ou apoiadores), mesmo visual do
+    // "Evolução diária" acima, só que com uma cor própria pra não confundir
+    function desenharGraficoUnico(canvasId, chartAtual, serie, campo, label, cor) {
+      const labels = serie.map(s => s.data.slice(5).split('-').reverse().join('/'));
+      const ctx = document.getElementById(canvasId).getContext('2d');
+      const grad = ctx.createLinearGradient(0, 0, 0, 200);
+      grad.addColorStop(0, cor + '38');
+      grad.addColorStop(1, cor + '00');
+      const cfg = {
+        type: 'line',
+        data: {
+          labels, datasets: [
+            {
+              label, data: serie.map(s => s[campo]), borderColor: cor, backgroundColor: grad,
+              fill: true, tension: .35, borderWidth: 2, pointRadius: 2.5, pointHoverRadius: 5,
+              pointBackgroundColor: cor, pointBorderColor: cor + '59', pointBorderWidth: 3
+            },
+          ]
+        },
+        options: {
+          responsive: true, maintainAspectRatio: false,
+          interaction: { mode: 'index', intersect: false },
+          scales: {
+            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } },
+            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 }, precision: 0 }, grid: { color: 'rgba(52,211,153,.07)' } }
+          },
+          plugins: {
+            legend: { labels: { color: '#f2f2ec', usePointStyle: true, pointStyle: 'circle', boxWidth: 7, padding: 16 } },
+            tooltip: {
+              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(52,211,153,.25)', borderWidth: 1,
+              titleColor: '#f2f2ec', bodyColor: '#9a9d97', cornerRadius: 10, padding: 12
+            }
+          }
+        }
+      };
+      if (chartAtual) { chartAtual.data = cfg.data; chartAtual.options = cfg.options; chartAtual.update(); return chartAtual; }
+      return new Chart(ctx, cfg);
+    }
+
+    function desenharGraficoLid(serie) {
+      chartLid = desenharGraficoUnico('chartLid', chartLid, serie, 'liderancas', 'Lideranças', '#4ade80');
+    }
+
+    function desenharGraficoApo(serie) {
+      chartApo = desenharGraficoUnico('chartApo', chartApo, serie, 'apoiadores', 'Apoiadores', '#fde047');
+    }
+
+    /* ===== agenda (salva no navegador) ===== */
+    const AGENDA_KEY = 'agenda_aldo_v1';
+    function lerAgenda() {
+      try { return JSON.parse(localStorage.getItem(AGENDA_KEY) || '[]'); } catch (e) { return []; }
+    }
+    function salvarAgenda(itens) { localStorage.setItem(AGENDA_KEY, JSON.stringify(itens)); }
+    function adicionarAgenda() {
+      const titulo = document.getElementById('ag-titulo').value.trim();
+      const data = document.getElementById('ag-data').value;
+      const hora = document.getElementById('ag-hora').value;
+      const duracao = Number(document.getElementById('ag-duracao').value) || 1;
+      const local = document.getElementById('ag-local').value.trim();
+      const obs = document.getElementById('ag-obs').value.trim();
+      if (!titulo || !data) { alert('Preencha pelo menos o compromisso e a data.'); return; }
+      const itens = lerAgenda();
+      itens.push({ id: Date.now(), titulo, data, hora, duracao, local, obs });
+      salvarAgenda(itens);
+      document.getElementById('ag-titulo').value = '';
+      document.getElementById('ag-data').value = '';
+      document.getElementById('ag-hora').value = '';
+      document.getElementById('ag-duracao').value = '';
+      document.getElementById('ag-local').value = '';
+      document.getElementById('ag-obs').value = '';
+      carregarAgenda();
+    }
+    function excluirAgenda(id) {
+      if (!confirm('Excluir esse compromisso?')) return;
+      salvarAgenda(lerAgenda().filter(i => i.id !== id));
+      carregarAgenda();
+    }
+    function carregarAgenda() {
+      const itens = lerAgenda().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
+      const body = document.getElementById('agendaBody');
+      const hoje = isoLocal(new Date());
+      body.innerHTML = '';
+      document.getElementById('agendaEmpty').classList.toggle('hidden', itens.length > 0);
+      document.getElementById('agTotal').textContent = itens.length;
+      itens.forEach(i => {
+        const tr = document.createElement('tr');
+        if (i.data < hoje) tr.className = 'ag-passado';
+        const dataFmt = i.data.split('-').reverse().join('/');
+        tr.innerHTML = '<td>' + dataFmt + (i.data === hoje ? '<span class="badge-hoje">hoje</span>' : '') + '</td>' +
+          '<td>' + (i.hora || '—') + '</td>' +
+          celulaMsg(i.titulo) +
+          celulaMsg(i.local) +
+          celulaMsg(i.obs) +
+          '<td><button type="button" class="btn-del-ag" onclick="excluirAgenda(' + i.id + ')" title="Excluir">🗑</button></td>';
+        body.appendChild(tr);
+      });
+      renderSemana();
+    }
+
+    /* ===== visão semanal (Seg a Dom, navega por semana) ===== */
+    const DIAS_SEMANA = ['Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'];
+    let semanaRef = segundaDaSemana(new Date());
+    function segundaDaSemana(d) {
+      const dt = new Date(d); dt.setHours(0, 0, 0, 0);
+      const dow = dt.getDay();
+      const diff = (dow === 0) ? -6 : (1 - dow);
+      dt.setDate(dt.getDate() + diff);
+      return dt;
+    }
+    function semanaNavegar(delta) {
+      semanaRef.setDate(semanaRef.getDate() + delta * 7);
+      renderSemana();
+    }
+    function semanaHoje() {
+      semanaRef = segundaDaSemana(new Date());
+      renderSemana();
+    }
+    function renderSemana() {
+      const itens = lerAgenda();
+      const hoje = isoLocal(new Date());
+      const dias = [];
+      for (let i = 0; i < 7; i++) {
+        const d = new Date(semanaRef); d.setDate(d.getDate() + i);
+        dias.push(d);
+      }
+      const fmtCurto = d => d.getDate() + ' ' + MESES[d.getMonth()].slice(0, 3);
+      document.getElementById('semanaLabel').textContent = fmtCurto(dias[0]) + ' – ' + fmtCurto(dias[6]);
+
+      const isoDias = dias.map(isoLocal);
+
+      let html = '<div class="whg-corner"></div>';
+      dias.forEach((d, idx) => {
+        const iso = isoDias[idx];
+        html += '<div class="whg-daycol' + (iso === hoje ? ' hoje' : '') + '">' +
+          '<div class="whg-wd">' + DIAS_SEMANA[idx] + '</div>' +
+          '<div class="whg-num">' + d.getDate() + '</div></div>';
+      });
+      for (let h = 0; h < 24; h++) {
+        const hh = String(h).padStart(2, '0');
+        html += '<div class="whg-hora">' + hh + ':00</div>';
+        dias.forEach((d, idx) => {
+          const iso = isoDias[idx];
+          html += '<div class="whg-cell' + (iso === hoje ? ' hoje' : '') + '" onclick="abrirEvento(\'' + iso + '\',\'' + hh + '\')"></div>';
+        });
+      }
+
+      /* eventos: blocos posicionados explicitamente na grade, ocupando tantas
+         linhas (horas) quanto a duração pedir, sobrepostos nas células vazias */
+      itens.forEach(i => {
+        const idx = isoDias.indexOf(i.data);
+        if (idx === -1) return;
+        const h = i.hora ? parseInt(i.hora.slice(0, 2), 10) : 0;
+        const dur = Math.max(1, Math.round(i.duracao || 1));
+        const linhaIni = 2 + h;
+        const linhaFim = Math.min(26, linhaIni + dur);
+        const col = idx + 2;
+        const horaFim = String(Math.min(24, h + dur)).padStart(2, '0') + ':00';
+        html += '<div class="week-item" style="grid-column:' + col + ';grid-row:' + linhaIni + '/' + linhaFim + '" onclick="event.stopPropagation();excluirAgenda(' + i.id + ')" title="' +
+          esc(i.titulo) + (i.local ? ' — ' + esc(i.local) : '') + ' (clique para excluir)">' +
+          (i.hora ? '<span class="wi-hora">' + esc(i.hora) + '–' + horaFim + '</span><br>' : '') +
+          esc(i.titulo) + '</div>';
+      });
+
+      document.getElementById('weekGrid').innerHTML = html;
+    }
+
+    /* popup rápido: clicar num quadrado vazio da grade abre um mini-form pra
+       criar o compromisso já com data/hora daquele quadrado preenchidas */
+    let eventoData = '', eventoHora = '';
+    function abrirEvento(iso, hh) {
+      eventoData = iso; eventoHora = hh + ':00';
+      const [ano, mes, dia] = iso.split('-');
+      document.getElementById('eventoQuando').textContent = dia + '/' + mes + '/' + ano + ' às ' + eventoHora;
+      document.getElementById('ev-titulo').value = '';
+      document.getElementById('ev-local').value = '';
+      document.getElementById('eventoOverlay').classList.add('open');
+      setTimeout(() => document.getElementById('ev-titulo').focus(), 50);
+    }
+    function fecharEvento() {
+      document.getElementById('eventoOverlay').classList.remove('open');
+    }
+    function salvarEventoRapido() {
+      const titulo = document.getElementById('ev-titulo').value.trim();
+      if (!titulo) { alert('Preencha o compromisso.'); return; }
+      const local = document.getElementById('ev-local').value.trim();
+      const itens = lerAgenda();
+      itens.push({ id: Date.now(), titulo, data: eventoData, hora: eventoHora, local, obs: '' });
+      salvarAgenda(itens);
+      fecharEvento();
+      carregarAgenda();
+    }
+    (function () {
+      const grid = document.getElementById('weekGrid');
+      let tx = 0, ty = 0;
+      grid.addEventListener('touchstart', e => { const t = e.touches[0]; tx = t.clientX; ty = t.clientY; }, { passive: true });
+      grid.addEventListener('touchend', e => {
+        const t = e.changedTouches[0];
+        const dx = t.clientX - tx, dy = t.clientY - ty;
+        if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.5) semanaNavegar(dx < 0 ? 1 : -1);
+      }, { passive: true });
+    })();
+    function csvCampo(s) { return '"' + String(s || '').replace(/"/g, '""') + '"'; }
+    function exportarCsvAgenda() {
+      const itens = lerAgenda().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
+      if (!itens.length) { alert('A agenda está vazia.'); return; }
+      const linhas = ['Nome,Endereço,Data,Hora,Observações'];
+      itens.forEach(i => {
+        linhas.push([csvCampo(i.titulo), csvCampo(i.local), csvCampo(i.data.split('-').reverse().join('/')),
+        csvCampo(i.hora), csvCampo(i.obs)].join(','));
+      });
+      const blob = new Blob(['\ufeff' + linhas.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'agenda-google-maps.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+
+    async function carregarIgnoredIps() {
+      try {
+        const d = await api('/api/admin/metrics?resource=ignored-ips');
+        document.getElementById('meuIp').textContent = d.mine;
+        const btn = document.getElementById('btnIgnoreMine');
+        const jaIgnorado = d.ignored.includes(d.mine);
+        btn.disabled = jaIgnorado;
+        btn.textContent = jaIgnorado ? 'Seu IP já está ignorado' : 'Ignorar meu IP';
+        const list = document.getElementById('ignoredIpsList');
+        if (!d.ignored.length) { list.innerHTML = '<p style="font-size:12.5px;color:var(--muted)">Nenhum IP ignorado ainda.</p>'; return; }
+        list.innerHTML = d.ignored.map(ip =>
+          '<div class="ip-row"><span class="ip-val">' + esc(ip) + '</span>' +
+          '<button type="button" onclick="removerIpIgnorado(\'' + esc(ip) + '\')" title="Remover">✕</button></div>'
+        ).join('');
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    async function ignorarMeuIp() {
+      try {
+        await api('/api/admin/metrics?resource=ignored-ips', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({}) });
+        carregarIgnoredIps();
+      } catch (e) { alert('Erro: ' + e.message); }
+    }
+
+    async function removerIpIgnorado(ip) {
+      try {
+        await api('/api/admin/metrics?resource=ignored-ips&ip=' + encodeURIComponent(ip), { method: 'DELETE' });
+        carregarIgnoredIps();
+      } catch (e) { alert('Erro: ' + e.message); }
+    }
+
+    let searchTimer;
+    function buscarLeadsDebounced() {
+      clearTimeout(searchTimer);
+      searchTimer = setTimeout(() => { buscaAtual = document.getElementById('leadSearch').value.trim(); paginaAtual = 1; carregarLeads(); }, 350);
+    }
+
+    function aplicarFiltroData() {
+      dataDe = document.getElementById('leadFrom').value;
+      dataAte = document.getElementById('leadTo').value;
+      paginaAtual = 1; carregarLeads();
+    }
+    function limparFiltroData() {
+      document.getElementById('leadFrom').value = ''; document.getElementById('leadTo').value = '';
+      dataDe = ''; dataAte = ''; paginaAtual = 1; carregarLeads();
+    }
+    function filtrosQS() {
+      const qs = new URLSearchParams();
+      if (buscaAtual) qs.set('q', buscaAtual);
+      if (dataDe) qs.set('from', dataDe);
+      if (dataAte) qs.set('to', dataAte);
+      return qs;
+    }
+    function exportarCsv() {
+      const qs = filtrosQS();
+      qs.set('export', 'csv');
+      window.open('/api/admin/leads?' + qs.toString(), '_blank');
+    }
+
+    function waLink(raw) {
+      let digits = String(raw || '').replace(/\D/g, '');
+      if (!digits) return null;
+      if (!digits.startsWith('55')) digits = '55' + digits;
+      return 'https://wa.me/' + digits;
+    }
+
+    async function carregarLeads() {
+      try {
+        const qs = filtrosQS();
+        qs.set('page', paginaAtual);
+        const d = await api('/api/admin/leads?' + qs.toString());
+        totalLeads = d.total;
+        const body = document.getElementById('leadsBody');
+        body.innerHTML = '';
+        document.getElementById('leadsEmpty').classList.toggle('hidden', d.itens.length > 0);
+        d.itens.forEach(l => {
+          const tr = document.createElement('tr');
+          const dt = new Date(l.criado_em).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+          const link = waLink(l.whatsapp);
+          tr.innerHTML = '<td>' + esc(l.nome) + '</td>' +
+            '<td>' + (link ? ('<a class="wa-link" target="_blank" href="' + link + '">' + esc(l.whatsapp || '') + '</a>') : '—') + '</td>' +
+            '<td>' + esc(l.cidade || '—') + '</td>' +
+            celulaMsg(l.mensagem) +
+            '<td>' + dt + '</td>' +
+            '<td><button type="button" class="btn-del-lead" data-id="' + l.id + '" title="Excluir lead">🗑</button></td>';
+          body.appendChild(tr);
+        });
+        const totalPaginas = Math.max(1, Math.ceil(totalLeads / 20));
+        document.getElementById('pgInfo').textContent = 'página ' + paginaAtual + ' de ' + totalPaginas;
+        document.getElementById('pgPrev').disabled = paginaAtual <= 1;
+        document.getElementById('pgNext').disabled = paginaAtual >= totalPaginas;
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    function mudarPagina(delta) {
+      paginaAtual = Math.max(1, paginaAtual + delta);
+      carregarLeads();
+    }
+
+    document.getElementById('leadsBody').addEventListener('click', async e => {
+      const b = e.target.closest('.btn-del-lead'); if (!b) return;
+      if (!confirm('Excluir esse lead? Não dá pra desfazer.')) return;
+      b.disabled = true;
+      try {
+        await api('/api/admin/leads?id=' + b.dataset.id, { method: 'DELETE' });
+        carregarLeads();
+      } catch (e) {
+        alert('Erro ao excluir: ' + e.message);
+        b.disabled = false;
+      }
+    });
+
+    let searchTimerLid;
+    function buscarLiderancasDebounced() {
+      clearTimeout(searchTimerLid);
+      searchTimerLid = setTimeout(() => { buscaAtualLid = document.getElementById('lidSearch').value.trim(); paginaAtualLid = 1; carregarLiderancas(); }, 350);
+    }
+
+    function aplicarFiltroDataLid() {
+      dataDeLid = document.getElementById('lidFrom').value;
+      dataAteLid = document.getElementById('lidTo').value;
+      paginaAtualLid = 1; carregarLiderancas();
+    }
+    function limparFiltroDataLid() {
+      document.getElementById('lidFrom').value = ''; document.getElementById('lidTo').value = '';
+      dataDeLid = ''; dataAteLid = ''; paginaAtualLid = 1; carregarLiderancas();
+    }
+    function filtrosQSLid() {
+      const qs = new URLSearchParams();
+      if (buscaAtualLid) qs.set('q', buscaAtualLid);
+      if (dataDeLid) qs.set('from', dataDeLid);
+      if (dataAteLid) qs.set('to', dataAteLid);
+      return qs;
+    }
+    function exportarCsvLid() {
+      const qs = filtrosQSLid();
+      qs.set('export', 'csv');
+      window.open('/api/admin/liderancas?' + qs.toString(), '_blank');
+    }
+
+    async function carregarLiderancas() {
+      try {
+        const qs = filtrosQSLid();
+        qs.set('page', paginaAtualLid);
+        const d = await api('/api/admin/liderancas?' + qs.toString());
+        totalLiderancas = d.total;
+        const body = document.getElementById('liderancasBody');
+        body.innerHTML = '';
+        document.getElementById('liderancasEmpty').classList.toggle('hidden', d.itens.length > 0);
+        d.itens.forEach(l => {
+          const tr = document.createElement('tr');
+          const dt = new Date(l.criado_em).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+          const nasc = l.data_nascimento ? new Date(l.data_nascimento).toLocaleDateString('pt-BR') : '—';
+          const link = waLink(l.numero);
+          const contagemApo = l.apoiadores_count > 0
+            ? '<button type="button" class="btn-expand-apo" data-lid="' + l.id + '" data-nome="' + esc(l.nome) + '">' +
+                '<span style="color:var(--green);font-weight:600">' + l.apoiadores_count + '</span>' +
+                '<span class="expand-arrow">▾</span></button>'
+            : '<span style="color:var(--muted)">Padrão (30)</span>';
+          tr.innerHTML = '<td>' + esc(l.nome) + '</td>' +
+            '<td>' + (link ? ('<a class="wa-link" target="_blank" href="' + link + '">' + esc(l.numero || '') + '</a>') : '—') + '</td>' +
+            '<td>' + esc(l.bairro || '—') + '</td>' +
+            '<td>' + esc(l.nome_mae || '—') + '</td>' +
+            '<td>' + nasc + '</td>' +
+            '<td>' + esc(l.endereco || '—') + '</td>' +
+            '<td>' + contagemApo + '</td>' +
+            '<td>' + dt + '</td>' +
+            '<td><button type="button" class="btn-del-lid" data-id="' + l.id + '" title="Excluir">🗑</button></td>';
+          body.appendChild(tr);
+        });
+        const totalPaginas = Math.max(1, Math.ceil(totalLiderancas / 20));
+        document.getElementById('pgInfoLid').textContent = 'página ' + paginaAtualLid + ' de ' + totalPaginas;
+        document.getElementById('pgPrevLid').disabled = paginaAtualLid <= 1;
+        document.getElementById('pgNextLid').disabled = paginaAtualLid >= totalPaginas;
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    function mudarPaginaLid(delta) {
+      paginaAtualLid = Math.max(1, paginaAtualLid + delta);
+      carregarLiderancas();
+    }
+
+    document.getElementById('liderancasBody').addEventListener('click', async e => {
+      const expandBtn = e.target.closest('.btn-expand-apo');
+      if (expandBtn) return abrirApoiadoresLid(expandBtn.dataset.lid, expandBtn.dataset.nome);
+
+      const b = e.target.closest('.btn-del-lid'); if (!b) return;
+      if (!confirm('Excluir essa liderança? Não dá pra desfazer.')) return;
+      b.disabled = true;
+      try {
+        await api('/api/admin/liderancas?id=' + b.dataset.id, { method: 'DELETE' });
+        carregarLiderancas();
+        carregarResumoVotos();
+      } catch (e) {
+        alert('Erro ao excluir: ' + e.message);
+        b.disabled = false;
+      }
+    });
+
+    async function abrirApoiadoresLid(id, nome) {
+      document.getElementById('apoLidTitulo').textContent = 'Apoiadores de ' + nome;
+      const lista = document.getElementById('apoLidLista');
+      lista.innerHTML = '<div class="empty-msg">Carregando…</div>';
+      document.getElementById('apoLidOverlay').classList.add('open');
+      try {
+        const d = await api('/api/admin/apoiadores?indicadoPorId=' + encodeURIComponent(id) + '&page=1');
+        if (!d.itens.length) { lista.innerHTML = '<div class="empty-msg">Nenhum apoiador encontrado.</div>'; return; }
+        lista.innerHTML = d.itens.map(a => {
+          const link = waLink(a.numero);
+          const dt = new Date(a.criado_em).toLocaleDateString('pt-BR');
+          return '<div class="apo-lid-item">' +
+            (link ? '<a class="wa-link nome" target="_blank" href="' + link + '">' + esc(a.nome) + '</a>' : '<span class="nome">' + esc(a.nome) + '</span>') +
+            '<span class="data">' + dt + '</span></div>';
+        }).join('');
+      } catch (e) {
+        lista.innerHTML = '<div class="empty-msg">Erro ao carregar: ' + esc(e.message) + '</div>';
+      }
+    }
+
+    function fecharApoiadoresLid() {
+      document.getElementById('apoLidOverlay').classList.remove('open');
+    }
+
+    let searchTimerApo;
+    function buscarApoiadoresDebounced() {
+      clearTimeout(searchTimerApo);
+      searchTimerApo = setTimeout(() => { buscaAtualApo = document.getElementById('apoSearch').value.trim(); paginaAtualApo = 1; carregarApoiadores(); }, 350);
+    }
+
+    function aplicarFiltroDataApo() {
+      dataDeApo = document.getElementById('apoFrom').value;
+      dataAteApo = document.getElementById('apoTo').value;
+      paginaAtualApo = 1; carregarApoiadores();
+    }
+    function limparFiltroDataApo() {
+      document.getElementById('apoFrom').value = ''; document.getElementById('apoTo').value = '';
+      dataDeApo = ''; dataAteApo = ''; paginaAtualApo = 1; carregarApoiadores();
+    }
+    function filtrosQSApo() {
+      const qs = new URLSearchParams();
+      if (buscaAtualApo) qs.set('q', buscaAtualApo);
+      if (dataDeApo) qs.set('from', dataDeApo);
+      if (dataAteApo) qs.set('to', dataAteApo);
+      return qs;
+    }
+    function exportarCsvApo() {
+      const qs = filtrosQSApo();
+      qs.set('export', 'csv');
+      window.open('/api/admin/apoiadores?' + qs.toString(), '_blank');
+    }
+
+    async function carregarApoiadores() {
+      try {
+        const qs = filtrosQSApo();
+        qs.set('page', paginaAtualApo);
+        const d = await api('/api/admin/apoiadores?' + qs.toString());
+        totalApoiadores = d.total;
+        const body = document.getElementById('apoiadoresBody');
+        body.innerHTML = '';
+        document.getElementById('apoiadoresEmpty').classList.toggle('hidden', d.itens.length > 0);
+        d.itens.forEach(l => {
+          const tr = document.createElement('tr');
+          const dt = new Date(l.criado_em).toLocaleString('pt-BR', { dateStyle: 'short', timeStyle: 'short' });
+          const nasc = l.data_nascimento ? new Date(l.data_nascimento).toLocaleDateString('pt-BR') : '—';
+          const link = waLink(l.numero);
+          tr.innerHTML = '<td>' + esc(l.nome) + '</td>' +
+            '<td>' + (link ? ('<a class="wa-link" target="_blank" href="' + link + '">' + esc(l.numero || '') + '</a>') : '—') + '</td>' +
+            '<td>' + esc(l.bairro || '—') + '</td>' +
+            '<td>' + esc(l.nome_mae || '—') + '</td>' +
+            '<td>' + nasc + '</td>' +
+            '<td>' + esc(l.endereco || '—') + '</td>' +
+            '<td>' + esc(l.indicado_por || '—') + '</td>' +
+            '<td>' + dt + '</td>' +
+            '<td><button type="button" class="btn-del-apo" data-id="' + l.id + '" title="Excluir">🗑</button></td>';
+          body.appendChild(tr);
+        });
+        const totalPaginas = Math.max(1, Math.ceil(totalApoiadores / 20));
+        document.getElementById('pgInfoApo').textContent = 'página ' + paginaAtualApo + ' de ' + totalPaginas;
+        document.getElementById('pgPrevApo').disabled = paginaAtualApo <= 1;
+        document.getElementById('pgNextApo').disabled = paginaAtualApo >= totalPaginas;
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+      }
+    }
+
+    function mudarPaginaApo(delta) {
+      paginaAtualApo = Math.max(1, paginaAtualApo + delta);
+      carregarApoiadores();
+    }
+
+    document.getElementById('apoiadoresBody').addEventListener('click', async e => {
+      const b = e.target.closest('.btn-del-apo'); if (!b) return;
+      if (!confirm('Excluir esse apoiador? Não dá pra desfazer.')) return;
+      b.disabled = true;
+      try {
+        await api('/api/admin/apoiadores?id=' + b.dataset.id, { method: 'DELETE' });
+        carregarApoiadores();
+        carregarResumoVotos();
+      } catch (e) {
+        alert('Erro ao excluir: ' + e.message);
+        b.disabled = false;
+      }
+    });
+
+    function esc(s) { return (s || '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+    function toggleSecao(id) {
+      document.getElementById(id).classList.toggle('aberto');
+    }
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.tbl-collapsible')) {
+        document.querySelectorAll('.tbl-collapsible.aberto').forEach(s => s.classList.remove('aberto'));
+      }
+    });
+
+    /* célula de texto longo (mensagem/observação): no mobile fica com altura
+       fixa e uma setinha pra expandir e ler até o final, sem deformar a tabela */
+    let msgCellSeq = 0;
+    function celulaMsg(texto) {
+      const t = texto || '—';
+      const id = 'msgc' + (msgCellSeq++);
+      return '<td class="msg"><div class="msg-content" id="' + id + '">' + esc(t) + '</div>' +
+        '<button type="button" class="msg-toggle" onclick="toggleMsg(\'' + id + '\', this)">▾ ver mais</button></td>';
+    }
+    function toggleMsg(id, btn) {
+      const el = document.getElementById(id);
+      const expandido = el.classList.toggle('expanded');
+      btn.textContent = expandido ? '▴ ver menos' : '▾ ver mais';
+    }
+
+    /* ══════════ aba IA do Aldo ══════════ */
+    let iaCfg = null, iaVersion = 0, iaDirty = false, iaCarregou = false;
+
+    async function carregarIA(forcar) {
+      if (iaCarregou && !forcar) return;
+      const cont = document.getElementById('iaPassos');
+      cont.innerHTML = '<div class="empty-msg">Carregando…</div>';
+      try {
+        const d = await api('/api/iadoaldo');
+        iaCfg = d.config; iaVersion = d.version; iaDirty = false; iaCarregou = true;
+        pintarIA();
+        iaMsgStatus(iaVersion === 0 ? 'Mostrando o conteúdo padrão — edite e salve para publicar a sua versão.' : '', '');
+      } catch (e) {
+        cont.innerHTML = '<div class="empty-msg">Não deu pra carregar: ' + esc(e.message) + '</div>';
+      }
+    }
+
+    function iaSujo() {
+      iaDirty = true;
+      iaMsgStatus('Alterações não salvas', 'pendente');
+    }
+
+    function iaMsgStatus(txt, classe) {
+      const el = document.getElementById('iaStatusTxt');
+      el.textContent = txt;
+      el.className = 'ia-status-txt' + (classe ? ' ' + classe : '');
+    }
+
+    function pintarIA() {
+      document.getElementById('iaNome').value = iaCfg.nome || '';
+      document.getElementById('iaStatus').value = iaCfg.status || '';
+      document.getElementById('iaFotoUrl').value = iaCfg.foto && !iaCfg.foto.startsWith('data:') ? iaCfg.foto : '';
+      document.getElementById('iaFotoPrev').src = iaCfg.foto || 'img/fotocandidato.webp';
+      pintarPassosIA();
+    }
+
+    function iaDestinos(atualGoto) {
+      let html = '<option value=""' + (atualGoto ? '' : ' selected') + '>→ Voltar ao início</option>';
+      iaCfg.passos.forEach((p, i) => {
+        html += '<option value="' + esc(p.id) + '"' + (atualGoto === p.id ? ' selected' : '') + '>→ Passo ' + (i + 1) + ' — ' + esc(p.titulo || '') + '</option>';
+      });
+      return html;
+    }
+
+    function pintarPassosIA() {
+      const cont = document.getElementById('iaPassos');
+      if (!iaCfg.passos.length) { cont.innerHTML = '<div class="empty-msg">Nenhum passo ainda. Adicione o primeiro abaixo.</div>'; return; }
+      cont.innerHTML = iaCfg.passos.map((p, pi) => {
+        const ehInicio = iaCfg.inicio === p.id;
+        const msgs = p.msgs.map((m, mi) =>
+          '<div class="ia-msg-row">' +
+          '<textarea rows="2" placeholder="Um balãozinho da resposta" oninput="iaCfg.passos[' + pi + '].msgs[' + mi + ']=this.value;iaSujo()">' + esc(m) + '</textarea>' +
+          '<button type="button" class="ia-mini" title="Subir" onclick="iaMoveMsg(' + pi + ',' + mi + ',-1)">↑</button>' +
+          '<button type="button" class="ia-mini" title="Descer" onclick="iaMoveMsg(' + pi + ',' + mi + ',1)">↓</button>' +
+          '<button type="button" class="ia-mini perigo" title="Remover balãozinho" onclick="iaDelMsg(' + pi + ',' + mi + ')">×</button>' +
+          '</div>').join('');
+        const opts = p.opcoes.map((o, oi) =>
+          '<div class="ia-opt-row">' +
+          '<input type="text" placeholder="Texto do botão" value="' + esc(o.label) + '" oninput="iaCfg.passos[' + pi + '].opcoes[' + oi + '].label=this.value;iaSujo()">' +
+          '<select onchange="iaCfg.passos[' + pi + '].opcoes[' + oi + '].goto=this.value;iaSujo()">' + iaDestinos(o.goto) + '</select>' +
+          '<button type="button" class="ia-mini perigo" title="Remover botão" onclick="iaDelOpt(' + pi + ',' + oi + ')">×</button>' +
+          '</div>').join('');
+        return '<div class="ia-passo' + (ehInicio ? ' inicio' : '') + '">' +
+          '<div class="ia-passo-head">' +
+          '<span class="ia-badge' + (ehInicio ? ' ini' : '') + '">' + (ehInicio ? '★ INÍCIO · ' : '') + 'PASSO ' + (pi + 1) + '</span>' +
+          '<input type="text" placeholder="Nome do passo (só pra você se achar)" value="' + esc(p.titulo || '') + '" oninput="iaCfg.passos[' + pi + '].titulo=this.value;iaSujo()">' +
+          (ehInicio ? '' : '<button type="button" class="ia-mini" onclick="iaInicio(' + pi + ')">Tornar início</button>') +
+          '<button type="button" class="ia-mini" title="Subir passo" onclick="iaMovePasso(' + pi + ',-1)">↑</button>' +
+          '<button type="button" class="ia-mini" title="Descer passo" onclick="iaMovePasso(' + pi + ',1)">↓</button>' +
+          '<button type="button" class="ia-mini perigo" onclick="iaDelPasso(' + pi + ')">Excluir</button>' +
+          '</div>' +
+          '<div class="ia-sec">Balõezinhos da resposta</div>' + msgs +
+          '<button type="button" class="ia-add" onclick="iaAddMsg(' + pi + ')">+ balãozinho</button>' +
+          '<div class="ia-sec">Botões que a pessoa pode clicar</div>' +
+          (opts || '<div style="font-size:12.5px;color:var(--dim);margin-bottom:7px">Sem botões: a página mostra sozinha um "Voltar ao início".</div>') +
+          '<button type="button" class="ia-add" onclick="iaAddOpt(' + pi + ')">+ botão de resposta</button>' +
+          '</div>';
+      }).join('');
+    }
+
+    function iaAddMsg(pi) { iaCfg.passos[pi].msgs.push(''); iaSujo(); pintarPassosIA(); }
+    function iaDelMsg(pi, mi) {
+      if (iaCfg.passos[pi].msgs.length <= 1) return alert('O passo precisa de pelo menos um balãozinho. Pra sumir com ele, exclua o passo.');
+      iaCfg.passos[pi].msgs.splice(mi, 1); iaSujo(); pintarPassosIA();
+    }
+    function iaMoveMsg(pi, mi, dir) {
+      const arr = iaCfg.passos[pi].msgs, j = mi + dir;
+      if (j < 0 || j >= arr.length) return;
+      [arr[mi], arr[j]] = [arr[j], arr[mi]]; iaSujo(); pintarPassosIA();
+    }
+    function iaAddOpt(pi) { iaCfg.passos[pi].opcoes.push({ label: '', goto: '' }); iaSujo(); pintarPassosIA(); }
+    function iaDelOpt(pi, oi) { iaCfg.passos[pi].opcoes.splice(oi, 1); iaSujo(); pintarPassosIA(); }
+
+    function iaNovoId() {
+      let id;
+      do { id = 'p' + Math.random().toString(36).slice(2, 7); } while (iaCfg.passos.some(p => p.id === id));
+      return id;
+    }
+    function iaAddPasso() {
+      iaCfg.passos.push({ id: iaNovoId(), titulo: 'Novo passo', msgs: [''], opcoes: [] });
+      iaSujo(); pintarPassosIA();
+      const cards = document.querySelectorAll('#iaPassos .ia-passo');
+      cards[cards.length - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+    function iaDelPasso(pi) {
+      const p = iaCfg.passos[pi];
+      const apontam = [];
+      iaCfg.passos.forEach((q, qi) => { if (qi !== pi) q.opcoes.forEach(o => { if (o.goto === p.id) apontam.push(qi + 1); }); });
+      let aviso = 'Excluir o passo ' + (pi + 1) + ' — "' + (p.titulo || '') + '"?';
+      if (apontam.length) aviso += '\n\nBotões do(s) passo(s) ' + apontam.join(', ') + ' apontavam pra ele e vão passar a voltar pro início.';
+      if (!confirm(aviso)) return;
+      iaCfg.passos.splice(pi, 1);
+      iaCfg.passos.forEach(q => q.opcoes.forEach(o => { if (o.goto === p.id) o.goto = ''; }));
+      if (iaCfg.inicio === p.id && iaCfg.passos.length) iaCfg.inicio = iaCfg.passos[0].id;
+      iaSujo(); pintarPassosIA();
+    }
+    function iaMovePasso(pi, dir) {
+      const j = pi + dir;
+      if (j < 0 || j >= iaCfg.passos.length) return;
+      [iaCfg.passos[pi], iaCfg.passos[j]] = [iaCfg.passos[j], iaCfg.passos[pi]];
+      iaSujo(); pintarPassosIA();
+    }
+    function iaInicio(pi) { iaCfg.inicio = iaCfg.passos[pi].id; iaSujo(); pintarPassosIA(); }
+
+    function iaMudarFotoUrl(v) {
+      iaCfg.foto = v.trim();
+      document.getElementById('iaFotoPrev').src = iaCfg.foto || 'img/fotocandidato.webp';
+      iaSujo();
+    }
+    function iaFotoArquivo(input) {
+      const arq = input.files && input.files[0];
+      if (!arq) return;
+      const img = new Image();
+      img.onload = () => {
+        // encolhe pra 512px e comprime: cabe no banco e carrega rápido na página
+        const lado = Math.min(img.width, img.height);
+        const c = document.createElement('canvas');
+        c.width = c.height = Math.min(512, lado);
+        const ctx = c.getContext('2d');
+        ctx.drawImage(img, (img.width - lado) / 2, (img.height - lado) / 2, lado, lado, 0, 0, c.width, c.height);
+        let dataUrl = c.toDataURL('image/webp', 0.85);
+        if (!dataUrl.startsWith('data:image/webp')) dataUrl = c.toDataURL('image/jpeg', 0.85);
+        iaCfg.foto = dataUrl;
+        document.getElementById('iaFotoPrev').src = dataUrl;
+        document.getElementById('iaFotoUrl').value = '';
+        iaSujo();
+        URL.revokeObjectURL(img.src);
+      };
+      img.onerror = () => alert('Não deu pra ler essa imagem. Tente um JPG, PNG ou WEBP.');
+      img.src = URL.createObjectURL(arq);
+      input.value = '';
+    }
+
+    async function salvarIA() {
+      // validações amigáveis antes de mandar pro servidor
+      for (let i = 0; i < iaCfg.passos.length; i++) {
+        const p = iaCfg.passos[i];
+        if (!p.msgs.some(m => m.trim())) return alert('O passo ' + (i + 1) + ' está sem texto em todos os balõezinhos. Escreva algo ou exclua o passo.');
+        for (const o of p.opcoes) if (!o.label.trim()) return alert('Tem um botão sem texto no passo ' + (i + 1) + '. Escreva o texto ou remova o botão.');
+      }
+      const btn = document.getElementById('iaSalvarBtn');
+      btn.disabled = true; iaMsgStatus('Salvando…', '');
+      try {
+        const d = await api('/api/iadoaldo', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ config: iaCfg, version: iaVersion }),
+        });
+        iaCfg = d.config; iaVersion = d.version; iaDirty = false;
+        pintarIA();
+        iaMsgStatus('Salvo! Já está no ar em /iadoaldo ✓', 'ok');
+      } catch (e) {
+        if (String(e.message).includes('outra aba')) {
+          if (confirm(e.message + '\n\nRecarregar agora? (o que você editou aqui será perdido)')) { iaCarregou = false; carregarIA(true); }
+          else iaMsgStatus('Conflito de versão — não salvo.', 'pendente');
+        } else {
+          iaMsgStatus('Erro ao salvar: ' + e.message, 'pendente');
+        }
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function restaurarIA() {
+      if (!confirm('Voltar a conversa pro conteúdo padrão? A versão que está no ar será substituída.')) return;
+      try {
+        const d = await api('/api/iadoaldo', { method: 'DELETE' });
+        iaCfg = d.config; iaVersion = d.version; iaDirty = false;
+        pintarIA();
+        iaMsgStatus('Padrão restaurado — a página /iadoaldo já está com o conteúdo original.', 'ok');
+      } catch (e) { alert('Não deu pra restaurar: ' + e.message); }
+    }
+
+    window.addEventListener('beforeunload', e => {
+      if (iaDirty) { e.preventDefault(); e.returnValue = ''; }
+    });
+
+    /* tenta reaproveitar sessão já aberta */
+    (async function () {
+      try { await api('/api/admin/metrics?period=hoje'); mostrarPainel(); } catch (e) { }
+    })();
+  </script>
+</body>
+
+</html>

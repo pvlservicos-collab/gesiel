@@ -1,0 +1,353 @@
+[
+  {
+    "zona": "2",
+    "municipio": "MACAPÁ",
+    "local": "2208 - ESCOLA MUNICIPAL DE ENSINO FUNDAMENTAL ESFORÇO POPULAR",
+    "endereco": "RUA RAIMUNDO FERREIRA DA SILVA - 241",
+    "secoes": "626; 649; 673; 697; 723; 735; 756; 791",
+    "qtdSecoes": 8,
+    "aptos": 2090
+  },
+  {
+    "zona": "2",
+    "municipio": "MACAPÁ",
+    "local": "2232 - ESCOLA MUNICIPAL DE ENSINO FUNDAMENTAL RAIMUNDO OLIVEIRA ALENCAR",
+    "endereco": "RUA VINTE E NOVE DE JULHO - 155",
+    "secoes": "627; 684; 710; 730; 803",
+    "qtdSecoes": 5,
+    "aptos": 973
+  },
+  {
+    "zona": "2",
+    "municipio": "MACAPÁ",
+    "local": "2240 - ESCOLA MUNICIPAL DE ENSINO FUNDAMENTAL ELITA NUNES MELO",
+    "endereco": "AVENIDA 14 DE JULHO - 1050",
+    "secoes": "623; 683; 722; 796",
+    "qtdSecoes": 4,
+    "aptos": 745
+  },
+  {
+    "zona": "2",
+    "municipio": "MACAPÁ",
+    "local": "2321 - ESCOLA ESTADUAL PROFª NANCI NINA COSTA",
+    "endereco": "AV. INSPETOR AIMORÉ, 1331",
+    "secoes": "725; 732; 736; 743; 749; 752; 755; 759; 765; 767; 815; 826",
+    "qtdSecoes": 12,
+    "aptos": 4579
+  },
+  {
+    "zona": "2",
+    "municipio": "MACAPÁ",
+    "local": "2666 - ESCOLA ESTADUAL JOSEFA JUCILEIDE AMORAS COLARES",
+    "endereco": "AV.RAIMUNDO TEQUILO GOES DE ALMEIDA    000147",
+    "secoes": "857; 858; 859; 860; 861; 862; 863; 864; 865; 866; 867",
+    "qtdSecoes": 11,
+    "aptos": 4062
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1082 - ESCOLA ESTADUAL PEDRO ALCANTARA CHAVES. LOPES",
+    "endereco": "RUA JOSÉ MARIANO PICANÇO, 1134",
+    "secoes": "67; 286; 406",
+    "qtdSecoes": 3,
+    "aptos": 703
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1104 - ESCOLA ESTADUAL SAO JOAQUIM DO PACUI",
+    "endereco": "RUA MARCOS BOTAS, 719",
+    "secoes": "69; 70; 365",
+    "qtdSecoes": 3,
+    "aptos": 938
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1120 - ESCOLA ESTADUAL JOÃO MACIEL AMANAJÁS",
+    "endereco": "RIO IPIXUNA SN",
+    "secoes": "72; 428",
+    "qtdSecoes": 2,
+    "aptos": 453
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1139 - ESCOLA MUNICIPAL TEIXEIRA DE FREITAS",
+    "endereco": "VILA DE SAO PEDRO DOS BOIS SN",
+    "secoes": "73",
+    "qtdSecoes": 1,
+    "aptos": 154
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1155 - ESCOLA ESTADUAL SAO TOME DO PACUI",
+    "endereco": "RUA JOÃO FREITAS, 195",
+    "secoes": "75",
+    "qtdSecoes": 1,
+    "aptos": 292
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1236 - ESCOLA ESTADUAL DE CARAPANATUBA",
+    "endereco": "CARAPANATUBA RIBEIRINHA",
+    "secoes": "91; 413",
+    "qtdSecoes": 2,
+    "aptos": 529
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1252 - ESCOLA MUNICIPAL IRIDIO ROCHA DA CONCEIÇÃO",
+    "endereco": "RUA IRÍDIO ROCHA, S/N",
+    "secoes": "94; 340; 485",
+    "qtdSecoes": 3,
+    "aptos": 713
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1422 - ESCOLA MUNICIPAL PROFESSOR JOSAFA AIRES DA COSTA",
+    "endereco": "RUA 1 DE JANEIRO, 974",
+    "secoes": "151; 176; 196; 226; 248; 280; 332; 349; 367; 487",
+    "qtdSecoes": 10,
+    "aptos": 3696
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1430 - ESCOLA MUNICIPAL BENEDITA TAVARES",
+    "endereco": "RUA CATANZAL, 232",
+    "secoes": "160; 405",
+    "qtdSecoes": 2,
+    "aptos": 343
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1457 - ESCOLA ESTADUAL JOAQUIM MANOEL DE JESUS PICANÇO",
+    "endereco": "COMUNIDADE DO AMBE",
+    "secoes": "189",
+    "qtdSecoes": 1,
+    "aptos": 120
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1481 - ESCOLA ESTADUAL BERNADINO SILVA",
+    "endereco": "RUA PONTA GROSSA, 200",
+    "secoes": "221; 224",
+    "qtdSecoes": 2,
+    "aptos": 262
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1490 - ESCOLA ESTADUAL JOSÉ OLIVEIRA COELHO",
+    "endereco": "VILA DE SÃO BENEDITO DO PACUÍ",
+    "secoes": "225",
+    "qtdSecoes": 1,
+    "aptos": 246
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1520 - ESCOLA ESTADUAL PROFESSOR ANTONIO FERREIRA DE LIMA NETO",
+    "endereco": "AV. FRANCISCO FELIPPE DE MIRANDA  NERY - 2336",
+    "secoes": "201; 210; 215; 231; 241; 251; 265; 294; 314; 328; 343; 348; 386",
+    "qtdSecoes": 13,
+    "aptos": 5080
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1570 - ESCOLA MUNICIPAL SÃO RAIMUNDO DO PARAÍSO",
+    "endereco": "MARGEM ESQUERDA DO RIO PEDREIRA",
+    "secoes": "235",
+    "qtdSecoes": 1,
+    "aptos": 286
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1589 - ESCOLA ESTADUAL SÃO SEBASTIÃO",
+    "endereco": "VILA DE SÃO SEBASTIÃO DA BOA VISTA",
+    "secoes": "253",
+    "qtdSecoes": 1,
+    "aptos": 230
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1708 - ESCOLA ESTADUAL NAZARÉ DA PEDREIRA",
+    "endereco": "VILA LONTRA DA PEDREIRA",
+    "secoes": "389",
+    "qtdSecoes": 1,
+    "aptos": 259
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1767 - ESCOLA MUNICIPAL JOÃO ROLINDO DO CARMO",
+    "endereco": "IGARAPÉ AMAZONAS",
+    "secoes": "431",
+    "qtdSecoes": 1,
+    "aptos": 141
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1856 - ESCOLA ESTADUAL PROFESSORA MARLY MARIA E SOUZA E SILVA",
+    "endereco": "RUA 12 - LOTE 01, QUADRA 18, SUB LOTE 04, 2110",
+    "secoes": "449; 489",
+    "qtdSecoes": 2,
+    "aptos": 456
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1929 - ESCOLA ESTADUAL OLENDINA FERREIRA DO ROSARIO",
+    "endereco": "COMUNIDADE DO CAROBAL",
+    "secoes": "451",
+    "qtdSecoes": 1,
+    "aptos": 59
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "1996 - ESCOLA QUILOMBOLA ESTADUAL ANTÔNIO FIGUEIREDO DA SILVA",
+    "endereco": "BR 156 MACAPA - JARI, KM 21",
+    "secoes": "469; 470",
+    "qtdSecoes": 2,
+    "aptos": 410
+  },
+  {
+    "zona": "10",
+    "municipio": "MACAPÁ",
+    "local": "2011 - ESCOLA ESTADUAL PROFESSOR RAIMUNDO PEREIRA DA SILVA",
+    "endereco": "VILA DE MARUANUM SN",
+    "secoes": "473; 474; 475",
+    "qtdSecoes": 3,
+    "aptos": 814
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1236 - EEEF PROF HELENISE WALMIRA DIAS DOS SANTOS",
+    "endereco": "LINHA B DO KM 09 S/N",
+    "secoes": "157; 158; 159",
+    "qtdSecoes": 3,
+    "aptos": 801
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1341 - ESCOLA ESTADUAL MARIA DO SOCORRO ANDRADE SMITH",
+    "endereco": "CONJUNTO CABRALZINHO                  CABRALZINHO        SN",
+    "secoes": "237; 238; 239; 240; 241; 242; 243; 244; 245",
+    "qtdSecoes": 9,
+    "aptos": 3135
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1503 - ESCOLA MUNICIPAL DE ENSINO INFANTIL MEU PE DE LARANJA LIMA",
+    "endereco": "AV. CORA DE CARVALHO, 137",
+    "secoes": "352; 353; 354; 355; 356",
+    "qtdSecoes": 5,
+    "aptos": 1249
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1511 - ESCOLA QUILOMBOLA ESTADUAL DAVID MIRANDA DOS SANTOS",
+    "endereco": "COMUNIDADE QUILOMBOLA SÃO JOSÉ DO MATAPI",
+    "secoes": "357",
+    "qtdSecoes": 1,
+    "aptos": 191
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1554 - ESCOLA ESTADUAL BENTO TOLOSA DE SANTANA",
+    "endereco": "FOZ DO GURIJUBA",
+    "secoes": "384; 385; 386",
+    "qtdSecoes": 3,
+    "aptos": 314
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1562 - ESCOLA ESTADUAL CLAUDIO DOS SANTOS BARBOSA",
+    "endereco": "VILA PROGESSO",
+    "secoes": "387; 388; 389; 390; 391; 392",
+    "qtdSecoes": 6,
+    "aptos": 1873
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1570 - ESCOLA ESTADUAL FRANCO GRANDE",
+    "endereco": "ILHA DO FRANCO GRANDE, SN",
+    "secoes": "393",
+    "qtdSecoes": 1,
+    "aptos": 307
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1589 - ESCOLA ESTADUAL IGARAPÉ GRANDE DA TERRA GRANDE",
+    "endereco": "IGARAPÉ GRANDE",
+    "secoes": "394; 395",
+    "qtdSecoes": 2,
+    "aptos": 402
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1597 - ESCOLA ESTADUAL ITAMATATUBA",
+    "endereco": "VILA DE ITAMATATUBA",
+    "secoes": "396; 397; 398",
+    "qtdSecoes": 3,
+    "aptos": 442
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1600 - ESCOLA ESTADUAL MANOEL PEREIRA HERCULANO-JABURUZINHO",
+    "endereco": "COMUNIDADE DE JABURUZINHO",
+    "secoes": "399; 400",
+    "qtdSecoes": 2,
+    "aptos": 195
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1619 - ESCOLA ESTADUAL MARIA JOSE CAMPELO DA SILVA",
+    "endereco": "LOCALIDADE LIMAO DO CURUA",
+    "secoes": "401; 402",
+    "qtdSecoes": 2,
+    "aptos": 443
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1635 - ESCOLA MUNICIPAL DE ENSINO FUNDMENTAL ROSA DE SHARON",
+    "endereco": "ILHA DO BRIGUE - MACEDONIA                     SN",
+    "secoes": "406; 407; 408; 409",
+    "qtdSecoes": 4,
+    "aptos": 814
+  },
+  {
+    "zona": "14",
+    "municipio": "MACAPÁ",
+    "local": "1651 - ESCOLA ESTADUAL ROSA DOS SANTOS SARGES",
+    "endereco": "COMUNIDADE DO ARRAIOL",
+    "secoes": "403; 404; 405",
+    "qtdSecoes": 3,
+    "aptos": 275
+  }
+]

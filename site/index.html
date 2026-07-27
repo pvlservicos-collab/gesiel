@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Aldo Maurício — Pré-Candidato a Deputado Estadual</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Merriweather:ital@1&family=Nunito:wght@600;700;800&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --azul: #091f80;
+      --azul-esc: #050e52;
+      --azul-med: #0e2eaa;
+      --verde: #1a8c2a;
+      --verde-claro: #22aa34;
+      --ouro: #f5c518;
+      --ouro-esc: #c8a000;
+      --vermelho: #8b1a1a;
+      --branco: #ffffff;
+      --cinza-bg: #f2f5fb;
+      --text-esc: #0a1540;
+      --text-med: #3a4a7a;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--branco);
+      color: var(--text-esc);
+      overflow-x: hidden
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(8, 29, 110, .97);
+      backdrop-filter: blur(10px);
+      height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      border-bottom: none;
+      transition: box-shadow .3s;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none
+    }
+
+    .nav-logo {
+      height: 51px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .nav-star-row {
+      display: flex;
+      gap: 4px;
+      align-items: center
+    }
+
+    .nav-star-row i {
+      display: inline-block;
+      background: var(--ouro);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .nav-star-row i:nth-child(odd) {
+      width: 9px;
+      height: 9px
+    }
+
+    .nav-star-row i:nth-child(even) {
+      width: 6px;
+      height: 6px;
+      opacity: .6;
+      margin-top: 2px
+    }
+
+    .nav-nome {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--branco);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .nav-nome b {
+      color: var(--verde-claro);
+      font-weight: 800
+    }
+
+    .nav-links {
+      display: flex;
+      gap: .2rem;
+      list-style: none;
+      align-items: center
+    }
+
+    .nav-links>li {
+      position: relative
+    }
+
+    .nav-links>li>a,
+    .nav-links>li>button {
+      color: #ffffff;
+      text-decoration: none;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .76rem;
+      font-weight: 400;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      transition: color .2s;
+      padding: 8px 12px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .nav-links>li>a:hover,
+    .nav-links>li>button:hover {
+      color: var(--ouro)
+    }
+
+    .nav-links>li>a.active,
+    .nav-links>li>button.active {
+      color: var(--ouro)
+    }
+
+    .nav-chevron {
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid currentColor;
+      transition: transform .25s;
+      margin-top: 1px;
+    }
+
+    /* DROPDOWN */
+    .nav-dropdown {
+      position: absolute;
+      top: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%) translateY(-8px);
+      background: rgba(6, 22, 90, .98);
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-top: 2px solid var(--ouro);
+      border-radius: 8px;
+      min-width: 220px;
+      padding: 8px 0;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .22s ease, transform .22s ease;
+      box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+      z-index: 300;
+    }
+
+    .nav-links>li:hover .nav-dropdown,
+    .nav-links>li.dd-open .nav-dropdown {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .nav-links>li:hover .nav-chevron,
+    .nav-links>li.dd-open .nav-chevron {
+      transform: rotate(180deg)
+    }
+
+    .nav-dropdown a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      color: #fff;
+      text-decoration: none;
+      font-size: .82rem;
+      font-weight: 600;
+      letter-spacing: .12em;
+      transition: background .15s, color .15s;
+      white-space: nowrap;
+    }
+
+    .nav-dropdown a:hover {
+      background: rgba(255, 255, 255, .08);
+      color: var(--ouro)
+    }
+
+    .nav-dropdown .dd-label {
+      padding: 8px 18px 4px;
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+      color: rgba(255, 255, 255, .4);
+      text-transform: uppercase;
+    }
+
+    .nav-dropdown .dd-sep {
+      height: 1px;
+      background: rgba(255, 255, 255, .08);
+      margin: 6px 0
+    }
+
+    .dd-ico {
+      font-size: .95rem
+    }
+
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 26px;
+      height: 2.5px;
+      background: var(--branco);
+      border-radius: 2px;
+      transition: .3s
+    }
+
+    /* ── HERO (replica da imagem) ── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      padding: 62px 0 0;
+      width: 100%;
+    }
+
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      bottom: 0;
+      background: linear-gradient(to bottom,
+          var(--verde) 0%, var(--verde) 50%,
+          var(--ouro) 50%, var(--ouro) 100%);
+      z-index: 15;
+      pointer-events: none;
+    }
+
+    /* --- Lado esquerdo (foto) --- */
+    .hero-esq {
+      position: relative;
+      background: #dde4f2;
+      display: flex;
+      align-items: stretch;
+      overflow: hidden;
+    }
+
+    .hero-esq img.hero-foto {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .hero-foto-placeholder {
+      width: 100%;
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      background: linear-gradient(155deg, #c8d4f0, #aebce0);
+      color: #7080b0;
+    }
+
+    .hero-foto-placeholder svg {
+      width: 80px;
+      height: 80px;
+      opacity: .35
+    }
+
+    .hero-foto-placeholder p {
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase
+    }
+
+    /* gradiente de transição para o azul */
+    .hero-esq::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -2px;
+      bottom: 0;
+      width: 120px;
+      background: linear-gradient(to right, transparent, var(--azul-esc));
+      z-index: 2;
+    }
+
+    /* --- Três listras diagonais: verde + amarela + verde (faixa presidencial) --- */
+    .hero-bandeira {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: calc(50% - 41.8px);
+      width: 83.6px;
+      z-index: 10;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      transform: skewX(-6deg);
+      overflow: visible;
+      pointer-events: none;
+    }
+
+    .fb-azul {
+      flex: 1;
+      background: linear-gradient(to bottom, #1a4fd8 0%, #091f80 40%, #04083a 100%);
+      box-shadow: inset -1px 0 6px rgba(0, 0, 0, .3);
+    }
+
+    .fb-verde {
+      flex: 1;
+      background: linear-gradient(to bottom, #2dc840 0%, #1a8c2a 40%, #0e5018 100%);
+    }
+
+    .fb-amarela {
+      flex: 1;
+      background: linear-gradient(to bottom, #ffe84d 0%, #FFDF00 40%, #c9a800 100%);
+      box-shadow: 0 0 16px rgba(255, 223, 0, .5);
+    }
+
+    /* --- Lado direito (azul) --- */
+    .hero-dir {
+      background: linear-gradient(148deg, var(--azul-esc) 0%, var(--azul) 55%, var(--azul-med) 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 80px 6% 60px 11%;
+      z-index: 5;
+    }
+
+    /* constelação de estrelas no fundo */
+    .hero-dir::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle 2.5px at 18% 12%, rgba(255, 255, 255, .65) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 32% 6%, rgba(255, 255, 255, .45) 100%, transparent 0),
+        radial-gradient(circle 2px at 52% 9%, rgba(255, 255, 255, .55) 100%, transparent 0),
+        radial-gradient(circle 1px at 68% 20%, rgba(255, 255, 255, .4) 100%, transparent 0),
+        radial-gradient(circle 2.5px at 82% 8%, rgba(255, 255, 255, .6) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 91% 30%, rgba(255, 255, 255, .45) 100%, transparent 0),
+        radial-gradient(circle 2px at 10% 50%, rgba(255, 255, 255, .35) 100%, transparent 0),
+        radial-gradient(circle 1px at 75% 55%, rgba(255, 255, 255, .3) 100%, transparent 0),
+        radial-gradient(circle 2px at 28% 72%, rgba(255, 255, 255, .4) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 60% 80%, rgba(255, 255, 255, .35) 100%, transparent 0),
+        radial-gradient(circle 2px at 85% 78%, rgba(255, 255, 255, .45) 100%, transparent 0),
+        radial-gradient(circle 1px at 45% 92%, rgba(255, 255, 255, .3) 100%, transparent 0);
+    }
+
+
+    /* arco + estrelas acima do nome */
+    .hero-arco-wrap {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+      animation: sUp .6s ease both
+    }
+
+    .hero-arco-wrap svg {
+      width: min(280px, 78%);
+      height: auto
+    }
+
+    .hero-badge-pl {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--ouro);
+      color: var(--azul-esc);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .8rem;
+      font-weight: 900;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 4px;
+      margin-bottom: 18px;
+      align-self: flex-start;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .05s ease both;
+    }
+
+    .badge-star {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      background: var(--azul-esc);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .h-logo-hero {
+      width: min(253px, 75%);
+      height: auto;
+      display: block;
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .1s ease both;
+      filter: drop-shadow(0 2px 8px rgba(0, 0, 0, .18));
+    }
+
+    .h-nome1 {
+      animation: sUp .65s .1s ease both;
+    }
+
+    .h-nome2 {
+      margin-bottom: 20px;
+      animation: sUp .65s .16s ease both;
+    }
+
+    .h-pre {
+      display: inline-block;
+      background: var(--vermelho);
+      color: var(--branco);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(1rem, 2vw, 1.4rem);
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .22s ease both;
+    }
+
+    .h-cargo {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 900;
+      color: var(--branco);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      line-height: .95;
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .28s ease both;
+    }
+
+    .h-tagline {
+      font-size: clamp(.88rem, 1.3vw, .98rem);
+      color: #ffffff;
+      line-height: 1.68;
+      margin-bottom: 18px;
+      max-width: 460px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .34s ease both;
+    }
+
+    .h-versiculo {
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-size: clamp(.82rem, 1.2vw, .92rem);
+      color: var(--ouro);
+      border-left: 3px solid var(--ouro);
+      padding-left: 14px;
+      margin-bottom: 34px;
+      max-width: 400px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .4s ease both;
+    }
+
+    .h-btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      position: relative;
+      z-index: 1;
+      animation: sUp .65s .46s ease both;
+    }
+
+    .btn-ouro {
+      background: linear-gradient(135deg, #2dc840 0%, #1a8c2a 55%, #0e5018 100%);
+      color: var(--branco);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 14px 28px;
+      border-radius: 5px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 6px 22px rgba(26, 140, 42, .45);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn-ouro:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(26, 140, 42, .6)
+    }
+
+    .btn-borda {
+      background: transparent;
+      color: var(--branco);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 13px 28px;
+      border-radius: 5px;
+      text-decoration: none;
+      border: 2px solid rgba(255, 255, 255, .42);
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .btn-borda:hover {
+      border-color: var(--branco);
+      background: rgba(255, 255, 255, .08)
+    }
+
+    /* PL sobre a foto — canto esquerdo superior */
+    .h-pl-badge {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 10;
+      background: rgba(8, 29, 110, .85);
+      border: 2px solid rgba(255, 255, 255, .18);
+      border-radius: 10px;
+      padding: 10px 14px;
+      text-align: center;
+    }
+
+    .h-pl-badge .pl-l {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.9rem;
+      font-weight: 900;
+      line-height: 1;
+      background: linear-gradient(135deg, var(--ouro), #fff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .h-pl-badge .pl-s {
+      font-size: .52rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      color: #ffffff;
+      text-transform: uppercase;
+    }
+
+    @keyframes sUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    /* ── FAIXA DECORATIVA TOPO (abaixo da nav) ── */
+    .top-stripe {
+      position: fixed;
+      top: 62px;
+      left: 0;
+      right: 0;
+      z-index: 199;
+      height: 4px;
+      background: linear-gradient(to bottom,
+          var(--verde) 0%, var(--verde) 50%,
+          var(--ouro) 50%, var(--ouro) 100%);
+    }
+
+    .wave {
+      line-height: 0;
+      display: block
+    }
+
+    .wave svg {
+      display: block;
+      width: 100%
+    }
+
+    /* ── FUNDO SEÇÕES CLARAS — borrão azulado suave nos cantos ── */
+    .sec-light {
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%, rgba(14, 46, 168, .055) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(14, 46, 168, .045) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 35% at 100% 0%, rgba(14, 46, 168, .03) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 30% at 0% 100%, rgba(14, 46, 168, .025) 0%, transparent 65%),
+        #ffffff;
+      box-shadow: inset 0 3px 0 0 rgba(9, 31, 128, .1);
+    }
+
+    .sec-light-gray {
+      background:
+        radial-gradient(ellipse 55% 45% at 0% 0%, rgba(14, 46, 168, .06) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 100% 100%, rgba(14, 46, 168, .05) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 35% at 100% 0%, rgba(14, 46, 168, .035) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 30% at 0% 100%, rgba(14, 46, 168, .03) 0%, transparent 65%),
+        #f2f5fb;
+      box-shadow: inset 0 3px 0 0 rgba(245, 197, 24, .28);
+    }
+
+    /* ── SEÇÕES BASE ── */
+    section {
+      padding: 88px 5vw
+    }
+
+    .container {
+      max-width: 1160px;
+      margin: 0 auto
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--azul);
+      margin-bottom: 14px;
+    }
+
+    .eyebrow .dash {
+      display: none
+    }
+
+    .sec-h {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      font-weight: 900;
+      line-height: 1.02;
+      color: var(--text-esc);
+      margin-bottom: 14px;
+    }
+
+    .sec-h.w {
+      color: var(--branco)
+    }
+
+    .sec-p {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(.95rem, 1.5vw, 1.05rem);
+      line-height: 1.75;
+      color: #3a4a78;
+      max-width: 640px;
+      margin-bottom: 50px
+    }
+
+    .sec-p.w {
+      color: #ffffff
+    }
+
+    .def-ico {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .def-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+      letter-spacing: .02em;
+      margin-bottom: 6px;
+    }
+
+    .def-card p {
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: #e8eeff;
+      position: relative;
+      z-index: 1;
+      font-weight: 400;
+    }
+
+    .rv {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .rv2 {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .7s .15s ease, transform .7s .15s ease
+    }
+
+    .rv3 {
+      opacity: 0;
+      transform: translateY(34px);
+      transition: opacity .7s .28s ease, transform .7s .28s ease
+    }
+
+    .rv.on,
+    .rv2.on,
+    .rv3.on {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    /* ── DEFENDE ── */
+    #defende {
+      padding: 0;
+      background: var(--azul-esc);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .defende-layout {
+      display: grid;
+      grid-template-columns: 33% 67%;
+    }
+
+    .defende-foto {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    .defende-foto img,
+    .defende-foto video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .defende-foto::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, transparent 80%, rgba(5, 14, 82, .18) 100%),
+        linear-gradient(to bottom, transparent 92%, rgba(0, 0, 0, .06) 100%);
+      pointer-events: none;
+    }
+
+    .defende-conteudo {
+      padding: 48px 32% 48px 5%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 12px;
+    }
+
+    .defende-intro {
+      font-size: clamp(1rem, 1.4vw, 1.15rem);
+      color: #ffffff;
+      line-height: 1.7;
+    }
+
+    .destaque-nome {
+      font-weight: 800;
+      background: linear-gradient(90deg, #22aa34, var(--ouro));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    #defende .eyebrow {
+      color: var(--ouro);
+    }
+
+    #defende .eyebrow .dash {
+      background: var(--ouro);
+    }
+
+    #defende .sec-h {
+      color: var(--branco);
+    }
+
+    #defende .sec-p {
+      color: rgba(255, 255, 255, .75);
+    }
+
+    #defende .def-card {
+      background: rgba(255, 255, 255, .07);
+      box-shadow: none;
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+
+    #defende .def-card:hover {
+      background: rgba(255, 255, 255, .12);
+    }
+
+    .def-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .def-card {
+      background: linear-gradient(150deg, var(--azul-esc) 0%, var(--azul) 60%, var(--azul-med) 100%);
+      border-radius: 10px;
+      padding: 12px 16px;
+      box-shadow: 0 2px 10px rgba(5, 14, 82, .22);
+      transition: transform .25s, box-shadow .25s;
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      grid-template-rows: auto auto;
+      column-gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* borda só no topo — degradê bandeira */
+    .def-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #009c3b 0%, #FFDF00 50%, #002776 100%);
+      border-radius: 12px 12px 0 0;
+      z-index: 2;
+    }
+
+    .def-card::after {
+      content: none
+    }
+
+    .def-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 6px 24px rgba(5, 14, 82, .32);
+    }
+
+    .def-ico {
+      grid-column: 1;
+      grid-row: 1 / 3;
+      align-self: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+
+    .def-card h3 {
+      grid-column: 2;
+      grid-row: 1;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .def-card p {
+      grid-column: 2;
+      grid-row: 2;
+      font-size: .8rem;
+      line-height: 1.45;
+      color: rgba(255, 255, 255, .78);
+      margin: 0;
+    }
+
+    /* ── QUEM É ── */
+    #quem {
+      padding: 0;
+      background: var(--branco);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .quem-layout {
+      display: grid;
+      grid-template-columns: 68% 32%;
+    }
+
+    .quem-conteudo {
+      padding: 100px 6% 100px 16vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .quem-video {
+      position: relative;
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .quem-video video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .quem-video .img-overlay {
+      z-index: 3;
+    }
+
+    .img-wrap {
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(14, 46, 168, .18);
+      position: relative
+    }
+
+    .img-wrap img,
+    .img-wrap video {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      max-height: 520px;
+    }
+
+    .img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/5;
+      background: linear-gradient(145deg, #c0d0ee, #a8bcd8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      color: #7080b0;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .img-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, var(--azul-esc), transparent);
+      padding: 28px 22px 18px;
+    }
+
+    .img-overlay p {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--branco);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .img-overlay small {
+      font-size: .78rem;
+      color: var(--ouro);
+      letter-spacing: .1em
+    }
+
+    .sound-toggle {
+      position: absolute;
+      z-index: 4;
+      width: 132px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 20px 14px;
+      background: rgba(9, 31, 128, .28);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 18px;
+      color: var(--branco);
+      font-family: 'Inter', sans-serif;
+      font-size: .76rem;
+      font-weight: 600;
+      line-height: 1.35;
+      text-align: center;
+      letter-spacing: .01em;
+      cursor: pointer;
+      transition: opacity .35s, transform .35s, background .2s;
+    }
+
+    .sound-toggle:hover {
+      background: rgba(9, 31, 128, .42);
+    }
+
+    .sound-toggle svg {
+      flex-shrink: 0;
+    }
+
+    .sound-enable {
+      top: 62%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .sound-enable.is-hidden {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(.92);
+      pointer-events: none;
+    }
+
+    .sound-disable {
+      left: 18px;
+      bottom: 18px;
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+    }
+
+    .sound-disable.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .chips-wrap {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .chip {
+      background: var(--azul);
+      color: var(--branco);
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+    }
+
+    .chip.g {
+      background: var(--ouro);
+      color: var(--azul-esc)
+    }
+
+    /* ── ESTRELAS ANIMADAS ── */
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1)
+      }
+
+      50% {
+        opacity: .12;
+        transform: scale(.45)
+      }
+    }
+
+    @keyframes twinkle2 {
+
+      0%,
+      100% {
+        opacity: .8;
+        transform: scale(1)
+      }
+
+      40% {
+        opacity: .06;
+        transform: scale(.35)
+      }
+    }
+
+    @keyframes twinkle3 {
+
+      0%,
+      100% {
+        opacity: .9;
+        transform: scale(1)
+      }
+
+      65% {
+        opacity: .18;
+        transform: scale(.55)
+      }
+    }
+
+    .star-anim {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden
+    }
+
+    .star-anim span {
+      position: absolute;
+      border-radius: 50%
+    }
+
+    /* ── TRAJETÓRIA — linha do tempo 3D ── */
+    #trajetoria {
+      padding: 0;
+      background: linear-gradient(148deg, var(--azul-esc) 0%, var(--azul) 55%, var(--azul-med) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .traj-layout {
+      display: grid;
+      grid-template-columns: 33% 67%;
+    }
+
+    .traj-foto {
+      position: relative;
+      overflow: hidden;
+      min-height: 320px;
+    }
+
+    .traj-foto video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+
+    .traj-conteudo {
+      padding: 48px 4% 48px 5%;
+    }
+
+    .traj-intro {
+      position: relative;
+      z-index: 1;
+      text-align: left;
+      margin-bottom: 56px;
+    }
+
+    .timeline {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 40px 1fr;
+      align-items: start;
+      perspective: 900px;
+      max-width: 640px;
+      margin-right: auto;
+    }
+
+    /* LINHA BRANCA ÚNICA no centro */
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: calc(50% - 1px);
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(255, 255, 255, .55);
+      border-radius: 2px;
+      z-index: 0;
+    }
+
+    .timeline::after {
+      content: none
+    }
+
+    .tl-left {
+      grid-column: 1;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 24px 32px 0;
+    }
+
+    .tl-right {
+      grid-column: 3;
+      display: flex;
+      justify-content: flex-start;
+      padding: 0 0 32px 24px;
+    }
+
+    .tl-node {
+      grid-column: 2;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 20px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* PONTA INFERIOR no pc: a barra termina exatamente na última bolinha (amarela) */
+    @media(min-width:681px) {
+      .timeline > :nth-last-child(2) {
+        position: static;
+        transform: none !important;
+      }
+
+      .timeline > :nth-last-child(2) .tl-dot {
+        position: absolute;
+        bottom: 0;
+        left: calc(50% - 1px);
+        transform: translateX(-50%);
+      }
+    }
+
+    .tl-dot {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      border: 2.5px solid rgba(255, 255, 255, .8);
+      box-shadow: 0 0 0 3px rgba(255, 255, 255, .15), 0 0 12px rgba(255, 255, 255, .4);
+    }
+
+    .tl-dot.amarelo {
+      background: #FFDF00
+    }
+
+    .tl-dot.azul {
+      background: #e8eeff
+    }
+
+    /* Card acinzentado com borda lateral bandeira */
+    .tl-card {
+      background: linear-gradient(150deg, var(--azul-esc) 0%, var(--azul) 60%, var(--azul-med) 100%);
+      border-radius: 10px;
+      padding: 16px 20px;
+      max-width: 330px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .28), 0 2px 8px rgba(0, 0, 0, .16);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s;
+      transform-style: preserve-3d;
+      cursor: default;
+    }
+
+    /* Card ESQUERDO → borda só na direita (lado que toca a linha) */
+    .tl-card-left::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #009c3b, #FFDF00, #002776);
+      border-radius: 0 10px 10px 0;
+      z-index: 2;
+    }
+
+    /* Card DIREITO → borda só na esquerda (lado que toca a linha) */
+    .tl-card-right::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #009c3b, #FFDF00, #002776);
+      border-radius: 10px 0 0 10px;
+      z-index: 2;
+    }
+
+    .tl-card::after {
+      content: none
+    }
+
+    .tl-card-left:hover {
+      transform: translateY(-5px) rotateX(3deg) rotateY(5deg) scale(1.03);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, .34);
+    }
+
+    .tl-card-right:hover {
+      transform: translateY(-5px) rotateX(3deg) rotateY(-5deg) scale(1.03);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, .34);
+    }
+
+    .tl-ico {
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+      display: block;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tl-card p {
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      font-weight: 500;
+      color: #e8eeff;
+      line-height: 1.55;
+      position: relative;
+      z-index: 1;
+    }
+
+    @media(max-width:680px) {
+      .timeline {
+        grid-template-columns: 24px 1fr
+      }
+
+      .timeline::before {
+        left: 11px
+      }
+
+      .tl-left {
+        grid-column: 2;
+        justify-content: flex-start;
+        padding: 0 0 22px 16px
+      }
+
+      .tl-right {
+        grid-column: 2;
+        padding: 0 0 22px 16px;
+      }
+
+      /* remove todas as bolinhas por padrão */
+      .tl-dot { display: none }
+      .tl-right::before { display: none }
+
+      /* esconde último tl-right vazio para a linha terminar no card */
+      .tl-right:empty { display: none }
+
+      /* todos os tl-node: col 1, position:static para dots ficarem relativos à .timeline */
+      .tl-node {
+        grid-column: 1;
+        padding-top: 0;
+        padding-bottom: 0;
+        align-items: center;
+        position: static;
+      }
+
+      /* PONTA INFERIOR: dot colado no fundo absoluto da linha */
+      .timeline > :nth-last-child(2) .tl-dot {
+        display: block !important;
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 11px !important;
+        transform: translateX(-50%) !important;
+        background: #ffffff !important;
+        border: 2.5px solid rgba(255,255,255,.9) !important;
+        box-shadow: 0 0 0 3px rgba(255,255,255,.2), 0 0 10px rgba(255,255,255,.5) !important;
+        width: 14px !important;
+        height: 14px !important;
+        z-index: 3 !important;
+      }
+
+      .tl-card {
+        max-width: 100%
+      }
+
+      .tl-card-left::before,
+      .tl-card-right::before {
+        left: 0;
+        right: auto;
+        border-radius: 10px 0 0 10px
+      }
+
+      .tl-card-left:hover,
+      .tl-card-right:hover {
+        transform: translateY(-3px) scale(1.02)
+      }
+    }
+
+    /* ── MENSAGEM ── */
+    #mensagem {
+      padding: 80px 5vw
+    }
+
+    .msg-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative
+    }
+
+    .msg-aspas {
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-size: clamp(1.55rem, 3.5vw, 2.3rem);
+      color: var(--azul-esc);
+      line-height: 1.55;
+      margin-bottom: 30px;
+      padding: 0 16px;
+    }
+
+    .msg-aspas::before {
+      content: '"';
+      font-size: 8rem;
+      line-height: 0;
+      color: var(--ouro);
+      opacity: .15;
+      position: absolute;
+      top: 18px;
+      left: -8px;
+      font-family: Georgia, serif;
+      pointer-events: none;
+    }
+
+    .msg-p {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1.1rem, 1.9vw, 1.3rem);
+      font-weight: 500;
+      line-height: 1.82;
+      color: var(--azul-esc);
+      margin-bottom: 20px;
+      padding: 22px 28px;
+      background: rgba(9, 31, 128, .045);
+      border-radius: 10px;
+      border-left: 4px solid var(--ouro);
+      text-align: left;
+    }
+
+    /* ── PROJETOS ── */
+    #projetos {
+      background: var(--cinza-bg);
+      position: relative;
+      overflow: hidden
+    }
+
+    .proj-g {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 26px
+    }
+
+    .proj-card {
+      background: linear-gradient(150deg, var(--azul-esc) 0%, var(--azul) 60%, var(--azul-med) 100%);
+      border-radius: 14px;
+      padding: 36px 28px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(5, 14, 82, .28), 0 2px 8px rgba(0, 0, 0, .14);
+      transition: transform .3s cubic-bezier(.34, 1.56, .64, 1), box-shadow .3s;
+      transform-style: preserve-3d;
+    }
+
+    /* borda só no topo — degradê bandeira */
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #009c3b 0%, #FFDF00 50%, #002776 100%);
+      border-radius: 14px 14px 0 0;
+      z-index: 2;
+    }
+
+    .proj-card::after {
+      content: none
+    }
+
+    .proj-card:hover {
+      transform: translateY(-8px) rotateX(4deg) rotateY(2deg) scale(1.02);
+      box-shadow: 0 22px 50px rgba(5, 14, 82, .36), 0 6px 18px rgba(0, 0, 0, .18);
+    }
+
+    .proj-ico {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .proj-card h3 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.32rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: #ffffff;
+      position: relative;
+      z-index: 1;
+      letter-spacing: .02em;
+    }
+
+    .proj-card p {
+      font-family: 'Inter', sans-serif;
+      font-size: .9rem;
+      line-height: 1.65;
+      color: #e8eeff;
+      position: relative;
+      z-index: 1;
+      font-weight: 400;
+    }
+
+    /* ── FRASES ── */
+    #frases {
+      background: linear-gradient(135deg, var(--azul-esc) 0%, var(--azul) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #frases::after {
+      content: '"';
+      position: absolute;
+      top: -60px;
+      right: 2vw;
+      font-size: 26rem;
+      font-weight: 900;
+      font-family: Georgia, serif;
+      color: rgba(255, 255, 255, .03);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    #frases::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle 2px at 8% 18%, rgba(245, 197, 24, .5) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 24% 7%, rgba(245, 197, 24, .4) 100%, transparent 0),
+        radial-gradient(circle 2.5px at 52% 14%, rgba(245, 197, 24, .55) 100%, transparent 0),
+        radial-gradient(circle 1px at 74% 22%, rgba(245, 197, 24, .35) 100%, transparent 0),
+        radial-gradient(circle 2px at 92% 8%, rgba(245, 197, 24, .45) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 14% 82%, rgba(245, 197, 24, .4) 100%, transparent 0),
+        radial-gradient(circle 2px at 62% 88%, rgba(245, 197, 24, .45) 100%, transparent 0),
+        radial-gradient(circle 1px at 86% 76%, rgba(245, 197, 24, .35) 100%, transparent 0);
+    }
+
+    .frases-g {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      position: relative;
+      z-index: 1
+    }
+
+    .frase-item {
+      background: rgba(255, 255, 255, .06);
+      border: 1px solid rgba(255, 255, 255, .1);
+      border-left: 4px solid var(--ouro);
+      border-radius: 10px;
+      padding: 30px 26px;
+      transition: background .25s;
+    }
+
+    .frase-item:hover {
+      background: rgba(255, 255, 255, .11)
+    }
+
+    .frase-star {
+      width: 20px;
+      height: 20px;
+      margin-bottom: 14px;
+      background: var(--ouro);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .frase-item p {
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      font-size: clamp(.93rem, 1.5vw, 1.08rem);
+      line-height: 1.6;
+      color: var(--branco);
+    }
+
+    /* ── REDES ── */
+    #redes {
+      background: var(--branco)
+    }
+
+    .redes-g {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 22px;
+      margin-bottom: 40px
+    }
+
+    .rede-card {
+      border-radius: 14px;
+      padding: 34px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .rede-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 36px rgba(0, 0, 0, .14)
+    }
+
+    .rede-card.ig {
+      background: linear-gradient(135deg, #6a11cb, #e1306c, #f77737)
+    }
+
+    .rede-card.fb {
+      background: #1877f2
+    }
+
+    .rede-card.yt {
+      background: #ff0000
+    }
+
+    .r-ico {
+      width: 52px;
+      height: 52px;
+      fill: none;
+      stroke: #fff;
+      stroke-width: 1.7
+    }
+
+    .rede-card span {
+      color: #fff;
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: .06em
+    }
+
+    .rede-card small {
+      color: #ffffff;
+      font-size: .82rem;
+      text-align: center
+    }
+
+    .redes-cta {
+      text-align: center
+    }
+
+    /* ── GALERIA ── */
+    .galeria-intro {
+      margin-top: 64px;
+      margin-bottom: 32px;
+    }
+
+    .galeria-g {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+    }
+
+    .galeria-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      aspect-ratio: 4 / 5;
+      background: var(--cinza-bg);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, .08);
+      transition: transform .3s, box-shadow .3s;
+    }
+
+    .galeria-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 32px rgba(0, 0, 0, .16);
+    }
+
+    .galeria-item img,
+    .galeria-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .galeria-cta {
+      text-align: center;
+      margin-top: 32px;
+    }
+
+    /* ── CONTATO ── */
+    #contato {
+      background: var(--cinza-bg)
+    }
+
+    .cont-g {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 64px;
+      align-items: start
+    }
+
+    .cont-l p {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #3a4a78;
+      margin-bottom: 28px
+    }
+
+    .chips2 {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px
+    }
+
+    .form-box {
+      background: var(--branco);
+      border-radius: 16px;
+      padding: 40px 36px;
+      box-shadow: 0 8px 40px rgba(14, 46, 168, .1)
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .fg {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 18px
+    }
+
+    .fg label {
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--azul-esc)
+    }
+
+    .fg input,
+    .fg textarea {
+      padding: 13px 16px;
+      border-radius: 8px;
+      border: 2px solid #dde3f5;
+      font-family: 'Barlow', sans-serif;
+      font-size: .97rem;
+      color: var(--text-esc);
+      background: var(--branco);
+      outline: none;
+      width: 100%;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .fg input:focus,
+    .fg textarea:focus {
+      border-color: var(--azul);
+      box-shadow: 0 0 0 4px rgba(14, 46, 168, .1)
+    }
+
+    .fg textarea {
+      resize: vertical;
+      min-height: 110px
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--azul-esc);
+      border-top: 4px solid var(--ouro);
+      padding: 56px 5vw 28px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        radial-gradient(circle 2px at 6% 18%, rgba(255, 255, 255, .4) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 20% 8%, rgba(255, 255, 255, .3) 100%, transparent 0),
+        radial-gradient(circle 2.5px at 40% 28%, rgba(255, 255, 255, .45) 100%, transparent 0),
+        radial-gradient(circle 1px at 60% 14%, rgba(255, 255, 255, .3) 100%, transparent 0),
+        radial-gradient(circle 2px at 78% 22%, rgba(255, 255, 255, .4) 100%, transparent 0),
+        radial-gradient(circle 1.5px at 94% 38%, rgba(255, 255, 255, .35) 100%, transparent 0),
+        radial-gradient(circle 2px at 14% 72%, rgba(255, 255, 255, .3) 100%, transparent 0),
+        radial-gradient(circle 1px at 52% 82%, rgba(255, 255, 255, .25) 100%, transparent 0),
+        radial-gradient(circle 2px at 86% 66%, rgba(255, 255, 255, .35) 100%, transparent 0);
+    }
+
+    .ft-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+      position: relative;
+      z-index: 1;
+    }
+
+    .ft-brand-logo {
+      height: 56px;
+      width: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .ft-brand .fc {
+      font-size: .78rem;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--ouro);
+      margin-top: 4px
+    }
+
+    .ft-stars {
+      display: flex;
+      gap: 7px;
+      align-items: center
+    }
+
+    .ft-stars i {
+      display: block;
+      background: var(--ouro);
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    }
+
+    .ft-stars i:nth-child(odd) {
+      width: 14px;
+      height: 14px
+    }
+
+    .ft-stars i:nth-child(even) {
+      width: 9px;
+      height: 9px;
+      opacity: .55;
+      margin-top: 2px
+    }
+
+    .ft-val {
+      font-family: 'Merriweather', serif;
+      font-style: italic;
+      color: #ffffff;
+      font-size: .93rem
+    }
+
+    .ft-copy {
+      max-width: 1160px;
+      margin: 20px auto 0;
+      text-align: center;
+      font-size: .76rem;
+      color: rgba(255, 255, 255, .65);
+      position: relative;
+      z-index: 1
+    }
+
+    /* ── RESPONSIVO ── */
+    @media(max-width:920px) {
+
+      /* ── HERO ── */
+      #hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+        background: var(--azul-esc);
+      }
+
+      .top-stripe {
+        display: none
+      }
+
+      .hero-esq {
+        min-height: 52vw;
+        max-height: 380px
+      }
+
+      .hero-esq::after {
+        display: none
+      }
+
+      /* bandeira: faixa amarela + verde inclinada entre foto e conteúdo */
+      .hero-bandeira {
+        display: flex;
+        position: relative;
+        left: 0;
+        top: auto;
+        bottom: auto;
+        width: calc(100% + 60px);
+        margin-left: -30px;
+        transform: rotate(1.5deg);
+        transform-origin: center center;
+        height: 56px;
+        flex-direction: column;
+        gap: 0;
+        overflow: hidden;
+        z-index: 6;
+        margin-top: -4px;
+      }
+
+      .fb-azul {
+        display: none
+      }
+
+      .fb-verde,
+      .fb-amarela {
+        flex: 1
+      }
+
+      .hero-dir {
+        padding: 20px 6% 28px;
+        align-items: center;
+        text-align: center;
+        overflow: visible;
+        z-index: auto;
+      }
+
+      .hero-dir::before,
+      #frases::before,
+      #frases::after,
+      footer::before {
+        display: none;
+      }
+
+      .h-logo-hero {
+        filter: none;
+      }
+
+
+      .h-pre {
+        align-self: center;
+        font-size: clamp(.85rem, 3.2vw, 1.1rem);
+        padding: 5px 14px;
+        margin-bottom: 8px;
+      }
+
+      .h-cargo {
+        font-size: clamp(2.2rem, 8.5vw, 3.4rem);
+        margin-bottom: 14px;
+      }
+
+      .h-logo-hero {
+        width: min(161px, 48%);
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 4px;
+      }
+
+      .h-tagline {
+        font-size: .8rem;
+        margin-bottom: 10px;
+      }
+
+      .h-versiculo {
+        font-size: .75rem;
+        margin-bottom: 18px;
+        padding-left: 10px;
+      }
+
+      .h-btns {
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .btn-ouro {
+        font-size: .82rem;
+        padding: 14px 22px;
+      }
+
+      .btn-borda {
+        font-size: .82rem;
+        padding: 10px 18px;
+      }
+
+      .h-versiculo,
+      .h-tagline {
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center
+      }
+
+      .h-pl-badge {
+        display: none
+      }
+
+      /* ── DEFENDE ── */
+      .defende-layout {
+        grid-template-columns: 1fr
+      }
+
+      .defende-foto {
+        min-height: unset;
+        max-height: unset;
+        aspect-ratio: 3 / 4;
+      }
+
+      .sound-toggle {
+        width: 116px;
+        padding: 16px 12px;
+        font-size: .7rem;
+      }
+
+      .sound-disable {
+        left: 12px;
+        bottom: 12px;
+      }
+
+      .defende-conteudo {
+        padding: 28px 6% 28px;
+        text-align: center
+      }
+
+      #defende .def-grid {
+        text-align: left
+      }
+
+      /* ── QUEM É ── */
+      .quem-layout {
+        grid-template-columns: 1fr
+      }
+
+      .quem-video {
+        min-height: 120vw;
+        max-height: 760px;
+        order: -1;
+      }
+
+      .quem-video::before {
+        display: none
+      }
+
+      .quem-conteudo {
+        padding: 32px 6% 32px
+      }
+
+      /* ── EXPERIÊNCIA ── */
+      .traj-layout {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .traj-foto {
+        min-height: 120vw;
+        max-height: 760px;
+      }
+
+      .traj-conteudo {
+        padding: 0 6% 28px;
+      }
+
+      .traj-intro {
+        text-align: center;
+      }
+
+      /* ── OUTRAS SEÇÕES ── */
+      .traj-g,
+      .cont-g {
+        grid-template-columns: 1fr
+      }
+
+      .traj-ul {
+        columns: 1
+      }
+
+      .form-row {
+        grid-template-columns: 1fr
+      }
+
+      .form-box {
+        padding: 28px 20px
+      }
+
+      .msg-aspas {
+        font-size: clamp(1.55rem, 6.5vw, 2.4rem);
+      }
+
+      .msg-p {
+        font-size: .88rem;
+        line-height: 1.65;
+      }
+
+      .h-btns {
+        padding-bottom: 20px;
+      }
+    }
+
+    @media(max-width:960px) {
+      .nav-links>li:not(#dd-li) {
+        display: none
+      }
+
+      #dd-btn {
+        font-size: .68rem;
+        padding: 6px 10px;
+        letter-spacing: .08em;
+      }
+    }
+
+    @media(max-width:960px) {
+      .nav-links {
+        display: flex;
+        flex-direction: row;
+        position: static;
+        background: transparent;
+        padding: 0;
+        gap: 0;
+        z-index: auto;
+      }
+
+      .nav-toggle {
+        display: none
+      }
+
+      .nav-dropdown {
+        position: absolute;
+        top: calc(100% + 6px);
+        left: 50%;
+        transform: translateX(-50%) translateY(0) !important;
+        opacity: 1;
+        pointer-events: none;
+        background: rgba(6, 22, 90, .98);
+        border: 1px solid rgba(255, 255, 255, .12);
+        border-top: 2px solid var(--ouro);
+        border-radius: 8px;
+        min-width: 220px;
+        padding: 8px 0;
+        box-shadow: 0 16px 48px rgba(0, 0, 0, .45);
+        display: none;
+      }
+
+      .nav-links>li.dd-open .nav-dropdown {
+        display: block;
+        pointer-events: auto;
+      }
+
+      section {
+        padding: 64px 5vw
+      }
+    }
+
+    #particles-hero,
+    #particles-traj,
+    #particles-frases,
+    #particles-footer {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    #particles-hero canvas,
+    #particles-traj canvas,
+    #particles-frases canvas,
+    #particles-footer canvas {
+      display: block;
+      width: 100% !important;
+      height: 100% !important;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a class="nav-brand" href="#">
+      <img src="/img/logo.webp" alt="Aldo Maurício" class="nav-logo" />
+    </a>
+
+    <ul class="nav-links" id="nl">
+
+      <li><a href="#defende">O que eu defendo</a></li>
+
+      <li><a href="#quem">Quem eu sou</a></li>
+
+      <!-- DROPDOWN -->
+      <li id="dd-li">
+        <button id="dd-btn" aria-haspopup="true" aria-expanded="false">
+          Como vou te ajudar? <span class="nav-chevron"></span>
+        </button>
+        <div class="nav-dropdown" id="dd-menu" role="menu">
+          <div class="dd-label">Você é?</div>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20crist%C3%A3o%2Fevang%C3%A9lico.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">✝️</span>Cristão / Evangélico</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20concurseiro.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">🎓</span>Concurseiro</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20profissional%20de%20sa%C3%BAde.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">🩺</span>Profissional de Saúde</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20estudante.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">📚</span>Estudante</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20jovem.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">🌟</span>Jovem</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0AFalo%20em%20nome%20da%20minha%20fam%C3%ADlia.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">👨‍👩‍👧</span>Família</a>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20trabalhador.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">💼</span>Trabalhador</a>
+          <div class="dd-sep"></div>
+          <a href="https://wa.me/559681419718?text=Ol%C3%A1%2C%20Aldo%20Maur%C3%ADcio!%0A%0ASou%20ativista%20social.%20Como%20voc%C3%AA%20vai%20me%20ajudar%3F" target="_blank" role="menuitem"><span class="dd-ico">🤝</span>Ativista Social</a>
+        </div>
+      </li>
+
+      <li><a href="#contato">Contato</a></li>
+
+    </ul>
+    <div class="nav-toggle" id="nt"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- FAIXA DECORATIVA: verde-amarelo-verde -->
+  <div class="top-stripe" aria-hidden="true">
+  </div>
+  <section id="hero">
+
+    <!-- esquerda: foto -->
+    <div class="hero-esq">
+      <img class="hero-foto" src="/img/ft1.webp" alt="Aldo Maurício"
+        onerror="this.outerHTML='<div class=\'hero-foto-placeholder\'><svg viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.2\' width=\'80\' height=\'80\'><path stroke-linecap=\'round\' d=\'M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.5 20.1a7.5 7.5 0 0 1 15 0\'/></svg><p>Adicione a foto aqui</p></div>'" />
+      <div class="h-pl-badge">
+        <div class="pl-l">PL</div>
+        <div class="pl-s">Partido Liberal</div>
+      </div>
+    </div>
+
+    <!-- listras diagonais: azul + verde + amarela -->
+    <div class="hero-bandeira" aria-hidden="true">
+      <div class="fb-azul"></div>
+      <div class="fb-verde"></div>
+      <div class="fb-amarela"></div>
+    </div>
+
+    <!-- direita: azul -->
+    <div class="hero-dir">
+      <div id="particles-hero"></div>
+
+      <img src="/img/logo.webp" alt="Aldo Maurício" class="h-logo-hero" />
+      <div class="h-pre">Pré-Candidato a</div>
+      <div class="h-cargo">Deputado<br>Estadual</div>
+
+      <p class="h-tagline">Trabalho que gera resultados. Educação para transformar.<br>Segurança para proteger. Saúde
+        para cuidar.</p>
+      <blockquote class="h-versiculo">"Posso tudo naquele que me fortalece." Filipenses 4:13</blockquote>
+
+      <div class="h-btns">
+        <a href="#quem" class="btn-ouro">Conheça Minha História</a>
+        <a href="#contato" class="btn-borda">Entre em Contato<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="17" height="17" style="flex-shrink:0;margin-left:8px"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.121 1.529 5.849L.057 23.5l5.796-1.452A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.374l-.359-.214-3.44.861.92-3.349-.234-.374A9.818 9.818 0 0 1 2.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg></a>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- O QUE ELE DEFENDE -->
+  <section id="defende">
+    <div class="defende-layout">
+
+      <div class="defende-foto">
+        <video class="lazy-video" data-src="/img/v1.mp4" poster="/img/ft2.jpg" muted loop playsinline preload="none" aria-label="Aldo Maurício"></video>
+        <button type="button" class="sound-toggle sound-enable" aria-label="Ativar som do vídeo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+          <span>Clique para ativar o som</span>
+        </button>
+        <button type="button" class="sound-toggle sound-disable" aria-label="Desativar som do vídeo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg>
+          <span>Desativar o som</span>
+        </button>
+      </div>
+
+      <div class="defende-conteudo">
+        <div class="rv">
+          <div class="eyebrow"><span class="dash"></span>Princípios<span class="dash"></span></div>
+          <h2 class="sec-h">Fé, verdade e coerência.</h2>
+          <p class="defende-intro"><span class="destaque-nome">Aldo Maurício</span> acredita que os valores cristãos
+            precisam ser respeitados e defendidos também no debate público.</p>
+        </div>
+        <div class="def-grid">
+          <div class="def-card rv">
+            <div class="def-ico">✝️</div>
+            <h3>Família</h3>
+            <p>Defesa da estrutura familiar, dos valores e do fortalecimento das relações familiares.</p>
+          </div>
+          <div class="def-card rv2">
+            <div class="def-ico">❤️</div>
+            <h3>Vida</h3>
+            <p>Compromisso com a valorização da vida e da dignidade humana.</p>
+          </div>
+          <div class="def-card rv3">
+            <div class="def-ico">🕊️</div>
+            <h3>Liberdade Religiosa</h3>
+            <p>Defesa do direito à fé, à liberdade de expressão religiosa e ao respeito às igrejas e líderes cristãos.
+            </p>
+          </div>
+          <div class="def-card rv">
+            <div class="def-ico">⚖️</div>
+            <h3>Verdade e Moral</h3>
+            <p>Compromisso com princípios, ética, transparência e responsabilidade pública.</p>
+          </div>
+          <div class="def-card rv2">
+            <div class="def-ico">📚</div>
+            <h3>Educação</h3>
+            <p>Investimento na educação como ferramenta de transformação social e oportunidade.</p>
+          </div>
+          <div class="def-card rv3">
+            <div class="def-ico">🩺</div>
+            <h3>Saúde</h3>
+            <p>Valorização dos profissionais da saúde e melhoria do atendimento público.</p>
+          </div>
+          <div class="def-card rv">
+            <div class="def-ico">🛡️</div>
+            <h3>Segurança</h3>
+            <p>Mais proteção para famílias, trabalhadores e comunidades.</p>
+          </div>
+          <div class="def-card rv2">
+            <div class="def-ico">💼</div>
+            <h3>Trabalho</h3>
+            <p>Geração de oportunidades, valorização do trabalhador e incentivo ao desenvolvimento.</p>
+          </div>
+        </div>
+      </div><!-- /defende-conteudo -->
+    </div><!-- /defende-layout -->
+  </section>
+
+  <!-- QUEM É -->
+  <section id="quem" class="sec-light">
+    <div class="quem-layout">
+      <div class="quem-conteudo rv">
+        <div class="eyebrow"><span class="dash"></span>Sobre ele</div>
+        <h2 class="sec-h">Uma vida dedicada ao povo, à fé e à transformação social.</h2>
+        <p class="sec-p" style="margin-bottom:20px">Aldo Maurício construiu sua trajetória servindo pessoas através da
+          educação, saúde, liderança social e defesa dos valores cristãos. Com experiência na enfermagem, atuação no
+          ensino e participação ativa em projetos sociais, acredita que a política deve ser instrumento de
+          transformação verdadeira e compromisso com a população.</p>
+        <p style="font-family:'Inter',sans-serif;font-size:1rem;line-height:1.75;color:#3a4a78">Seu propósito é
+          representar a população com coragem, responsabilidade e coerência, defendendo princípios, oportunidades e
+          melhorias reais para o estado.</p>
+        <div class="chips-wrap">
+          <span class="chip">Enfermeiro</span>
+          <span class="chip">Professor</span>
+          <span class="chip">Bacharel em Direito</span>
+        </div>
+      </div>
+      <div class="quem-video rv2">
+        <video class="lazy-video" data-src="/img/v2.mp4" muted loop playsinline preload="none"></video>
+        <button type="button" class="sound-toggle sound-enable" aria-label="Ativar som do vídeo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+          <span>Clique para ativar o som</span>
+        </button>
+        <button type="button" class="sound-toggle sound-disable" aria-label="Desativar som do vídeo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg>
+          <span>Desativar o som</span>
+        </button>
+        <div class="img-overlay">
+          <p>Aldo Maurício</p>
+          <small>★ Pré-Candidato a Deputado Estadual</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRAJETÓRIA -->
+  <section id="trajetoria">
+    <div id="particles-traj"></div>
+    <div class="traj-layout">
+        <div class="traj-foto">
+          <video class="lazy-video" data-src="/img/v3.mp4" muted loop playsinline preload="none" aria-label="Aldo Maurício"></video>
+          <button type="button" class="sound-toggle sound-enable" aria-label="Ativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+            <span>Clique para ativar o som</span>
+          </button>
+          <button type="button" class="sound-toggle sound-disable" aria-label="Desativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg>
+            <span>Desativar o som</span>
+          </button>
+        </div>
+
+        <div class="traj-conteudo">
+          <div class="traj-intro rv">
+            <div class="eyebrow" style="color:#ffffff"><span class="dash" style="background:var(--ouro)"></span>Experiência
+            </div>
+            <h2 class="sec-h w">Experiência que<br>gera confiança</h2>
+            <p style="font-size:1.05rem;line-height:1.72;color:#ffffff;max-width:560px">
+              Décadas servindo pessoas com dedicação, competência e coração na saúde, na educação e na comunidade.
+            </p>
+          </div>
+
+          <div class="timeline">
+
+            <!-- 1 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🩺</span>
+            <p>Atua na enfermagem há 26 anos</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot amarelo"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">📚</span>
+            <p>Professor há 15 anos</p>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">⚖️</span>
+            <p>Bacharel em Direito — UNIFAP</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot azul"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">✍️</span>
+            <p>Escritor e Teólogo</p>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🏛️</span>
+            <p>Funcionário público</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot amarelo"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">✊</span>
+            <p>Sindicalista — Lutou pelo piso da enfermagem</p>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🤝</span>
+            <p>Participa de projetos sociais</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot azul"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">✝️</span>
+            <p>Líder evangélico na comunidade</p>
+          </div>
+        </div>
+
+        <!-- 5 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🏥</span>
+            <p>Voluntário da Cruz Vermelha</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot amarelo"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">🏢</span>
+            <p>Diretor da UBS Cláudio Leão</p>
+          </div>
+        </div>
+
+        <!-- 6 -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🌟</span>
+            <p>Idealizador do Aulão Solidário</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot azul"></div>
+        </div>
+        <div class="tl-right rv2">
+          <div class="tl-card tl-card-right"><span class="tl-ico">🙏</span>
+            <p>Vice-líder da UJAMA (Juventude Gospel)</p>
+          </div>
+        </div>
+
+        <!-- 7 (centro) -->
+        <div class="tl-left rv">
+          <div class="tl-card tl-card-left"><span class="tl-ico">🎓</span>
+            <p>Amigo dos concurseiros</p>
+          </div>
+        </div>
+        <div class="tl-node rv2">
+          <div class="tl-dot amarelo"></div>
+        </div>
+        <div class="tl-right rv2"></div>
+
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <!-- MENSAGEM PRINCIPAL -->
+  <section id="mensagem" class="sec-light-gray">
+    <div class="container">
+      <div class="msg-wrap rv">
+        <p class="msg-aspas">"A política precisa voltar a servir pessoas."</p>
+        <p class="msg-p">Aldo Maurício acredita em uma política baseada em princípios, responsabilidade e compromisso
+          verdadeiro com a população.</p>
+        <p class="msg-p">Sua missão é lutar por saúde digna, educação de qualidade, valorização das famílias e respeito
+          à fé e aos valores da sociedade.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FRASES -->
+  <section id="frases">
+    <div id="particles-frases"></div>
+    <div class="container">
+      <div class="rv" style="margin-bottom:48px">
+        <div class="eyebrow" style="color:#ffffff"><span class="dash" style="background:var(--ouro)"></span>Valores
+        </div>
+        <h2 class="sec-h w">O que eu acredito</h2>
+      </div>
+      <div class="frases-g">
+        <div class="frase-item rv">
+          <div class="frase-star"></div>
+          <p>"Fé, verdade, coragem e coerência."</p>
+        </div>
+        <div class="frase-item rv2">
+          <div class="frase-star"></div>
+          <p>"Quem serve pessoas está preparado para servir o estado."</p>
+        </div>
+        <div class="frase-item rv3">
+          <div class="frase-star"></div>
+          <p>"A verdadeira política nasce do compromisso com o povo."</p>
+        </div>
+        <div class="frase-item rv">
+          <div class="frase-star"></div>
+          <p>"Valores não se negociam."</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REDES -->
+  <section id="redes" class="sec-light">
+    <div class="container">
+      <div class="rv">
+        <div class="eyebrow"><span class="dash"></span>Conecte-se</div>
+        <h2 class="sec-h">Acompanhe Aldo Maurício</h2>
+      </div>
+      <div class="redes-g">
+        <a href="https://www.instagram.com/aldo_mauricioo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          target="_blank" rel="noopener" class="rede-card ig rv">
+          <svg class="r-ico" viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <circle cx="12" cy="12" r="4.5" />
+            <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" />
+          </svg>
+          <span>Instagram</span><small>@aldo_mauricio</small>
+        </a>
+        <a href="https://facebook.com/mauricio.santos.182" target="_blank" rel="noopener" class="rede-card fb rv2">
+          <svg class="r-ico" viewBox="0 0 24 24" fill="white" stroke="none">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+          </svg>
+          <span>Facebook</span><small>mauricio.santos.182</small>
+        </a>
+        <a href="https://youtube.com/@aldoMauricio" target="_blank" rel="noopener" class="rede-card yt rv3">
+          <svg class="r-ico" viewBox="0 0 24 24" fill="white" stroke="none">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+            <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+          </svg>
+          <span>YouTube</span><small>Aldo Maurício &amp; Ciências Humanas</small>
+        </a>
+      </div>
+      <div class="redes-cta rv">
+        <a href="https://www.instagram.com/aldo_mauricioo?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+          target="_blank" class="btn-ouro">Seguir nas Redes</a>
+      </div>
+
+      <div class="galeria-intro rv">
+        <div class="eyebrow"><span class="dash"></span>Galeria</div>
+        <h2 class="sec-h">Veja mais sobre Aldo Maurício</h2>
+      </div>
+      <div class="galeria-g">
+        <div class="galeria-item rv">
+          <img src="/img/ff%201.jpeg" alt="Aldo Maurício" loading="lazy" />
+        </div>
+        <div class="galeria-item rv2">
+          <video class="lazy-video" data-src="/img/v4.mp4" muted loop playsinline preload="none" aria-label="Aldo Maurício"></video>
+          <button type="button" class="sound-toggle sound-enable" aria-label="Ativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+            <span>Clique para ativar o som</span>
+          </button>
+          <button type="button" class="sound-toggle sound-disable" aria-label="Desativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg>
+            <span>Desativar o som</span>
+          </button>
+        </div>
+        <div class="galeria-item rv3">
+          <video class="lazy-video" data-src="/img/v5.mp4" muted loop playsinline preload="none" aria-label="Aldo Maurício"></video>
+          <button type="button" class="sound-toggle sound-enable" aria-label="Ativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m17 9 4 6M21 9l-4 6"/></svg>
+            <span>Clique para ativar o som</span>
+          </button>
+          <button type="button" class="sound-toggle sound-disable" aria-label="Desativar som do vídeo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 6a9 9 0 0 1 0 12"/></svg>
+            <span>Desativar o som</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="sec-light-gray">
+    <div class="container">
+      <div class="cont-g">
+        <div class="cont-l rv">
+          <div class="eyebrow"><span class="dash"></span>Fale conosco</div>
+          <h2 class="sec-h">Entre em<br>contato</h2>
+          <p>Quer acompanhar, apoiar ou conversar com Aldo Maurício? Preencha o formulário ou acompanhe pelas redes
+            sociais.</p>
+          <div class="chips2">
+            <span class="chip">Fé</span>
+            <span class="chip">Verdade</span>
+            <span class="chip">Coragem</span>
+            <span class="chip">Coerência</span>
+            <span class="chip g">★ PL</span>
+          </div>
+        </div>
+        <div class="form-box rv2">
+          <div class="form-row">
+            <div class="fg"><label for="c-nome">Nome</label><input type="text" id="c-nome"
+                placeholder="Seu nome completo" /></div>
+            <div class="fg"><label for="c-wpp">WhatsApp</label><input type="tel" id="c-wpp"
+                placeholder="(00) 00000-0000" /></div>
+          </div>
+          <div class="fg"><label for="c-cid">Cidade</label><input type="text" id="c-cid" placeholder="Sua cidade" />
+          </div>
+          <div class="fg"><label for="c-msg">Mensagem</label><textarea id="c-msg"
+              placeholder="Escreva sua mensagem..."></textarea></div>
+          <button class="btn-ouro" onclick="enviar()" style="width:100%;font-size:1.05rem;padding:16px">Enviar
+            Mensagem</button>
+          <p style="margin-top:10px;font-size:.72rem;color:#949494;text-align:center;line-height:1.5">Ao enviar, concordo com a <a href="/politicadeprivacidade" style="color:#949494;text-decoration:underline">política de privacidade e dados</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div id="particles-footer"></div>
+    <div class="ft-inner">
+      <div class="ft-brand">
+        <img src="/img/logo.webp" alt="Aldo Maurício" class="ft-brand-logo" />
+        <div class="fc">Pré-Candidato a Deputado Estadual</div>
+      </div>
+      <div class="ft-stars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="ft-val">Fé • Verdade • Coragem • Coerência</div>
+    </div>
+    <div class="ft-copy">
+      © 2026 Aldo Maurício. Todos os direitos reservados.<br>
+      Sistema de acordo com todas as normas da LGPD · <a href="/politicadeprivacidade" style="color:inherit;text-decoration:underline">Política de privacidade</a> · <a href="/exclusao-dados" style="color:inherit;text-decoration:underline">Exclusão de dados</a>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    /* ── Estrelas animadas ── */
+    function criarEstrelas(containerId, qtd, cor) {
+      const c = document.getElementById(containerId);
+      if (!c) return;
+      const anims = ['twinkle', 'twinkle2', 'twinkle3'];
+      for (let i = 0; i < qtd; i++) {
+        const s = document.createElement('span');
+        const size = Math.random() * 2.5 + 1;
+        s.style.cssText = `
+      left:${Math.random() * 100}%;
+      top:${Math.random() * 100}%;
+      width:${size}px; height:${size}px;
+      background:${cor || '#fff'};
+      opacity:${Math.random() * .6 + .3};
+      animation:${anims[i % 3]} ${(Math.random() * 1.2 + 0.8).toFixed(1)}s ${(Math.random() * 0.6).toFixed(1)}s infinite;
+    `;
+        c.appendChild(s);
+      }
+    }
+    /* Partículas no hero via particles.js */
+    particlesJS('particles-hero', {
+      particles: {
+        number: { value: 65, density: { enable: true, value_area: 800 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.6, random: true, anim: { enable: true, speed: 1.8, opacity_min: 0.05, sync: false } },
+        size: { value: 2.2, random: true, anim: { enable: false } },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2.8, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
+      retina_detect: true
+    });
+
+    /* Partículas trajetória */
+    particlesJS('particles-traj', {
+      particles: {
+        number: { value: 55, density: { enable: true, value_area: 900 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.5, random: true, anim: { enable: true, speed: 1.5, opacity_min: 0.05, sync: false } },
+        size: { value: 2, random: true, anim: { enable: false } },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
+      retina_detect: true
+    });
+
+    /* Partículas frases (douradas) */
+    particlesJS('particles-frases', {
+      particles: {
+        number: { value: 40, density: { enable: true, value_area: 900 } },
+        color: { value: '#f5c518' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.55, random: true, anim: { enable: true, speed: 1.6, opacity_min: 0.05, sync: false } },
+        size: { value: 2, random: true, anim: { enable: false } },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
+      retina_detect: true
+    });
+
+    /* Partículas footer */
+    particlesJS('particles-footer', {
+      particles: {
+        number: { value: 30, density: { enable: true, value_area: 900 } },
+        color: { value: '#ffffff' },
+        shape: { type: 'circle' },
+        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 1.4, opacity_min: 0.05, sync: false } },
+        size: { value: 1.8, random: true, anim: { enable: false } },
+        line_linked: { enable: false },
+        move: { enable: true, speed: 2.2, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+      },
+      interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
+      retina_detect: true
+    });
+
+    /* Lazy-load dos vídeos (só carrega ao chegar perto da viewport) + fix Low Power Mode iOS */
+    (function () {
+      var videos = Array.prototype.slice.call(document.querySelectorAll('video.lazy-video[data-src]'));
+      if (!videos.length) return;
+
+      function playVideo(v) { v.play().catch(function () {}); }
+
+      function loadVideo(v) {
+        if (!v.dataset.src) return;
+        v.src = v.dataset.src;
+        delete v.dataset.src;
+        v.addEventListener('loadeddata', function () { playVideo(v); }, { once: true });
+        v.load();
+      }
+
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              loadVideo(entry.target);
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '200px 0px' });
+        videos.forEach(function (v) { io.observe(v); });
+      } else {
+        videos.forEach(loadVideo);
+      }
+
+      /* toque do usuário dispara play (Low Power Mode iOS bloqueia autoplay) */
+      ['touchstart', 'click', 'scroll'].forEach(function (evt) {
+        document.addEventListener(evt, function tryPlay() {
+          videos.forEach(playVideo);
+          document.removeEventListener(evt, tryPlay);
+        }, { once: true, passive: true });
+      });
+    })();
+
+    /* Botões de som dos vídeos (ativar no centro / desativar no canto) */
+    document.querySelectorAll('.defende-foto, .quem-video, .traj-foto, .galeria-item').forEach(function (wrap) {
+      var video = wrap.querySelector('video');
+      var enableBtn = wrap.querySelector('.sound-enable');
+      var disableBtn = wrap.querySelector('.sound-disable');
+      if (!video || !enableBtn || !disableBtn) return;
+
+      enableBtn.addEventListener('click', function () {
+        video.muted = false;
+        video.currentTime = 0;
+        video.play().catch(function () {});
+        enableBtn.classList.add('is-hidden');
+        disableBtn.classList.add('is-visible');
+      });
+
+      disableBtn.addEventListener('click', function () {
+        video.muted = true;
+        enableBtn.classList.remove('is-hidden');
+        disableBtn.classList.remove('is-visible');
+      });
+    });
+
+    /* ── Nav mobile toggle ── */
+    const nt = document.getElementById('nt');
+    const nl = document.getElementById('nl');
+    nt.addEventListener('click', () => nl.classList.toggle('open'));
+
+    /* ── Dropdown desktop (hover já via CSS) + mobile click ── */
+    const ddLi = document.getElementById('dd-li');
+    const ddBtn = document.getElementById('dd-btn');
+
+    ddBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = ddLi.classList.toggle('dd-open');
+      ddBtn.setAttribute('aria-expanded', isOpen);
+    });
+
+    document.addEventListener('click', () => {
+      ddLi.classList.remove('dd-open');
+      ddBtn.setAttribute('aria-expanded', 'false');
+    });
+
+    /* Fechar nav mobile ao clicar em link */
+    nl.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      nl.classList.remove('open');
+      ddLi.classList.remove('dd-open');
+    }));
+
+    /* ── Nav shadow on scroll ── */
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').style.boxShadow =
+        window.scrollY > 50 ? '0 4px 28px rgba(0,0,0,.4)' : 'none';
+    });
+
+    /* ── Scroll reveal ── */
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+    }, { threshold: .1 });
+    document.querySelectorAll('.rv,.rv2,.rv3').forEach(el => obs.observe(el));
+
+    /* ── Enviar WhatsApp ── */
+    function enviar() {
+      const n = document.getElementById('c-nome').value.trim();
+      const w = document.getElementById('c-wpp').value.trim();
+      const c = document.getElementById('c-cid').value.trim();
+      const m = document.getElementById('c-msg').value.trim();
+      if (!n || !m) { alert('Por favor, informe seu nome e mensagem.'); return; }
+
+      fetch('/api/lead', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome: n, whatsapp: w, cidade: c, mensagem: m })
+      }).catch(() => {});
+
+      const txt = encodeURIComponent(`Olá, Aldo Maurício!\n\nNome: ${n}\nWhatsApp: ${w || '—'}\nCidade: ${c || '—'}\n\n${m}`);
+      window.open(`https://wa.me/559681419718?text=${txt}`, '_blank');
+    }
+
+    /* ── Rastreamento de visitas (métricas do painel) ── */
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: location.pathname, referrer: document.referrer || null })
+    }).catch(() => {});
+  </script>
+</body>
+
+</html>

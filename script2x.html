@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Protocolo Script 2X™ — Sessão de Diagnóstico</title>
+
+    <link rel="preconnect" href="https://fonts.cdnfonts.com">
+    <link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet">
+    <link href="https://fonts.cdnfonts.com/css/clash-grotesk" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-canvas: #09090b;
+            --bg-surface: #18181b;
+            --color-accent: #00c871;
+            --color-accent-soft: rgba(0, 200, 113, 0.1);
+            --color-gold: #eed7a4;
+            --color-red: #ff6b6b;
+            --section-padding: clamp(5rem, 10vw, 8rem);
+            --ease-fluid: cubic-bezier(0.32, 0.72, 0, 1);
+            --duration-slow: 800ms;
+            --body-size: 0.9rem;
+            --body-lh: 1.75;
+        }
+
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            background-color: var(--bg-canvas);
+            color: #fff;
+            font-family: 'Clash Grotesk', sans-serif;
+            overflow-x: hidden;
+        }
+
+        body {
+            line-height: var(--body-lh);
+            font-size: var(--body-size);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .h1,
+        .h2,
+        .h3 {
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 500;
+            line-height: 1.08;
+            letter-spacing: -0.02em;
+            color: #fff;
+        }
+
+        .h1 {
+            font-size: clamp(2.04rem, 4.67vw, 3.57rem);
+        }
+
+        .h2 {
+            font-size: clamp(1.53rem, 2.97vw, 2.38rem);
+        }
+
+        .body-text {
+            font-size: var(--body-size);
+            font-weight: 300;
+            color: #fff;
+            font-family: 'Clash Grotesk', sans-serif;
+            letter-spacing: 0.03em;
+            line-height: var(--body-lh);
+        }
+
+        .text-accent {
+            color: var(--color-accent);
+        }
+
+        .text-gold {
+            color: var(--color-gold);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .bezel-container {
+            padding: 5px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 1.5rem;
+        }
+
+        .bezel-core {
+            background: var(--bg-surface);
+            border-radius: calc(1.5rem - 5px);
+            padding: 1.6rem;
+            height: 100%;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.06);
+        }
+
+        .btn-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 14px 14px 32px;
+            background: var(--color-accent);
+            color: #fff;
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            border-radius: 9999px;
+            transition: transform 400ms var(--ease-fluid), filter 400ms var(--ease-fluid);
+            border: none;
+            cursor: pointer;
+            animation: pisca 3s infinite;
+            box-shadow: 0 0 14px 0 rgba(0, 200, 113, 0.5);
+        }
+
+        @keyframes pisca {
+            70% {
+                box-shadow: 0 0 0 18px rgba(0, 200, 113, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(0, 200, 113, 0);
+            }
+        }
+
+        .btn-pill:hover {
+            transform: scale(1.03);
+            filter: brightness(1.1);
+        }
+
+        .btn-pill:active {
+            transform: scale(0.98);
+        }
+
+        .btn-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(0, 0, 0, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 400ms var(--ease-fluid);
+        }
+
+        .btn-pill:hover .btn-icon {
+            transform: translateX(4px);
+        }
+
+        /* botão pequeno na nav */
+        .btn-nav {
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 16px;
+            background: var(--color-accent);
+            color: #fff;
+            font-family: 'Clash Display', sans-serif;
+            font-weight: 600;
+            font-size: 0.68rem;
+            text-decoration: none;
+            border-radius: 9999px;
+            white-space: nowrap;
+            letter-spacing: 0.05em;
+            transition: filter 300ms;
+        }
+
+        .btn-nav:hover {
+            filter: brightness(1.12);
+        }
+
+        .pill-tag {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: #fff;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            filter: blur(6px);
+            transition: all var(--duration-slow) var(--ease-fluid);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .section {
+            padding: var(--section-padding) 0;
+        }
+
+        .hero {
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background-color: var(--bg-canvas);
+            background-image:
+                linear-gradient(to right, var(--bg-canvas) 0%, rgba(9, 9, 11, 0.85) 45%, transparent 85%),
+                linear-gradient(to bottom, transparent 60%, var(--bg-canvas) 100%),
+                url('img/cta-3-1.webp');
+            background-size: cover;
+            background-position: center top;
+            padding-top: 2rem;
+        }
+
+        .hero__content {
+            max-width: 660px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .hero-creds {
+            display: flex;
+            gap: 2.5rem;
+            align-items: flex-start;
+            margin-top: 0.4rem;
+        }
+
+        .hero-exclusive {
+            display: inline-flex;
+            width: fit-content;
+            padding: 6px 16px;
+            background: var(--color-accent-soft);
+            border: 1px solid var(--color-accent);
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+        }
+
+        .hero-cred__number {
+            font-family: 'Clash Display', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .hero-cred__label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #fff;
+            margin-top: 0.3rem;
+        }
+
+        .pain-number {
+            font-family: 'Clash Display', sans-serif;
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 600;
+            color: var(--color-red);
+            line-height: 1;
+            opacity: 0.9;
+        }
+
+        .method-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .method-grid .bezel-container {
+            width: 300px;
+            /* Tamanho fixo em px como solicitado */
+            flex-shrink: 0;
+        }
+
+        .method-card__num {
+            font-family: 'Clash Display';
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            line-height: 1;
+        }
+
+        .method-card__title {
+            font-family: 'Clash Display';
+            font-weight: 600;
+            font-size: 0.96rem;
+            margin: 0.6rem 0 0.4rem;
+            color: #fff;
+        }
+
+        .quote-bar {
+            border-left: 2px solid var(--color-accent);
+            padding-left: 1.2rem;
+            margin: 1rem 0;
+            font-weight: 600;
+            font-size: 1.15rem;
+            color: var(--color-accent);
+            line-height: 1.4;
+        }
+
+        .footer {
+            padding: 5rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        @media (max-width: 1024px) {
+            html {
+                font-size: 85%;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 1.5rem 0 4rem;
+                /* margenzinha menor no topo */
+                background-image:
+                    linear-gradient(to bottom, rgba(9, 9, 11, 0.75) 0%, var(--bg-canvas) 100%),
+                    url('img/Frame-1171275416-1.webp');
+                background-size: cover;
+                background-position: center top;
+            }
+
+            .hero__content {
+                max-width: 100%;
+                align-items: center;
+                /* Centralize all contents */
+                text-align: center;
+            }
+
+            .h1 {
+                font-size: 2.8rem;
+                /* aumente o titulo no mobile */
+            }
+
+            .hero-exclusive {
+                font-size: 0.45rem !important;
+                padding: 4px 8px !important;
+                margin-top: 0 !important;
+                margin-bottom: 220px !important;
+            }
+
+            .pain-split {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+            }
+
+            .pain-number {
+                font-size: 4rem;
+            }
+
+            .method-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .desktop-grid-2col {
+                grid-template-columns: 1fr !important;
+                gap: 3rem !important;
+            }
+
+            #floating-nav {
+                display: none !important;
+            }
+
+            .hero-creds {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .btn-pill {
+                font-size: 0.62rem;
+                padding: 8px 8px 8px 16px;
+                gap: 6px;
+            }
+            .btn-icon {
+                width: 28px;
+                height: 28px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAV -->
+    <nav id="floating-nav" style="position:fixed;top:1.5rem;left:50%;transform:translateX(-50%);z-index:100;">
+        <div
+            style="padding:8px 10px 8px 22px;display:flex;align-items:center;gap:22px;background:rgba(9,9,11,0.88);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.12);border-radius:9999px;">
+            <span
+                style="font-weight:700;font-family:'Clash Display';font-size:1.1rem;color:#fff;white-space:nowrap;">Protocolo
+                <span class="text-accent">2X™</span></span>
+            <div style="display:flex;gap:18px;align-items:center;">
+                <a href="#dor"
+                    style="color:#fff;text-decoration:none;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;">A
+                    Sessão</a>
+                <a href="#mentor"
+                    style="color:#fff;text-decoration:none;font-size:0.68rem;font-weight:600;text-transform:uppercase;letter-spacing:1px;white-space:nowrap;">O
+                    Expert</a>
+                <a href="#agendar" class="btn-nav">Diagnóstico gratuito ↗</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- ═══════ 1. HERO ═══════ -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero__content">
+
+                <div class="reveal hero-exclusive">
+                    Exclusivo para empresários digitais que faturam de R$10k a R$30k/mês.
+                </div>
+
+                <h1 class="h1 reveal">Você não precisa de <span class="text-gold">mais leads.</span></h1>
+
+                <h2 class="reveal"
+                    style="font-size:1.4rem;font-weight:400;color:#fff;max-width:560px;font-family:'Clash Display',sans-serif;letter-spacing:0.04em;line-height:1.4;">
+                    Você precisa parar de perder os que já tem.
+                </h2>
+
+                <p class="reveal body-text" style="max-width:620px;margin-top:0.3rem;line-height:1.75;">
+                    Instale o processo de vendas de 5 etapas que <mark
+                        style="background:rgba(0,200,113,0.18);color:#fff;border-radius:3px;padding:1px 5px;font-weight:400;">fecha
+                        95% na primeira call.</mark>
+                    Dobre seu lucro com os mesmos leads que você já tem.
+                    <span
+                        style="background:#111;border:1px solid rgba(255,255,255,0.12);padding:2px 6px;border-radius:4px;font-size:0.6rem;font-weight:300;letter-spacing:0.04em;white-space:nowrap;display:inline-block;margin:2px 0;">Sem
+                        aumentar tráfego</span>&#8202;
+                    <span
+                        style="background:#111;border:1px solid rgba(255,255,255,0.12);padding:2px 6px;border-radius:4px;font-size:0.6rem;font-weight:300;letter-spacing:0.04em;white-space:nowrap;display:inline-block;margin:2px 0;">Sem
+                        criar mais conteúdo</span>&#8202;
+                    <span
+                        style="background:#111;border:1px solid rgba(255,255,255,0.12);padding:2px 6px;border-radius:4px;font-size:0.6rem;font-weight:300;letter-spacing:0.04em;white-space:nowrap;display:inline-block;margin:2px 0;">Sem
+                        fazer mais calls</span>
+                </p>
+
+                <div class="reveal" style="display:flex;flex-direction:column;gap:1.2rem;margin-top:0.5rem;">
+                    <div>
+                        <a href="#agendar" class="btn-pill">
+                            QUERO MINHA SESSÃO DE DIAGNÓSTICO GRATUITA
+                            <div class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg></div>
+                        </a>
+                    </div>
+
+                    <div class="hero-creds">
+                        <div>
+                            <p class="hero-cred__number">R$42M+</p>
+                            <p class="hero-cred__label">Em vendas 1 a 1</p>
+                        </div>
+                        <div>
+                            <p class="hero-cred__number">1.500+</p>
+                            <p class="hero-cred__label">Vendedores treinados</p>
+                        </div>
+                        <div>
+                            <p class="hero-cred__number">95%</p>
+                            <p class="hero-cred__label">Fechamento na 1ª call</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ═══════ 2. DOR ═══════ -->
+    <section id="dor" class="section" style="background:var(--bg-canvas);border-top:1px solid rgba(255,255,255,0.04);">
+        <div class="container">
+
+            <div class="pain-split reveal"
+                style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:flex-start;margin-bottom:5rem;">
+
+                <div>
+                    <span class="pill-tag"
+                        style="color:var(--color-red);border-color:rgba(255,107,107,0.3);margin-bottom:1.5rem;">
+                        A conta que ninguém faz
+                    </span>
+                    <h2 class="h2" style="margin-top:1.5rem;">Cada "vou pensar" é dinheiro que saiu pela porta.</h2>
+                    <div style="margin-top:2rem;">
+                        <p class="body-text">
+                            Você fatura R$20 mil por mês convertendo 30% em call.<br>
+                            Agora faz a conta: se esses scripts levarem sua conversão de 30% pra 60%,
+                            você acabou de dobrar o faturamento. Sem um lead a mais. Sem um real a mais
+                            em tráfego. Só mudando <strong style="color:#fff;font-weight:600;">O QUE FALA</strong> na
+                            hora de vender.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="text-align:center;">
+                    <p class="pain-number">R$216k</p>
+                    <p class="body-text" style="margin-top:1rem;">
+                        É o que um empresário de R$20k/mês
+                        <strong style="color:var(--color-red);">deixa na mesa por ano</strong>
+                        com uma taxa de conversão 30% abaixo do potencial.
+                    </p>
+
+                    <!-- Gráfico comparativo -->
+                    <div class="reveal"
+                        style="margin-top:2rem;padding:1.5rem 1.5rem 1rem;border-radius:1rem;border:1px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);">
+                        <div style="display:flex;gap:2.5rem;align-items:stretch;justify-content:center;">
+
+                            <!-- GRUPO ESQUERDA -->
+                            <div style="display:flex;flex-direction:column;align-items:center;">
+                                <span
+                                    style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:rgba(255,255,255,0.5);font-family:'Clash Grotesk',sans-serif;margin-bottom:1rem;">Cenário
+                                    atual</span>
+                                <div style="display:flex;gap:12px;align-items:flex-end;height:120px;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+
+                                        <div style="width:36px;background:rgba(255,255,255,0.18);border-radius:4px 4px 0 0;height:0;transition:height 1.3s cubic-bezier(0.34,1.1,0.64,1);"
+                                            data-chart-h="42"></div>
+                                    </div>
+                                    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+
+                                        <div style="width:36px;background:rgba(255,107,107,0.65);border-radius:4px 4px 0 0;height:0;transition:height 1.3s cubic-bezier(0.34,1.1,0.64,1) 0.12s;"
+                                            data-chart-h="66"></div>
+                                    </div>
+                                </div>
+                                <div style="width:100%;height:1px;background:rgba(255,255,255,0.08);"></div>
+                                <div style="display:flex;gap:12px;margin-top:8px;">
+                                    <span
+                                        style="width:36px;text-align:center;font-size:0.48rem;color:rgba(255,255,255,0.4);font-family:'Clash Grotesk';text-transform:uppercase;">20
+                                        Leads</span>
+                                    <span
+                                        style="width:36px;text-align:center;font-size:0.58rem;color:rgba(255,107,107,0.9);font-family:'Clash Grotesk';font-weight:600;">30%</span>
+                                </div>
+                                <span
+                                    style="font-size:0.78rem;font-weight:700;color:rgba(255,255,255,0.5);font-family:'Clash Grotesk';margin-top:10px;">R$18k</span>
+                            </div>
+
+                            <!-- DIVISOR -->
+                            <div style="width:1px;background:rgba(255,255,255,0.07);align-self:stretch;"></div>
+
+                            <!-- GRUPO DIREITA -->
+                            <div style="display:flex;flex-direction:column;align-items:center;">
+                                <span
+                                    style="font-size:0.6rem;text-transform:uppercase;letter-spacing:0.12em;color:var(--color-accent);font-family:'Clash Grotesk',sans-serif;margin-bottom:1rem;">Com
+                                    o Script 2X™</span>
+                                <div style="display:flex;gap:12px;align-items:flex-end;height:120px;">
+                                    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+
+                                        <div style="width:36px;background:rgba(255,255,255,0.18);border-radius:4px 4px 0 0;height:0;transition:height 1.3s cubic-bezier(0.34,1.1,0.64,1) 0.05s;"
+                                            data-chart-h="42"></div>
+                                    </div>
+                                    <div style="display:flex;flex-direction:column;align-items:center;gap:5px;">
+
+                                        <div style="width:36px;background:var(--color-accent);border-radius:4px 4px 0 0;height:0;transition:height 1.3s cubic-bezier(0.34,1.1,0.64,1) 0.2s;"
+                                            data-chart-h="102"></div>
+                                    </div>
+                                </div>
+                                <div style="width:100%;height:1px;background:rgba(0,200,113,0.2);"></div>
+                                <div style="display:flex;gap:12px;margin-top:8px;">
+                                    <span
+                                        style="width:36px;text-align:center;font-size:0.48rem;color:rgba(255,255,255,0.4);font-family:'Clash Grotesk';text-transform:uppercase;">20
+                                        Leads</span>
+                                    <span
+                                        style="width:36px;text-align:center;font-size:0.58rem;color:var(--color-accent);font-family:'Clash Grotesk';font-weight:600;">60%</span>
+                                </div>
+                                <span
+                                    style="font-size:0.78rem;font-weight:700;color:var(--color-accent);font-family:'Clash Grotesk';margin-top:10px;">R$36k</span>
+                            </div>
+
+                        </div>
+                        <p
+                            style="font-size:0.72rem;font-weight:600;text-align:center;color:var(--color-accent);font-family:'Clash Grotesk';letter-spacing:0.08em;text-transform:uppercase;margin-top:1rem;">
+                            Diferença: + R$18k/mês &nbsp;·&nbsp; R$216k/ano a mais
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Quote -->
+        <p class="reveal"
+            style="font-family:'Clash Display',sans-serif;font-size:clamp(0.95rem,3.8vw,1.2rem);font-weight:500;color:#fff;line-height:1.4;letter-spacing:-0.01em;margin-top:3rem;margin-bottom:2rem;max-width:700px;margin-left:auto;margin-right:auto;text-align:center;padding:0 2.5rem;">
+            "Mesmas calls. Mesmos leads. Mesma agenda. A única coisa que muda é o que sai da sua boca. E isso muda
+            TUDO."
+        </p>
+
+        <!-- 3 cards -->
+        <div class="method-grid">
+            <div class="bezel-container reveal">
+                <div class="bezel-core">
+                    <span class="method-card__num">01</span>
+                    <p class="method-card__title">Quanto você está deixando na mesa.</p>
+                    <p class="body-text" style="font-weight:200;font-size:0.8rem;color:rgba(255,255,255,0.65);">A conta
+                        real, com os seus números. Quantos leads entram, quantos fecham,
+                        qual o ticket. E quanto dinheiro tá passando direto todo mês. Você vai VER o número. E ele
+                        vai te incomodar.</p>
+                </div>
+            </div>
+            <div class="bezel-container reveal">
+                <div class="bezel-core">
+                    <span class="method-card__num">02</span>
+                    <p class="method-card__title">O momento exato onde o lead decide ir embora.</p>
+                    <p class="body-text" style="font-weight:200;font-size:0.8rem;color:rgba(255,255,255,0.65);">Não é "a
+                        objeção". É o segundo preciso onde você perdeu o controle da
+                        conversa. A frase que entregou o poder pro lead. A pausa que matou a tensão. O ponto onde o
+                        "vou pensar" nasceu. Antes dele aparecer.</p>
+                </div>
+            </div>
+            <div class="bezel-container reveal">
+                <div class="bezel-core">
+                    <span class="method-card__num">03</span>
+                    <p class="method-card__title">O que falar diferente na próxima call.</p>
+                    <p class="body-text" style="font-weight:200;font-size:0.8rem;color:rgba(255,255,255,0.65);">Não é
+                        PDF. Não é framework. É a correção direta. O que trocar, onde trocar,
+                        como falar. Pra você aplicar amanhã com o próximo lead que mandar mensagem.</p>
+                </div>
+            </div>
+        </div>
+
+        </div>
+    </section>
+
+
+    <!-- ═══════ 3. AUTORIDADE ═══════ -->
+    <section id="mentor" class="section"
+        style="background:var(--bg-canvas);border-top:1px solid rgba(255,255,255,0.04);">
+        <div class="container desktop-grid-2col"
+            style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center;">
+
+            <div class="reveal" style="position:relative;">
+                <img src="img/ft-jezreel-11.webp" alt="Jezreel Soares"
+                    style="width:100%;border-radius:1rem;filter:contrast(1.05) grayscale(0.15);">
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:1rem;">
+                <span class="pill-tag reveal"
+                    style="width:fit-content;border-color:var(--color-gold);color:var(--color-gold);">A
+                    autoridade</span>
+                <h2 class="h1 reveal">Quem é o<br><span class="text-gold">Jezreel Soares?</span></h2>
+
+                <div class="reveal" style="display:flex;flex-direction:column;gap:1rem;margin-top:0.5rem;">
+                    <p class="body-text">Mais de R$42 milhões em vendas. Não com anúncios. Não com lançamentos. Com
+                        SCRIPTS. Na conversa 1 a 1. Olho no olho. Voz contra voz.</p>
+                    <p class="body-text">Enquanto o mercado digital inteiro se obcecava por tráfego, pixel e custo por
+                        lead, o Jez estava do outro lado da linha. FECHANDO.</p>
+                    <p class="body-text">Head Comercial de <strong style="color:#fff;font-weight:600;">Erico
+                            Rocha</strong>. O nome que inventou o lançamento digital no Brasil. Quando o maior player
+                        precisava transformar leads em faturamento real, o telefone tocava no escritório do Jez.</p>
+
+                    <div style="margin-top:1.5rem;">
+                        <p class="quote-bar"
+                            style="font-size:clamp(1.6rem,3.5vw,2.4rem);line-height:1.2;margin-bottom:0.75rem;max-width:100%;">
+                            Quanto você está perdendo por mês sem saber?
+                        </p>
+                        <p class="body-text" style="margin-bottom:1.2rem;">Agende sua sessão. Em 30 minutos, você vai
+                            saber.</p>
+
+                        <a href="#" class="btn-pill">
+                            QUERO MINHA SESSÃO DE DIAGNÓSTICO GRATUITA
+                            <div class="btn-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+                                    stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <line x1="5" y1="12" x2="19" y2="12" />
+                                    <polyline points="12 5 19 12 12 19" />
+                                </svg></div>
+                        </a>
+
+                        <div class="reveal" style="margin-top:1.2rem;">
+                            <div
+                                style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                                <span
+                                    style="font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:#fff;font-family:'Clash Grotesk',sans-serif;">10
+                                    sessões por semana — Quando acabar, só na próxima rodada.</span>
+                                <span id="bar-pct"
+                                    style="font-size:0.72rem;font-weight:700;color:var(--color-accent);font-family:'Clash Grotesk',sans-serif;letter-spacing:0.05em;">0%</span>
+                            </div>
+                            <div
+                                style="width:100%;height:5px;background:rgba(255,255,255,0.1);border-radius:9999px;overflow:hidden;">
+                                <div id="bar-fill"
+                                    style="height:100%;width:0%;background:var(--color-accent);border-radius:9999px;transition:width 1.8s cubic-bezier(0.32,0.72,0,1);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer" style="background:var(--bg-canvas);">
+        <div class="container">
+            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:3rem;">
+                <div>
+                    <p style="font-family:'Clash Display';font-weight:600;font-size:1.1rem;color:#fff;">Protocolo <span
+                            class="text-accent">Script 2X™</span></p>
+                    <p class="body-text" style="max-width:300px;margin-top:0.5rem;font-size:0.9rem;">Instalação direta
+                        do processo de vendas de 5 etapas para operações high-ticket.</p>
+                </div>
+                <div style="display:flex;gap:3rem;">
+                    <a href="#" style="color:#fff;text-decoration:none;font-size:var(--body-size);">Termos de Uso</a>
+                    <a href="#" style="color:#fff;text-decoration:none;font-size:var(--body-size);">Privacidade</a>
+                </div>
+            </div>
+            <div
+                style="margin-top:4rem;padding-top:2rem;border-top:1px solid rgba(255,255,255,0.06);font-size:0.75rem;color:rgba(255,255,255,0.35);">
+                <p>&copy; 2026 Jezreel Soares. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        const barFill = document.getElementById('bar-fill');
+        const barPct = document.getElementById('bar-pct');
+        const target = 85;
+        let started = false;
+
+        const barObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !started) {
+                    started = true;
+                    requestAnimationFrame(() => { barFill.style.width = target + '%'; });
+                    let current = 0;
+                    const step = 1800 / target;
+                    const counter = setInterval(() => {
+                        current++;
+                        barPct.textContent = current + '%';
+                        if (current >= target) clearInterval(counter);
+                    }, step);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        if (barFill) barObserver.observe(barFill);
+
+        const chartBars = document.querySelectorAll('[data-chart-h]');
+        let chartStarted = false;
+        const chartObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !chartStarted) {
+                    chartStarted = true;
+                    chartBars.forEach(bar => {
+                        requestAnimationFrame(() => { bar.style.height = bar.getAttribute('data-chart-h') + 'px'; });
+                    });
+                }
+            });
+        }, { threshold: 0.4 });
+
+        if (chartBars.length > 0) chartObserver.observe(chartBars[0]);
+    </script>
+
+</body>
+
+</html>

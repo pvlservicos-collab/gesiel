@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aldo Maurício — Mapa de Lideranças por Bairro</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-0:#070d24; --bg-1:#0b1233; --bg-2:#101c44;
+    --card:#121e48; --card-2:#16234f;
+    --border:rgba(255,255,255,.09);
+    --text:#e9edf8; --muted:#9aa5c6;
+    --gold:#f2c218; --gold-soft:rgba(242,194,24,.14);
+    --azul-forte:#132a68;   /* azul escuro escuro — liderança consolidada */
+    --azul-medio:#3f64d8;   /* azul escuro claro — liderança em construção */
+    --sem:#2b3352;          /* sem liderança cadastrada */
+    --verde:#2ee06f;        /* destaque ao passar o mouse */
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    font-family:'Archivo',system-ui,-apple-system,Segoe UI,sans-serif;
+    background:linear-gradient(160deg,var(--bg-0) 0%,var(--bg-1) 45%,var(--bg-2) 100%);
+    color:var(--text);display:flex;flex-direction:column;overflow:hidden;
+  }
+  main{flex:1;display:flex;min-height:0}
+  #map{flex:1;background:var(--bg-0)}
+  aside{width:300px;min-width:260px;border-left:1px solid var(--border);background:rgba(9,15,40,.72);display:flex;flex-direction:column;overflow:hidden}
+  .panel{padding:16px 18px;border-bottom:1px solid var(--border)}
+  .panel h2{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:600}
+  .metric-row{display:flex;align-items:center;justify-content:space-between;font-size:13.5px}
+  .metric-row b{font-size:20px;font-weight:800;color:#7d9bff}
+  .list-wrap{flex:1;overflow-y:auto;padding:10px 12px}
+  .search{width:100%;padding:8px 12px;margin-bottom:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;outline:none}
+  .search:focus{border-color:var(--gold)}
+  .search::placeholder{color:var(--muted)}
+  .bairro-item{display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
+  .bairro-item:last-child{border-bottom:none}
+  .bairro-item:hover{background:var(--card)}
+  .bairro-item.selecionado{background:#050a1c;border-left:3px solid #3f7bff;padding-left:9px}
+  .bairro-item.selecionado .bn{color:#7d9bff}
+  .bairro-item .bn{font-size:13.5px;font-weight:600}
+  .bairro-item .ln{font-size:11px;color:var(--muted);margin-top:1px}
+  .list-wrap::-webkit-scrollbar{width:8px}
+  .list-wrap::-webkit-scrollbar-thumb{background:var(--card-2);border-radius:4px}
+
+  .leaflet-tooltip.tt, .leaflet-popup-content-wrapper{
+    background:var(--card);color:var(--text);border:1px solid var(--border);
+    border-radius:10px;box-shadow:0 10px 34px rgba(0,0,0,.55);font-family:'Archivo',sans-serif;
+  }
+  .leaflet-tooltip.tt{padding:10px 14px}
+  .leaflet-tooltip-top.tt::before{border-top-color:var(--card)}
+  .leaflet-tooltip-bottom.tt::before{border-bottom-color:var(--card)}
+  .leaflet-tooltip-left.tt::before{border-left-color:var(--card)}
+  .leaflet-tooltip-right.tt::before{border-right-color:var(--card)}
+  .leaflet-popup-tip{background:var(--card)}
+  .tt-bairro{font-family:'Archivo Narrow',sans-serif;font-weight:700;font-size:15px;text-transform:uppercase;letter-spacing:.8px;color:var(--gold)}
+  .tt-lid{font-size:14px;font-weight:600;margin-top:5px}
+  .tt-num{font-size:13px;color:var(--muted);margin-top:2px}
+  .tt-nivel{display:inline-block;margin-top:7px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;padding:3px 8px;border-radius:20px;background:var(--gold-soft);color:var(--gold);font-weight:600}
+  .leaflet-container{font-family:'Archivo',sans-serif}
+  .leaflet-bar a{background:var(--card);color:var(--text);border-bottom:1px solid var(--border)}
+  .leaflet-bar a:hover{background:var(--card-2)}
+
+  /* quadrado azul brilhante = liderança cadastrada */
+  .lid-marker{width:15px;height:15px;background:#3f7bff;border:2px solid #fff;border-radius:3px;box-shadow:0 0 10px 4px rgba(63,123,255,.85);cursor:pointer;transform-origin:center center}
+  .tt-end{font-size:12px;color:var(--muted);margin-top:2px}
+
+  /* pin dos locais de votação: bolinha em cima de uma barra, só clareia no hover */
+  .voto-pin{position:relative;width:10px;height:22px;cursor:pointer;transform-origin:bottom center}
+  .voto-bar{position:absolute;bottom:0;left:50%;width:2px;height:15px;background:linear-gradient(to top,#3a4050,rgba(58,64,80,.12));transform:translateX(-50%);border-radius:2px}
+  .voto-dot{position:absolute;top:0;left:50%;width:7px;height:7px;background:#6b5410;border:1.5px solid rgba(255,255,255,.45);border-radius:50%;transform:translateX(-50%);transition:background .2s,box-shadow .2s,border-color .2s}
+  .voto-pin:hover .voto-dot{background:#3f7bff;border-color:#fff;box-shadow:0 0 14px 6px rgba(63,123,255,.8)}
+  .tt-votos{font-size:12px;color:var(--muted);margin-top:4px}
+
+  @media (max-width:760px){
+    main{flex-direction:column}
+    aside{width:100%;min-width:0;max-height:30vh;border-left:none;border-top:1px solid var(--border)}
+  }
+</style>
+</head>
+<body>
+
+<main>
+  <div id="map"></div>
+  <aside>
+    <div class="panel">
+      <h2>Métricas</h2>
+      <div class="metric-row"><span>Bairros com liderança</span><b id="st-bairros">0</b></div>
+    </div>
+    <div class="list-wrap">
+      <input class="search" id="search" type="text" placeholder="Buscar liderança…">
+      <h2 style="margin:4px 0 10px">Lideranças</h2>
+      <div id="lista"></div>
+    </div>
+  </aside>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+/* Limites dos bairros extraídos do mapa IBGE (página 2 do PDF) */
+const BAIRROS_GEO = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"name": "Alvorada"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.105992, 0.041176], [-51.101398, 0.032755], [-51.100888, 0.031033], [-51.100313, 0.03065], [-51.100824, 0.029757], [-51.100441, 0.0288], [-51.09942, 0.028928], [-51.098846, 0.029948], [-51.09757, 0.029948], [-51.096549, 0.03065], [-51.095528, 0.030905], [-51.095018, 0.031352], [-51.094507, 0.032373], [-51.092657, 0.032181], [-51.091572, 0.031416], [-51.091381, 0.030778], [-51.089722, 0.029821], [-51.089977, 0.025227], [-51.083789, 0.024908], [-51.082768, 0.040028], [-51.084682, 0.03888], [-51.085128, 0.03888], [-51.092849, 0.04896], [-51.093359, 0.048896], [-51.105992, 0.041176]]]}}, {"type": "Feature", "properties": {"name": "Araxá"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.057629, 0.010299], [-51.058842, 0.009342], [-51.060756, 0.00947], [-51.061649, 0.006152], [-51.061904, 0.003536], [-51.062415, 0.002962], [-51.063946, 0.002579], [-51.064201, 0.000474], [-51.071092, 0.00041], [-51.071347, -0.001567], [-51.073133, -0.003226], [-51.073261, -0.00565], [-51.072814, -0.007692], [-51.071347, -0.007947], [-51.069943, -0.007692], [-51.069242, -0.007118], [-51.068093, -0.007245], [-51.066051, -0.00884], [-51.065158, -0.007437], [-51.061904, -0.003673], [-51.060245, -0.001312], [-51.059799, -0.000291], [-51.059161, 0.000347], [-51.058523, 0.002005], [-51.058523, 0.00309], [-51.057948, 0.004366], [-51.058012, 0.005833], [-51.057629, 0.006535], [-51.057757, 0.007492], [-51.05731, 0.008832], [-51.057629, 0.010299]]]}}, {"type": "Feature", "properties": {"name": "Beirol"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.059288, 0.02191], [-51.067008, 0.022356], [-51.067583, 0.012851], [-51.0672, 0.012404], [-51.068093, 0.011256], [-51.066689, 0.011001], [-51.065031, 0.008449], [-51.062861, 0.009916], [-51.06184, 0.011256], [-51.061202, 0.019805], [-51.060883, 0.02006], [-51.059288, 0.02006], [-51.059288, 0.02191]]]}}, {"type": "Feature", "properties": {"name": "Boné Azul"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.073963, 0.085132], [-51.074346, 0.085069], [-51.075239, 0.083793], [-51.07543, 0.082963], [-51.076196, 0.082262], [-51.074154, 0.080858], [-51.072687, 0.083091], [-51.073006, 0.083984], [-51.073963, 0.085132]]]}}, {"type": "Feature", "properties": {"name": "Brasil Novo"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.076579, 0.107334], [-51.118242, 0.105356], [-51.123091, 0.10408], [-51.124941, 0.103889], [-51.125771, 0.104399], [-51.125898, 0.104144], [-51.125579, 0.103187], [-51.124239, 0.101656], [-51.122836, 0.100826], [-51.116009, 0.095531], [-51.113457, 0.094064], [-51.096868, 0.088386], [-51.088957, 0.087812], [-51.085384, 0.087302], [-51.084235, 0.086855], [-51.079003, 0.095021], [-51.077153, 0.097509], [-51.076579, 0.107334]]]}}, {"type": "Feature", "properties": {"name": "Buritizal"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.072814, 0.029821], [-51.073133, 0.02612], [-51.073453, 0.025929], [-51.076324, 0.02612], [-51.077663, 0.022739], [-51.077791, 0.021081], [-51.077472, 0.020762], [-51.0776, 0.018146], [-51.077153, 0.018018], [-51.076962, 0.017635], [-51.077217, 0.016934], [-51.077791, 0.016998], [-51.077919, 0.016742], [-51.077089, 0.015977], [-51.077536, 0.014892], [-51.076579, 0.014318], [-51.076451, 0.013999], [-51.079067, 0.01183], [-51.080152, 0.010554], [-51.07894, 0.009533], [-51.078046, 0.009661], [-51.076387, 0.008449], [-51.076068, 0.007428], [-51.071219, 0.007237], [-51.070773, 0.007364], [-51.070454, 0.009214], [-51.067455, 0.012404], [-51.067838, 0.013106], [-51.066945, 0.02931], [-51.072814, 0.029821]]]}}, {"type": "Feature", "properties": {"name": "Cabralzinho"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.116775, 0.0325], [-51.117413, 0.029821], [-51.117795, 0.029119], [-51.117732, 0.027907], [-51.113712, 0.026695], [-51.112946, 0.026822], [-51.112691, 0.02829], [-51.111798, 0.029821], [-51.116775, 0.0325]]]}}, {"type": "Feature", "properties": {"name": "Central"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.069688, 0.043856], [-51.070199, 0.040092], [-51.070709, 0.029948], [-51.051185, 0.028609], [-51.049208, 0.029948], [-51.047868, 0.030267], [-51.048059, 0.030841], [-51.047804, 0.031479], [-51.048314, 0.032309], [-51.047676, 0.040794], [-51.048378, 0.04124], [-51.050101, 0.041176], [-51.050165, 0.042452], [-51.066434, 0.043792], [-51.069688, 0.043856]]]}}, {"type": "Feature", "properties": {"name": "Cidade Nova"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.048888, 0.061847], [-51.050803, 0.059295], [-51.049654, 0.059295], [-51.049463, 0.058465], [-51.049718, 0.057764], [-51.04825, 0.056998], [-51.048059, 0.055531], [-51.048378, 0.053617], [-51.048697, 0.053234], [-51.048825, 0.051448], [-51.044869, 0.051129], [-51.041998, 0.051193], [-51.041615, 0.052787], [-51.041041, 0.053553], [-51.040339, 0.057126], [-51.041998, 0.056807], [-51.042508, 0.056934], [-51.04321, 0.057445], [-51.043465, 0.057955], [-51.046847, 0.059741], [-51.048123, 0.061464], [-51.048888, 0.061847]]]}}, {"type": "Feature", "properties": {"name": "Congós"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.081747, 0.008002], [-51.083789, 0.009916], [-51.084618, 0.010235], [-51.084873, 0.011383], [-51.085766, 0.011383], [-51.091317, 0.016487], [-51.091764, 0.01553], [-51.092657, 0.014637], [-51.093168, 0.014701], [-51.095273, 0.013808], [-51.095592, 0.013935], [-51.096485, 0.013489], [-51.097889, 0.013361], [-51.101589, 0.01234], [-51.101079, 0.010235], [-51.101143, 0.009406], [-51.100696, 0.008321], [-51.100824, 0.00679], [-51.101207, 0.005897], [-51.101143, 0.005068], [-51.101398, 0.004812], [-51.101334, 0.004047], [-51.098974, 0.003919], [-51.098527, 0.002579], [-51.088, 0.002707], [-51.087808, 0.003536], [-51.087872, 0.006471], [-51.084363, 0.007556], [-51.081811, 0.007237], [-51.081747, 0.008002]]]}}, {"type": "Feature", "properties": {"name": "Infraero"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.068986, 0.077477], [-51.068731, 0.074542], [-51.068986, 0.068864], [-51.066498, 0.064909], [-51.066115, 0.064909], [-51.060373, 0.068609], [-51.059926, 0.068609], [-51.059416, 0.067907], [-51.059097, 0.067907], [-51.060883, 0.071033], [-51.059799, 0.071352], [-51.059607, 0.071927], [-51.057948, 0.072054], [-51.058204, 0.077477], [-51.065541, 0.077285], [-51.068986, 0.077477]]]}}, {"type": "Feature", "properties": {"name": "Jardim Equatorial"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.067072, 0.010873], [-51.06854, 0.010937], [-51.070326, 0.008959], [-51.070518, 0.007428], [-51.069688, 0.007173], [-51.069369, 0.005578], [-51.065286, 0.008194], [-51.067072, 0.010873]]]}}, {"type": "Feature", "properties": {"name": "Jardim Felicidade"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.055524, 0.100571], [-51.064265, 0.093873], [-51.065605, 0.092597], [-51.065796, 0.09215], [-51.065605, 0.077541], [-51.05814, 0.077796], [-51.057247, 0.078051], [-51.056353, 0.077923], [-51.055205, 0.07888], [-51.055779, 0.082325], [-51.055141, 0.089279], [-51.055524, 0.100571]]]}}, {"type": "Feature", "properties": {"name": "Jesus de Nazaré"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.05999, 0.068418], [-51.063499, 0.066504], [-51.066689, 0.064271], [-51.092721, 0.049279], [-51.085065, 0.039135], [-51.084618, 0.039199], [-51.075494, 0.045387], [-51.070007, 0.044749], [-51.069497, 0.044175], [-51.061585, 0.043665], [-51.060947, 0.054319], [-51.060245, 0.055977], [-51.059863, 0.060953], [-51.060118, 0.0614], [-51.060118, 0.064973], [-51.059416, 0.067269], [-51.05999, 0.068418]]]}}, {"type": "Feature", "properties": {"name": "Laguinho"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.061075, 0.052213], [-51.061075, 0.047365], [-51.061266, 0.047173], [-51.061266, 0.045259], [-51.061521, 0.04443], [-51.06133, 0.043601], [-51.050165, 0.042835], [-51.049846, 0.04813], [-51.049271, 0.050044], [-51.049271, 0.051256], [-51.050547, 0.051512], [-51.051504, 0.051256], [-51.054886, 0.051767], [-51.057055, 0.051703], [-51.057502, 0.051958], [-51.059033, 0.051894], [-51.06082, 0.052341], [-51.061075, 0.052213]]]}}, {"type": "Feature", "properties": {"name": "Marco Zero"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.080343, 0.010426], [-51.081938, 0.008768], [-51.081492, 0.007811], [-51.081619, 0.007045], [-51.084554, 0.0073], [-51.087744, 0.00628], [-51.087617, 0.002643], [-51.083852, 0.002643], [-51.083023, 0.002388], [-51.082321, 0.002579], [-51.081747, 0.00226], [-51.081747, -0.004055], [-51.08213, -0.004757], [-51.082385, -0.007181], [-51.08264, -0.007437], [-51.082576, -0.008075], [-51.083023, -0.009159], [-51.083023, -0.010818], [-51.082512, -0.012732], [-51.082576, -0.013306], [-51.082321, -0.013561], [-51.082193, -0.01522], [-51.081874, -0.01573], [-51.081938, -0.016496], [-51.081683, -0.016751], [-51.081555, -0.018537], [-51.081236, -0.019048], [-51.080726, -0.022748], [-51.080088, -0.024024], [-51.080343, -0.025427], [-51.081173, -0.027277], [-51.076132, -0.031169], [-51.074346, -0.027277], [-51.072751, -0.021918], [-51.071411, -0.019877], [-51.070964, -0.018346], [-51.071028, -0.017198], [-51.070773, -0.016496], [-51.07224, -0.015475], [-51.07224, -0.014327], [-51.071985, -0.013944], [-51.071602, -0.01388], [-51.070964, -0.014965], [-51.070262, -0.015156], [-51.06988, -0.014901], [-51.069433, -0.014135], [-51.069433, -0.012923], [-51.06905, -0.012158], [-51.067519, -0.011647], [-51.067072, -0.01018], [-51.06637, -0.009095], [-51.068412, -0.007373], [-51.068986, -0.007245], [-51.070007, -0.007947], [-51.072176, -0.008138], [-51.072942, -0.007883], [-51.073261, -0.007309], [-51.073453, -0.005778], [-51.073325, -0.003098], [-51.071538, -0.00144], [-51.071347, 0.00041], [-51.072113, 0.000729], [-51.071921, 0.00494], [-51.071538, 0.005259], [-51.069752, 0.00545], [-51.069561, 0.005833], [-51.069816, 0.007045], [-51.070199, 0.0073], [-51.071794, 0.006981], [-51.076132, 0.007237], [-51.076451, 0.007492], [-51.076387, 0.008194], [-51.078302, 0.009533], [-51.079067, 0.009342], [-51.080343, 0.010426]]]}}, {"type": "Feature", "properties": {"name": "Nova Esperança"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.079067, 0.036073], [-51.083087, 0.036264], [-51.083533, 0.025993], [-51.082576, 0.026057], [-51.081492, 0.026886], [-51.080471, 0.026503], [-51.079195, 0.026695], [-51.079386, 0.029629], [-51.079769, 0.030841], [-51.079769, 0.032947], [-51.07894, 0.035754], [-51.079067, 0.036073]]]}}, {"type": "Feature", "properties": {"name": "Novo Buritizal"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.076706, 0.026248], [-51.080471, 0.026439], [-51.081619, 0.026822], [-51.082385, 0.026057], [-51.08347, 0.025738], [-51.083533, 0.024908], [-51.083852, 0.024653], [-51.090041, 0.024908], [-51.090233, 0.017763], [-51.09119, 0.017061], [-51.091253, 0.016679], [-51.085639, 0.011575], [-51.084746, 0.011575], [-51.084427, 0.010363], [-51.083916, 0.010299], [-51.082193, 0.008832], [-51.078812, 0.01234], [-51.076706, 0.013999], [-51.077727, 0.014765], [-51.077344, 0.015977], [-51.078174, 0.016742], [-51.077983, 0.017125], [-51.077281, 0.017125], [-51.077217, 0.017763], [-51.077791, 0.018082], [-51.077663, 0.020762], [-51.077983, 0.021017], [-51.077791, 0.023186], [-51.077217, 0.024207], [-51.076579, 0.026057], [-51.076706, 0.026248]]]}}, {"type": "Feature", "properties": {"name": "Novo Horizonte"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.007608, 0.110779], [-51.054439, 0.108482], [-51.054567, 0.102294], [-51.055205, 0.10089], [-51.054886, 0.09164], [-51.055141, 0.085451], [-51.054312, 0.084877], [-51.052972, 0.08526], [-51.050356, 0.084494], [-51.04959, 0.084686], [-51.048442, 0.084239], [-51.046081, 0.084112], [-51.044486, 0.082389], [-51.038616, 0.081624], [-51.028791, 0.080922], [-51.027642, 0.081432], [-51.021709, 0.081305], [-51.020433, 0.083346], [-51.019093, 0.084622], [-51.017051, 0.087365], [-51.015137, 0.089343], [-51.015073, 0.08979], [-51.014244, 0.090109], [-51.013669, 0.091193], [-51.012649, 0.092341], [-51.012521, 0.094064], [-51.011628, 0.095467], [-51.011564, 0.096169], [-51.010862, 0.09719], [-51.010735, 0.097892], [-51.010224, 0.098338], [-51.010033, 0.09955], [-51.00965, 0.100061], [-51.009458, 0.102549], [-51.008948, 0.103251], [-51.00882, 0.105228], [-51.008182, 0.106058], [-51.007608, 0.110779]]]}}, {"type": "Feature", "properties": {"name": "Pacoval"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.049846, 0.061209], [-51.051441, 0.062421], [-51.052015, 0.062548], [-51.057055, 0.061719], [-51.059607, 0.06089], [-51.059926, 0.056296], [-51.060692, 0.054574], [-51.060883, 0.052341], [-51.055141, 0.051703], [-51.049144, 0.051448], [-51.048952, 0.053234], [-51.048633, 0.053553], [-51.04825, 0.055914], [-51.048506, 0.056934], [-51.050037, 0.057764], [-51.049718, 0.058976], [-51.050739, 0.058976], [-51.051058, 0.059231], [-51.049846, 0.061209]]]}}, {"type": "Feature", "properties": {"name": "Pedrinhas"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.060947, 0.009788], [-51.061904, 0.010618], [-51.06267, 0.009788], [-51.068476, 0.005705], [-51.070199, 0.005068], [-51.071666, 0.005004], [-51.071857, 0.000793], [-51.064265, 0.000729], [-51.064137, 0.002643], [-51.062542, 0.003154], [-51.062096, 0.003664], [-51.061904, 0.006088], [-51.060947, 0.009788]]]}}, {"type": "Feature", "properties": {"name": "Perpétuo Socorro"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.042253, 0.050874], [-51.048952, 0.051129], [-51.04959, 0.04813], [-51.049973, 0.041432], [-51.048314, 0.041432], [-51.047357, 0.040921], [-51.046719, 0.040921], [-51.042763, 0.048768], [-51.042125, 0.050618], [-51.042253, 0.050874]]]}}, {"type": "Feature", "properties": {"name": "São Lázaro"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.059799, 0.061272], [-51.05948, 0.061145], [-51.056991, 0.061974], [-51.051696, 0.062804], [-51.049718, 0.0614], [-51.048952, 0.062102], [-51.048569, 0.062102], [-51.046655, 0.059869], [-51.043338, 0.058146], [-51.042891, 0.057445], [-51.042125, 0.056998], [-51.040148, 0.057508], [-51.039701, 0.058402], [-51.038106, 0.059167], [-51.036447, 0.061209], [-51.035299, 0.06408], [-51.035299, 0.064909], [-51.034916, 0.065355], [-51.034661, 0.067014], [-51.031407, 0.07282], [-51.029556, 0.07467], [-51.028727, 0.075053], [-51.028216, 0.075818], [-51.027068, 0.076265], [-51.024197, 0.078625], [-51.022091, 0.080922], [-51.02777, 0.081177], [-51.028727, 0.08073], [-51.038361, 0.081368], [-51.04455, 0.082198], [-51.046145, 0.08392], [-51.048314, 0.083984], [-51.049527, 0.084431], [-51.050292, 0.084239], [-51.052908, 0.085005], [-51.053993, 0.084686], [-51.055205, 0.085005], [-51.055524, 0.082262], [-51.05495, 0.078944], [-51.056226, 0.077732], [-51.056928, 0.07786], [-51.057948, 0.077541], [-51.057757, 0.071863], [-51.059416, 0.071735], [-51.059735, 0.071097], [-51.060564, 0.07097], [-51.058842, 0.068162], [-51.059799, 0.065674], [-51.059799, 0.061272]]]}}, {"type": "Feature", "properties": {"name": "Santa Inês"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.055269, 0.023888], [-51.058714, 0.02427], [-51.059033, 0.019996], [-51.059352, 0.019741], [-51.060947, 0.019805], [-51.061585, 0.010873], [-51.06133, 0.010235], [-51.060373, 0.009661], [-51.058842, 0.009597], [-51.057885, 0.010745], [-51.057438, 0.013935], [-51.056609, 0.015658], [-51.056226, 0.021017], [-51.055141, 0.02242], [-51.055269, 0.023888]]]}}, {"type": "Feature", "properties": {"name": "Santa Rita"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.075494, 0.045132], [-51.082512, 0.040347], [-51.082832, 0.036647], [-51.079003, 0.036328], [-51.078684, 0.036073], [-51.079578, 0.0325], [-51.079003, 0.026631], [-51.073453, 0.02612], [-51.07307, 0.029948], [-51.070964, 0.029948], [-51.070454, 0.039773], [-51.06988, 0.04443], [-51.071857, 0.044877], [-51.075494, 0.045132]]]}}, {"type": "Feature", "properties": {"name": "Trem"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.066945, 0.022675], [-51.059225, 0.022101], [-51.058842, 0.024462], [-51.055141, 0.024143], [-51.053674, 0.026312], [-51.051568, 0.028353], [-51.053546, 0.028672], [-51.054758, 0.028545], [-51.066562, 0.029374], [-51.066945, 0.022675]]]}}, {"type": "Feature", "properties": {"name": "Universidade"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.108608, -0.006862], [-51.108799, -0.007373], [-51.108608, -0.008649], [-51.10714, -0.009606], [-51.106757, -0.010818], [-51.107013, -0.01152], [-51.106056, -0.013689], [-51.10529, -0.014454], [-51.105035, -0.015922], [-51.103631, -0.017389], [-51.102164, -0.017835], [-51.101334, -0.019111], [-51.096294, -0.018729], [-51.092083, -0.019239], [-51.0813, -0.027022], [-51.080726, -0.025874], [-51.080279, -0.024088], [-51.08079, -0.022748], [-51.083151, -0.01069], [-51.083151, -0.009478], [-51.081938, -0.003928], [-51.081938, 0.00226], [-51.087617, 0.002388], [-51.087681, -0.005969], [-51.087872, -0.006288], [-51.10127, -0.006288], [-51.108608, -0.006862]]]}}, {"type": "Feature", "properties": {"name": "Zerão"}, "geometry": {"type": "Polygon", "coordinates": [[[-51.087936, -0.006033], [-51.087936, 0.002516], [-51.093104, 0.00226], [-51.098527, 0.002388], [-51.098782, 0.002516], [-51.098846, 0.003217], [-51.099293, 0.003792], [-51.101398, 0.003792], [-51.102547, 0.00309], [-51.102674, 0.000347], [-51.102355, -0.00061], [-51.102674, -0.000866], [-51.118242, -0.001185], [-51.115179, -0.003673], [-51.110522, -0.005395], [-51.108608, -0.006543], [-51.099994, -0.006033], [-51.087936, -0.006033]]]}}]};
+
+let LIDERANCAS_GEO = [];
+const norm = s => (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g," ").trim();
+
+const map = L.map("map",{zoomControl:true,zoomSnap:0.25}).setView([0.032,-51.07],13);
+
+/* Fundo escuro (estilo Google Maps dark): ruas embaixo, nomes por cima dos bairros */
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png",{
+  attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19
+}).addTo(map);
+map.createPane("rotulos");
+map.getPane("rotulos").style.zIndex = 649;          /* acima dos polígonos, mas abaixo dos tooltips (650) */
+map.getPane("rotulos").style.pointerEvents = "none"; /* não atrapalha o mouse */
+L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_only_labels/{z}/{x}/{y}{r}.png",{
+  pane:"rotulos", subdomains:"abcd", maxZoom:19
+}).addTo(map);
+
+/* ponto-dentro-de-polígono simples (ray casting), pra saber em qual bairro
+   cada local de votação cai (o CSV não vem com bairro, só endereço) */
+function pontoNoPoligono(lng, lat, coords){
+  let dentro = false;
+  for (let i=0, j=coords.length-1; i<coords.length; j=i++){
+    const xi=coords[i][0], yi=coords[i][1], xj=coords[j][0], yj=coords[j][1];
+    const intersecta = ((yi>lat)!==(yj>lat)) && (lng < (xj-xi)*(lat-yi)/(yj-yi)+xi);
+    if (intersecta) dentro = !dentro;
+  }
+  return dentro;
+}
+/* centróide simples (média dos vértices) + raio (distância até o vértice mais
+   longe) — usado só como fallback quando o ponto cai fora de todos os
+   polígonos (geocodificação imprecisa perto da borda do bairro), pra não
+   perder o local da contagem. O raio evita que um ponto bem longe (ex: escola
+   rural fora da área mapeada) seja "puxado" pro bairro mapeado mais próximo
+   só por ser o menos-longe entre 27 opções — só aceita se estiver dentro de
+   uma vizinhança razoável do bairro. */
+const CENTROIDES = {}, RAIOS = {};
+BAIRROS_GEO.features.forEach(f => {
+  const coords = f.geometry.coordinates[0];
+  let sx = 0, sy = 0;
+  coords.forEach(([x, y]) => { sx += x; sy += y; });
+  const cx = sx / coords.length, cy = sy / coords.length;
+  CENTROIDES[f.properties.name] = [cx, cy];
+  let maxD = 0;
+  coords.forEach(([x, y]) => { const d = Math.hypot(x - cx, y - cy); if (d > maxD) maxD = d; });
+  RAIOS[f.properties.name] = maxD;
+});
+function bairroMaisProximo(lat, lng){
+  let melhor = null, menorDist = Infinity;
+  for (const f of BAIRROS_GEO.features){
+    const [cx, cy] = CENTROIDES[f.properties.name];
+    const d = Math.hypot(cx - lng, cy - lat);
+    if (d < menorDist){ menorDist = d; melhor = f.properties.name; }
+  }
+  if (melhor && menorDist <= RAIOS[melhor] * 1.3) return melhor;
+  return null;
+}
+function bairroDoPonto(lat, lng){
+  for (const f of BAIRROS_GEO.features){
+    if (pontoNoPoligono(lng, lat, f.geometry.coordinates[0])) return f.properties.name;
+  }
+  return bairroMaisProximo(lat, lng);
+}
+const locaisPorBairro = {};
+function calcularLocaisPorBairro(locais){
+  BAIRROS_GEO.features.forEach(f => { locaisPorBairro[f.properties.name] = []; });
+  locais.forEach(loc => {
+    if (loc.lat == null) return;
+    const nome = bairroDoPonto(loc.lat, loc.lng);
+    if (nome) locaisPorBairro[nome].push(loc);
+  });
+}
+
+/* lideranças cadastradas cujo texto de bairro bate (por aproximação) com o
+   nome do polígono. Os polígonos aqui são só de Macapá — bairro de outro
+   município do Amapá vem prefixado "Município-Bairro" (ex.: "Santana-Central",
+   ver BAIRROS_MACAPA em liderancas.html) e tem que ficar de fora dessa
+   comparação por aproximação, senão "Santana-Central" bateria com o polígono
+   "Central" de Macapá. Nenhum bairro de Macapá tem hífen no nome, então
+   qualquer bairro com hífen aqui é sempre de outro município. */
+const MUNICIPIO_VIZINHO_RE = /^[^-]+-/;
+function liderancasDoBairro(nomePoligono){
+  const alvo = norm(nomePoligono);
+  return LIDERANCAS_GEO.filter(l => {
+    if (MUNICIPIO_VIZINHO_RE.test(String(l.bairro || '').trim())) return false;
+    const b = norm(l.bairro);
+    return b && (b.includes(alvo) || alvo.includes(b));
+  });
+}
+
+function tooltipBairro(nome){
+  const lids = liderancasDoBairro(nome);
+  const locais = (locaisPorBairro[nome] && locaisPorBairro[nome].length) || 0;
+  let linhaLid;
+  if (lids.length === 0) linhaLid = "0 lideranças";
+  else if (lids.length === 1) linhaLid = "Liderança: " + lids[0].nome;
+  else linhaLid = lids.length + " lideranças";
+  return `<div class="tt-bairro">${nome}</div><div class="tt-num">Locais de votação: ${locais}</div><div class="tt-num">${linhaLid}</div>`;
+}
+
+function estiloBairro(nome){
+  const tem = liderancasDoBairro(nome).length > 0;
+  return tem
+    ? { color:"transparent", weight:1.5, fillColor:"#3a5578", fillOpacity:.015 }
+    : { color:"rgba(255,255,255,.08)", weight:1, fillColor:"#3a5578", fillOpacity:0 };
+}
+
+const camadas = {};
+const geoLayer = L.geoJSON(BAIRROS_GEO, {
+  style: f => estiloBairro(f.properties.name),
+  onEachFeature: (f, layer) => {
+    const nome = f.properties.name;
+    camadas[nome] = layer;
+    layer.bindTooltip(nome, {className:"tt", sticky:true, direction:"top", opacity:1});
+    layer.on("mouseover", e => {
+      e.target.setTooltipContent(tooltipBairro(nome));
+      if (liderancasDoBairro(nome).length === 0) {
+        e.target.setStyle({ color:"rgba(255,255,255,.4)", weight:1.5 });
+      } else {
+        e.target.setStyle({ color:"rgba(63,123,255,.95)", weight:2, fillOpacity:.32 });
+      }
+    });
+    layer.on("mouseout", e => {
+      e.target.setStyle(estiloBairro(nome));
+    });
+    layer.on("click", e => {
+      e.target.closeTooltip();
+      map.fitBounds(layer.getBounds(), {maxZoom:15, padding:[30,30]});
+    });
+  }
+}).addTo(map);
+
+/* limites do mapa: SEMPRE os 27 bairros mapeados, centrados no centro de
+   Macapá — não deixa alguns locais de votação/lideranças bem longe (fora da
+   área mapeada, tipo escola rural) esticarem essa visão padrão. Esses pontos
+   fora da área ainda aparecem no mapa, só não puxam o zoom/centro padrão. */
+const limites = geoLayer.getBounds();
+map.fitBounds(limites, {padding:[16,16], animate:false});
+function estenderEAjustar(){ /* não mexe mais na visão padrão — ver comentário acima */ }
+/* nudge final, chamado só uma vez depois que todos os pontos carregaram —
+   um pouco mais próximo que o "cabe todos os bairros" exato */
+let fontesCarregadas = 0;
+function avisarFonteCarregada(){
+  fontesCarregadas++;
+  if (fontesCarregadas >= 2){
+    map.setZoom(map.getZoom() + 0.8);
+    map.panBy([0, -80], {animate:false});
+  }
+}
+
+function refazerEstilosBairros(){
+  Object.keys(camadas).forEach(nome => camadas[nome].setStyle(estiloBairro(nome)));
+}
+
+/* escala dos marcadores conforme o zoom: pins de votação encolhem ao dar
+   zoom out (não ficam do mesmo tamanho), quadrados de liderança crescem bem
+   pouco ao dar zoom in */
+const ZOOM_BASE = 13;
+function escalaVoto(zoom){
+  return Math.min(1.15, Math.max(0.35, Math.pow(1.22, zoom - ZOOM_BASE)));
+}
+function escalaLid(zoom){
+  return Math.min(1.3, Math.max(0.8, Math.pow(1.05, zoom - ZOOM_BASE)));
+}
+const marcadoresVoto = [];
+function aplicarEscala(marker, escala){
+  const el = marker.getElement();
+  const inner = el && el.firstElementChild;
+  if (inner) inner.style.transform = 'scale(' + escala + ')';
+}
+function reescalarMarcadores(){
+  const zoom = map.getZoom();
+  const eVoto = escalaVoto(zoom), eLid = escalaLid(zoom);
+  marcadoresVoto.forEach(m => aplicarEscala(m, eVoto));
+  Object.values(marcadoresLid).forEach(m => aplicarEscala(m, eLid));
+}
+map.on('zoomend', reescalarMarcadores);
+
+/* Pins dos locais de votação (gerados por scripts/geocode-locais.js a partir do CSV) */
+fetch('locais-geo.json')
+  .then(r => r.ok ? r.json() : [])
+  .catch(() => [])
+  .then(locais => {
+    calcularLocaisPorBairro(locais);
+    locais.forEach(loc => {
+      const icon = L.divIcon({
+        className: '',
+        html: '<div class="voto-pin"><div class="voto-bar"></div><div class="voto-dot"></div></div>',
+        iconSize: [10, 22],
+        iconAnchor: [5, 22]
+      });
+      const marker = L.marker([loc.lat, loc.lng], { icon }).addTo(map).bindTooltip(
+        `<div class="tt-bairro">${loc.nome}</div>
+         <div class="tt-num">${loc.endereco}</div>
+         <div class="tt-votos">Eleitores aptos (2022): ${loc.aptos.toLocaleString('pt-BR')}</div>`,
+        { className: 'tt', sticky: true, direction: 'top', opacity: 1 }
+      );
+      marcadoresVoto.push(marker);
+      estenderEAjustar([loc.lat, loc.lng]);
+    });
+    refazerEstilosBairros();
+    reescalarMarcadores();
+    avisarFonteCarregada();
+  });
+
+/* Quadrados azuis das lideranças — direto do banco (endpoint autenticado),
+   não de um arquivo gerado uma vez. Isso garante que exclusão/cadastro de
+   liderança no painel reflete no mapa sem precisar rodar script nenhum.
+   Vem TODAS as lideranças (mesmo sem coordenada), pra contagem por bairro
+   ser sempre exata — só desenha quadrado em quem tem lat/lng. */
+const marcadoresLid = {};
+function carregarLiderancas(){
+  return fetch('/api/admin/liderancas-geo', { credentials: 'same-origin' })
+    .then(r => r.ok ? r.json() : [])
+    .catch(() => [])
+    .then(lids => {
+      LIDERANCAS_GEO = lids;
+      lids.forEach(l => {
+        if (l.lat == null || l.lng == null) return;
+        const icon = L.divIcon({ className:'', html:'<div class="lid-marker"></div>', iconSize:[15,15], iconAnchor:[8,8] });
+        const marker = L.marker([l.lat, l.lng], { icon, zIndexOffset: 1000 }).addTo(map).bindTooltip(
+          `<div class="tt-bairro">${l.bairro}</div>
+           <div class="tt-lid">${l.nome}</div>
+           <div class="tt-end">${l.endereco}</div>
+           ${l.numero ? `<div class="tt-num">Contato: ${l.numero}</div>` : ""}`,
+          { className:'tt', sticky:true, direction:'top', opacity:1 }
+        );
+        marcadoresLid[l.id] = marker;
+        estenderEAjustar([l.lat, l.lng]);
+      });
+      refazerEstilosBairros();
+      atualizarPainel();
+      reescalarMarcadores();
+      avisarFonteCarregada();
+    });
+}
+
+let itemSelecionadoDiv = null;
+function atualizarPainel(){
+  const bairrosSet = new Set(LIDERANCAS_GEO.map(l => norm(l.bairro)).filter(Boolean));
+  document.getElementById("st-bairros").textContent = bairrosSet.size;
+
+  const lista = document.getElementById("lista");
+  lista.innerHTML = "";
+  itemSelecionadoDiv = null;
+  LIDERANCAS_GEO.slice().sort((a,b)=>a.nome.localeCompare(b.nome,"pt")).forEach(l=>{
+    const div = document.createElement("div");
+    div.className = "bairro-item";
+    div.dataset.busca = norm(l.nome+" "+l.bairro);
+    div.innerHTML = `<div><div class="bn">${l.nome}</div><div class="ln">${l.bairro}</div></div>`;
+    div.onclick = () => {
+      const jaSelecionado = div.classList.contains("selecionado");
+      if (itemSelecionadoDiv) itemSelecionadoDiv.classList.remove("selecionado");
+      const m = marcadoresLid[l.id];
+      if (jaSelecionado){
+        itemSelecionadoDiv = null;
+        if (m) m.closeTooltip();
+        map.fitBounds(limites, {padding:[16,16]});
+        map.setZoom(map.getZoom() + 1.5);
+      } else {
+        div.classList.add("selecionado");
+        itemSelecionadoDiv = div;
+        map.setView([l.lat, l.lng], 16);
+        if (m) m.openTooltip();
+      }
+    };
+    lista.appendChild(div);
+  });
+}
+
+document.getElementById("search").addEventListener("input", e=>{
+  const q = norm(e.target.value);
+  document.querySelectorAll(".bairro-item").forEach(it=>{
+    it.style.display = it.dataset.busca.includes(q) ? "" : "none";
+  });
+});
+
+carregarLiderancas();
+</script>
+</body>
+</html>

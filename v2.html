@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imersão Closer Digital — V2</title>
+<link rel="preconnect" href="https://fonts.cdnfonts.com">
+<link rel="preload" as="image" href="img/cta-3-1.webp" type="image/webp">
+<link href="https://fonts.cdnfonts.com/css/clash-display" rel="stylesheet">
+<link href="https://fonts.cdnfonts.com/css/clash-grotesk" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{overflow-x:hidden!important;font-family:'SF Pro Display','SF Pro',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#F7F7F7;scroll-behavior:smooth;}
+img{max-width:100%;height:auto;display:block;}
+a{text-decoration:none;color:inherit;}
+
+/* Font helpers */
+.font-clash{font-family:'Clash Display',sans-serif;}
+.font-grotesk{font-family:'Clash Grotesk',sans-serif;}
+
+/* Reusable text classes */
+.text-body{font-size:20px;font-weight:400;line-height:1.4;color:#7C848C;}
+.text-body-light{font-size:20px;font-weight:400;line-height:1.4;color:rgba(247,247,247,0.84);}
+.text-emphasis{font-size:24px;font-weight:600;line-height:1.2;color:#2F2521;}
+.text-card{font-size:24px;font-weight:500;line-height:1.4;color:#7C848C;}
+.heading-lg-light{font-size:52px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#F7F7F7;}
+.heading-lg-dark{font-size:52px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#2F2521;}
+.label-text{font-size:16px;font-weight:500;letter-spacing:0.9px;color:#7C848C;}
+
+/* Button base - green gradient animation */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:14px;
+  border:none;cursor:pointer;color:#fff;
+  border-radius:16px;
+  background-image:linear-gradient(90deg,#009D4E,#00C871,#00C871,#009D4E);
+  background-size:800% 800%;
+  animation:AnimationName 12s ease infinite;
+  transition:0.5s;font-family:'Clash Display',sans-serif;font-weight:600;font-size:18px;
+  padding:30px 50px;width:100%;max-width:500px;text-align:center;
+}
+.btn:hover{transform:scale(1.02);filter:brightness(1.1);}
+.btn img{width:22px;height:22px;filter:brightness(10);}
+@keyframes AnimationName{0%{background-position:0% 51%}50%{background-position:100% 50%}100%{background-position:0% 51%}}
+
+/* Glassmorphism pill badge */
+.pill{
+  display:inline-flex;align-items:center;gap:10px;
+  border-radius:100px;
+  border:1px solid rgba(255,255,255,0.16);
+  background:rgba(247,247,247,0.08);
+  backdrop-filter:blur(10px);
+  padding:12px 20px;
+  font-family:'Clash Grotesk',sans-serif;font-weight:500;font-size:16px;color:rgba(247,247,247,0.68);
+}
+.pill img{width:18px;height:18px;}
+.pill-gold{color:#EED7A4;}
+
+/* Section wrapper */
+.section{width:100%;max-width:1200px;margin:0 auto;}
+
+/* Scroll animations */
+.scroll-left{opacity:0;transition:0.5s!important;transform:translate(-30px,0);}
+.scroll-right{opacity:0;transition:0.5s!important;transform:translate(30px,0);}
+.scroll-top{opacity:0;transition:0.5s!important;transform:translate(0,-30px);}
+.scroll-bottom{opacity:0;transition:0.5s!important;transform:translate(0,30px);}
+.blur-anim{transform:scale(0.9);opacity:0;filter:blur(20px);transition:0.5s!important;}
+.ativo{opacity:1!important;transition:0.5s ease all!important;transform:translate(0,0) scale(1)!important;filter:blur(0px)!important;}
+
+/* Typing animation */
+.typing{display:inline-block;overflow:hidden;white-space:nowrap;border-right:2px solid #000;animation:typing 3s steps(30,end) forwards,blink-caret 0.7s step-end infinite,hide-caret 0.5s forwards;animation-delay:0s,0s,3s;}
+.typing.delay{animation:typing 2s steps(34,end) forwards,blink-caret 0.7s step-end infinite,hide-caret 0.5s forwards;animation-delay:3.2s,3.2s,5.2s;}
+@keyframes typing{from{width:0}to{width:360px}}
+@keyframes blink-caret{from,to{border-color:transparent}50%{border-color:#000}}
+@keyframes hide-caret{to{border-color:transparent}}
+
+/* Wiggle */
+@keyframes wiggle{0%{transform:rotate(0) translate(0,0)}20%{transform:rotate(15deg) translate(2px,-1px)}40%{transform:rotate(-15deg) translate(-2px,2px)}60%{transform:rotate(8deg) translate(3px,-2px)}80%{transform:rotate(-8deg) translate(-3px,1px)}100%{transform:rotate(0) translate(0,0)}}
+
+/* Float animations */
+@keyframes floater{0%{transform:translateY(0)}50%{transform:translateY(8px)}100%{transform:translateY(0)}}
+@keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+
+/* Blink brightness */
+@keyframes blinkBrightness{0%{filter:brightness(1)}2%{filter:brightness(3)}4%{filter:brightness(1)}8%{filter:brightness(2)}12%{filter:brightness(1)}100%{filter:brightness(1)}}
+
+/* Progress bar */
+.progress-wrap{width:380px;max-width:100%;height:14px;background:rgba(241,150,150,0.32);border-radius:100px;overflow:hidden;}
+.progress-bar{height:100%;width:30%;background:#E42E4C;border-radius:20px;transition:width 1s ease;}
+
+/* ========== HERO ========== */
+#hero{
+  position:relative;min-height:820px;
+  background:url('img/cta-3-1.webp') top center/cover no-repeat;
+  display:flex;flex-direction:column;justify-content:center;
+}
+#hero .top-bar{
+  position:absolute;top:0;left:0;right:0;
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1200px;margin:0 auto;padding:30px 0;
+}
+#hero .hero-content{display:flex;flex-direction:column;gap:26px;max-width:1200px;margin:0 auto;width:100%;padding:0 20px;}
+#hero .bottom-bar{
+  position:absolute;bottom:0;left:0;right:0;
+  border-bottom:1.5px solid rgba(255,255,255,0.16);
+  background:rgba(49,72,76,0.42);
+  backdrop-filter:blur(26px);
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:100%;padding:0 calc((100% - 1200px)/2);min-height:74px;
+}
+#hero .bottom-bar .progress-section{display:flex;align-items:center;gap:10px;max-width:630px;}
+
+/* ========== SECTION 2 - Quote ========== */
+#quote{padding:100px 20px;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;gap:40px;}
+#quote .left{flex:0 0 58%;display:flex;flex-direction:column;gap:16px;}
+#quote .right{flex:0 0 35%;display:flex;flex-direction:column;align-items:flex-end;position:relative;min-height:500px;}
+
+/* ========== SECTION 3 - Dark card ========== */
+#mudou{
+  border-radius:24px;
+  background:radial-gradient(29.51% 47.34% at 88.26% 100.03%,rgba(255,230,177,0.16) 0%,#020622 100%),radial-gradient(41.11% 50% at 52.24% 0%,rgba(255,230,177,0.16) 0%,#020622 100%),#020622;
+  max-width:1200px;margin:0 auto;padding:120px 40px;
+  display:flex;flex-direction:column;gap:100px;align-items:center;
+}
+#mudou .top-text{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;}
+#mudou .content-row{display:flex;justify-content:center;gap:80px;align-items:center;flex-wrap:wrap;}
+#mudou .content-row .text-col{max-width:440px;display:flex;flex-direction:column;gap:20px;}
+
+/* ========== SECTION 4 - Pra quem e ========== */
+#praquem{max-width:1200px;margin:0 auto;padding:100px 20px;display:flex;flex-direction:column;gap:70px;}
+#praquem .header-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+#praquem .cards{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;}
+#praquem .card{
+  background:#fff;border-radius:16px;border:1px solid #fff;
+  padding:32px 48px 40px 32px;display:flex;flex-direction:column;gap:16px;
+  transition:all 0.5s;
+}
+#praquem .card:hover{transform:scale(1.01);box-shadow:0 10px 40px rgba(0,0,0,0.08);}
+#praquem .card img{height:auto;}
+
+/* ========== SECTION 5 - O que voce vai receber ========== */
+#receber{
+  border-radius:24px;
+  background:radial-gradient(41.11% 50% at 52.24% 0%,rgba(255,230,177,0.16) 0%,#020622 100%),#020622;
+  max-width:1200px;margin:0 auto;padding:100px 20px 0;
+  display:flex;flex-direction:column;gap:50px;align-items:center;
+}
+#receber .top-text{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;}
+#receber .feature-cards{display:flex;flex-wrap:wrap;justify-content:center;gap:40px;width:100%;}
+.feature-card{
+  border-radius:36px;border:2px solid rgba(255,255,255,0.25);
+  overflow:hidden;display:flex;flex-direction:column;
+}
+.feature-card .card-top{padding:50px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+.feature-card-third{flex:1 1 calc(33.333% - 27px);max-width:380px;}
+
+/* ========== Learning section with sticky cards ========== */
+#aprender{
+  max-width:1200px;margin:0 auto;padding:50px 20px 0;
+  display:flex;flex-direction:column;gap:64px;align-items:center;
+}
+#aprender .header-text{text-align:center;display:flex;flex-direction:column;align-items:center;gap:24px;}
+.sticky-cards{display:flex;flex-direction:column;gap:16px;max-width:900px;width:100%;position:relative;}
+.sticky-card{
+  border-radius:16px;border:1px solid #fff;
+  background:rgba(255,255,255,0.05);backdrop-filter:blur(16px);
+  padding:32px 48px 40px 42px;
+  display:flex;align-items:center;gap:32px;min-height:180px;
+  position:sticky;
+}
+.sticky-card:nth-child(n+2){background:#0a0e2a;}
+.sticky-card img{width:84px;flex-shrink:0;}
+
+/* Zoom screenshot section */
+#zoom-section{padding:40px 20px;display:flex;flex-direction:column;align-items:center;position:relative;}
+#zoom-section .zoom-img{max-width:900px;width:100%;position:relative;}
+
+/* ========== SECTION 7 - Investimento ========== */
+#investimento{max-width:1200px;margin:0 auto;padding:100px 20px;display:flex;flex-direction:column;align-items:center;gap:40px;}
+#investimento .price-table{
+  background:#fff;border-radius:16px;padding:70px;max-width:900px;width:100%;
+  display:flex;flex-direction:column;gap:0;
+}
+.price-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:30px 20px;border-bottom:1px solid rgba(124,132,140,0.24);
+}
+.price-row:last-child{border-bottom:none;}
+.price-row .item{font-family:'Clash Grotesk',sans-serif;font-size:24px;font-weight:500;color:#7C848C;}
+.price-row .price{font-family:'Clash Grotesk',sans-serif;font-size:24px;font-weight:500;color:#F25F78;}
+#investimento .persuasion{max-width:900px;width:100%;display:flex;flex-direction:column;gap:16px;}
+
+/* ========== SECTION 8 - Escolha seu ingresso ========== */
+#ingressos{
+  border-radius:24px;
+  background:radial-gradient(47.68% 51.49% at 83.28% 100%,rgba(255,230,177,0.16) 0%,#020622 100%),radial-gradient(41.11% 50% at 52.24% 0%,rgba(255,230,177,0.16) 0%,#020622 100%),#020622;
+  max-width:1200px;margin:0 auto;padding:100px 20px;
+  display:flex;flex-direction:column;gap:60px;align-items:center;
+}
+#ingressos .top-bar-lote{
+  display:flex;align-items:center;justify-content:center;
+  border-bottom:1.5px solid rgba(255,255,255,0.16);
+  background:rgba(49,72,76,0.42);backdrop-filter:blur(26px);
+  border-radius:24px 24px 0 0;
+  padding:18px 30px;width:100%;max-width:1200px;
+  position:absolute;top:0;left:0;right:0;
+}
+.tickets-row{display:flex;gap:26px;justify-content:center;flex-wrap:wrap;width:100%;z-index:1;}
+.ticket-card{
+  border-radius:16px;border:1.5px solid #fff;
+  background:rgba(255,255,255,0.02);backdrop-filter:blur(16px);
+  padding:60px;display:flex;flex-direction:column;align-items:center;gap:46px;
+  max-width:550px;flex:1;
+}
+.ticket-card.vip{
+  border-color:#F3D69D;
+  background:rgba(255,230,177,0.12);
+}
+.ticket-card .card-header{text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;}
+.ticket-card .features{display:flex;flex-direction:column;gap:16px;width:100%;}
+.ticket-card .features .feat{font-family:'Clash Grotesk',sans-serif;font-size:22px;font-weight:500;color:rgba(247,247,247,0.72);padding-left:40px;}
+.ticket-card .features .feat.dim{color:rgba(247,247,247,0.3);}
+.ticket-card .features hr{border:none;border-top:1px solid rgba(124,132,140,0.45);margin:10px 0;}
+.ticket-card .pricing{text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;margin-bottom:-20px;}
+
+/* Product images overlay */
+#ingressos .product-images{position:relative;display:flex;align-items:center;justify-content:center;margin-bottom:-41px;z-index:0;}
+
+/* ========== SECTION 9 - Urgencia ========== */
+#urgencia{max-width:1200px;margin:0 auto;padding:100px 20px;display:flex;gap:80px;align-items:flex-start;}
+#urgencia .left{display:flex;flex-direction:column;gap:30px;flex:1;}
+#urgencia .right{display:flex;flex-direction:column;gap:16px;flex:1;}
+
+/* ========== SECTION 10 - Jezreel ========== */
+#jezreel{
+  border-radius:24px;
+  background:radial-gradient(47.68% 51.49% at 83.28% 100%,rgba(255,230,177,0.16) 0%,#020622 100%),radial-gradient(41.11% 50% at 52.24% 0%,rgba(255,230,177,0.16) 0%,#020622 100%),#020622;
+  max-width:1040px;margin:0 auto;padding:100px 0 0;
+  display:flex;flex-direction:column;gap:100px;
+}
+#jezreel .bio-row{display:flex;justify-content:center;gap:90px;padding:0 40px;flex-wrap:wrap;}
+#jezreel .bio-row .photo{flex-shrink:0;}
+#jezreel .bio-row .photo img{width:420px;max-width:100%;filter:drop-shadow(0 8px 10px rgba(0,0,0,0.5));}
+#jezreel .bio-row .text{max-width:510px;display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+#jezreel .bottom-img{display:flex;justify-content:center;}
+#jezreel .bottom-img img{max-width:470px;width:100%;margin-bottom:-30px;}
+
+/* ========== SECTION 11 - FAQ ========== */
+#faq{max-width:1200px;margin:0 auto;padding:100px 20px;display:flex;justify-content:space-between;gap:40px;}
+#faq .faq-left{flex:0 0 30%;display:flex;flex-direction:column;gap:10px;}
+#faq .faq-right{flex:0 0 65%;max-width:734px;}
+.faq-item{border-bottom:1px solid rgba(124,132,140,0.2);padding:42px 10px 42px 34px;cursor:pointer;}
+.faq-item .faq-q{display:flex;justify-content:space-between;align-items:center;font-family:'Clash Grotesk',sans-serif;font-size:24px;font-weight:500;color:#7C848C;transition:color 0.3s;}
+.faq-item .faq-q svg{width:24px;height:24px;flex-shrink:0;transition:transform 0.3s;}
+.faq-item.open .faq-q{color:#2F2521;}
+.faq-item.open .faq-q svg{transform:rotate(180deg);}
+.faq-item .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;padding:0 0 0 0;}
+.faq-item.open .faq-a{max-height:200px;padding:16px 0 0 0;}
+
+/* ========== FOOTER ========== */
+#footer{background:#fff;max-width:1200px;margin:0 auto;padding:50px 20px 70px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;}
+#footer .col{display:flex;flex-direction:column;gap:4px;}
+#footer .col-contact{display:flex;flex-direction:column;gap:16px;max-width:310px;}
+#footer .col-info{display:flex;flex-direction:column;gap:14px;max-width:230px;}
+.whatsapp-btn{
+  display:inline-flex;align-items:center;gap:12px;
+  border-radius:8px;
+  background:linear-gradient(90deg,#009D4E 0%,#00C871 37.71%,#00C871 66.06%,#009D4E 100%);
+  color:#fff;padding:16px 30px;
+  font-family:'Clash Display',sans-serif;font-size:16px;font-weight:600;
+  border:none;cursor:pointer;transition:0.3s;
+}
+.whatsapp-btn:hover{filter:brightness(1.1);}
+.whatsapp-btn img{width:20px;height:20px;}
+
+/* ========== RESPONSIVE ========== */
+@media(max-width:768px){
+  #hero{min-height:auto;justify-content:flex-end;padding:50px 20px 0;
+    background-image:url('img/Frame-1171275416-1.webp');}
+  #hero .top-bar{flex-direction:row;padding:20px;position:relative;}
+  #hero .top-bar .logo img{width:140px;}
+  #hero .hero-content{gap:16px;align-items:center;text-align:center;}
+  #hero .hero-content h1{font-size:22px!important;}
+  #hero .hero-content .sub{font-size:16px!important;}
+  #hero .bottom-bar{flex-direction:column;gap:10px;padding:20px;position:relative;}
+  #hero .bottom-bar .progress-section{flex-direction:column;align-items:center;gap:6px;width:100%;}
+  #hero .bottom-bar .progress-section .progress-wrap{width:100%;}
+  .btn{font-size:16px;padding:24px 26px;}
+  .pill{font-size:10px;padding:10px 14px;}
+  .pill img{width:14px;height:14px;}
+  #quote{flex-direction:column;padding:60px 20px;gap:30px;}
+  #quote .right{align-items:center;min-height:auto;}
+  #quote .right img{max-width:250px;}
+  #quote .right div{margin-top:0!important;margin-left:0!important;align-self:center!important;}
+  #mudou{padding:50px 20px;gap:50px;}
+  #mudou .content-row{flex-direction:column;gap:30px;align-items:center;text-align:center;}
+  #praquem{padding:50px 20px;gap:40px;}
+  #praquem .header-row{flex-direction:column;align-items:center;text-align:center;}
+  #praquem .card{align-items:center;text-align:center;padding:32px 20px;}
+  #receber{padding:50px 20px 0;}
+  .feature-card-third{flex:1 1 100%;max-width:100%;}
+  .feature-card .card-top{padding:30px;align-items:center;text-align:center;}
+  #aprender{gap:30px;}
+  .sticky-card{flex-direction:column;text-align:center;gap:20px;padding:30px;position:relative!important;top:auto!important;}
+  #investimento{padding:50px 20px;}
+  #investimento .price-table{padding:20px;}
+  .price-row{flex-direction:column;align-items:center;text-align:center;gap:8px;}
+  #ingressos{padding:50px 20px;}
+  .tickets-row{flex-direction:column;align-items:center;}
+  .ticket-card{padding:50px 20px;width:100%;}
+  .ticket-card .features .feat{padding-left:0;text-align:center;}
+  #urgencia{flex-direction:column;padding:50px 20px;gap:40px;}
+  #jezreel{padding:50px 20px 50px;gap:60px;}
+  #jezreel .bio-row{flex-direction:column;align-items:center;text-align:center;gap:50px;padding:0;}
+  #jezreel .bio-row .text{align-items:center;}
+  #jezreel .bottom-img img{margin-bottom:0;}
+  #faq{flex-direction:column;padding:50px 20px;gap:30px;text-align:center;}
+  #faq .faq-left{align-items:center;}
+  .faq-item{padding:20px;}
+  .faq-item .faq-q{font-size:20px;}
+  #footer{flex-direction:column;align-items:center;text-align:center;padding:50px 20px;}
+  #footer .col{align-items:center;}
+  .typing{animation:none;width:auto;border-right:none;}
+  .typing.delay{animation:none;width:auto;border-right:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section id="hero">
+  <div class="top-bar" style="padding:30px calc((100% - 1200px)/2);">
+    <div class="logo"><img src="img/logo-branca-Funi.svg" alt="FUNI$$" style="width:230px;filter:drop-shadow(0 8px 10px rgba(0,0,0,0.5));"></div>
+  </div>
+
+  <div class="hero-content">
+    <p class="font-clash scroll-bottom" style="font-size:38px;font-weight:500;line-height:1.1;color:#F7F7F7;max-width:700px;">
+      Cozinheiro. Vigilante. Motorista de app. Recepcionista de salão. Nenhuma dessas pessoas tinha experiência em vendas. Hoje, todas faturam mais de R$10.000/mês como Closers Digitais.
+    </p>
+    <p class="scroll-bottom" style="font-size:20px;font-weight:400;line-height:1.4;color:rgba(247,247,247,0.84);max-width:507px;">
+      No dia 18/04, o método que transformou a carreira delas vai ser aberto ao vivo. Por R$27.
+    </p>
+    <a href="#ingressos" class="btn scroll-bottom" style="max-width:500px;">
+      <img src="img/ticket-01.svg" alt="">
+      QUERO MINHA VAGA — R$27
+    </a>
+  </div>
+
+  <div class="bottom-bar">
+    <div style="display:flex;align-items:center;gap:10px;">
+      <img src="img/signal-03.svg" alt="" style="width:18px;opacity:0.7;">
+      <span class="font-grotesk" style="font-size:16px;font-weight:500;color:rgba(247,247,247,0.68);">Imersão <span style="font-weight:600">AO VIVO</span> pelo Zoom | <span style="font-weight:400">100% Online</span></span>
+    </div>
+    <img src="img/logo-23Funi-1.svg" alt="" style="width:140px;margin:-30px 0;">
+    <div class="progress-section" style="display:flex;align-items:center;gap:10px;max-width:630px;">
+      <span class="font-grotesk" style="font-size:16px;font-weight:500;color:#F25F78;text-transform:uppercase;white-space:nowrap;">Vagas limitadas</span>
+      <div class="progress-wrap"><div class="progress-bar"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 2 - Quote ==================== -->
+<section id="quote">
+  <div class="left">
+    <p class="font-clash scroll-bottom" style="font-size:72px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#2F2521;max-width:692px;">&ldquo;Isso não é pra mim.&rdquo;</p>
+    <div class="blur-anim" style="display:flex;align-items:center;gap:12px;">
+      <img loading="lazy" src="img/image-24.webp" alt="" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+      <p style="font-size:24px;font-weight:500;line-height:1.2;color:#2F2521;max-width:424px;">
+        <span class="typing">Você provavelmente está</span><br>
+        <span class="typing delay">pensando exatamente isso.</span>
+      </p>
+    </div>
+    <p class="text-body scroll-bottom" style="max-width:440px;margin-bottom:16px;">A Aline pensou a mesma coisa. Recepcionista de salão de beleza. Duas filhas. Nunca tinha vendido nada. Achava que closer era coisa de gente com "perfil comercial." Em 30 dias, tinha feito a primeira venda. Em 90 dias, R$10.000 por mês.</p>
+    <p class="text-emphasis scroll-bottom" style="max-width:402px;">O que mudou? Ela aprendeu um processo. Seguiu o processo. O resultado veio.</p>
+    <p class="text-body scroll-bottom" style="max-width:440px;">Esse processo se chama Método Chave Mestra. Formou mais de 1.500 vendedores. Gerou mais de R$42 milhões em vendas 1 a 1. E no dia 18 de abril, o criador dele vai te ensinar ao vivo.</p>
+  </div>
+  <div class="right">
+    <img loading="lazy" src="img/cifrao.webp" alt="" style="width:128px;animation:wiggle 15s infinite ease-in-out;position:absolute;left:31px;top:96px;z-index:0;" class="scroll-bottom">
+    <div style="transform:rotate(-15deg);display:inline-block;"><img loading="lazy" src="img/Rectangle-1829-1.webp" alt="" style="width:360px;border-radius:16px;filter:drop-shadow(0 8px 10px rgba(0,0,0,0.5));" class="blur-anim"></div>
+    <div style="transform:rotate(15deg);display:inline-block;margin-top:-218px;margin-left:-120px;align-self:flex-start;"><img loading="lazy" src="img/Rectangle-1830-1.webp" alt="" style="width:360px;border-radius:16px;filter:drop-shadow(0 8px 10px rgba(0,0,0,0.5));" class="blur-anim"></div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 3 - Mudou ==================== -->
+<section id="mudou">
+  <div class="top-text">
+    <p class="font-clash heading-lg-light scroll-bottom" style="max-width:746px;">O que você vai <span style="color:#EED7A4">receber nessa imersão</span></p>
+    <p class="font-clash scroll-bottom" style="font-size:32px;font-weight:400;line-height:1;color:rgba(247,247,247,0.84);">Zoom · Ao vivo · 18/04 · 14h às 18h</p>
+  </div>
+  <div class="content-row">
+    <img loading="lazy" src="img/image-728-1.webp" alt="" style="max-width:510px;width:100%;animation:blinkBrightness 4.5s ease-in-out infinite;" class="scroll-left">
+    <div class="text-col">
+      <p class="text-body-light scroll-bottom"><span style="font-weight:700">O mesmo planejamento que a Aline seguiu pra sair do zero e chegar nos R$10k/mês.</span></p>
+      <p class="text-body-light scroll-bottom">O script de fechamento que closers sem experiência usam pra fechar vendas de alto ticket todo dia.</p>
+      <hr style="border:none;border-top:2px solid rgba(124,132,140,0.12);max-width:420px;" class="scroll-bottom">
+      <p class="scroll-bottom" style="font-size:24px;font-weight:600;line-height:1.4;color:#F7F7F7;max-width:391px;">As 5 objeções que travam 90% das calls e como desarmar cada uma sem improvisar. O passo a passo pra conseguir sua primeira vaga, sem experiência e sem indicação.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 4 - Pra quem e ==================== -->
+<section id="praquem">
+  <div class="header-row">
+    <div style="display:flex;flex-direction:column;gap:10px;">
+      <p class="font-clash scroll-bottom" style="font-size:72px;font-weight:500;line-height:1;letter-spacing:-1px;color:#2F2521;">Pra quem é?</p>
+      <p class="scroll-bottom" style="font-size:20px;font-weight:500;color:#7C848C;letter-spacing:0.6px;">Essa imersão é pra você se:</p>
+    </div>
+    <img loading="lazy" src="img/logo-preta-Funi.svg" alt="" class="scroll-right" style="max-width:220px;">
+  </div>
+  <div class="cards">
+    <div class="card scroll-left" style="max-width:570px;flex:1 1 calc(50% - 8px);">
+      <img loading="lazy" src="img/01-1.svg" alt="" style="width:60px;">
+      <p class="text-card"><span style="color:#2F2521">Já ouviu falar em closer</span> mas pensou "isso não é pra gente como eu"</p>
+    </div>
+    <div class="card scroll-right" style="max-width:567px;flex:1 1 calc(50% - 8px);">
+      <img loading="lazy" src="img/02-1.svg" alt="" style="width:60px;">
+      <p class="text-card"><span style="color:#2F2521">Trabalha o dia inteiro</span> e ainda assim o dinheiro não sobra</p>
+    </div>
+    <div class="card scroll-left" style="max-width:466px;flex:1 1 calc(40% - 8px);">
+      <img loading="lazy" src="img/03-1.svg" alt="" style="width:60px;">
+      <p class="text-card"><span style="color:#2F2521">Não se considera vendedor</span> e acha que precisa ter "dom" pra isso</p>
+    </div>
+    <div class="card scroll-right" style="max-width:670px;flex:1 1 calc(60% - 8px);">
+      <img loading="lazy" src="img/04.svg" alt="" style="width:60px;">
+      <p class="text-card"><span style="color:#2F2521">Quer trabalhar de casa</span> mas não sabe por qual profissão começar</p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 5 - O que voce vai receber ==================== -->
+<section id="receber">
+  <div class="top-text">
+    <p class="font-clash heading-lg-light scroll-bottom">Ao final dessa <span style="color:#EED7A4">imersão</span></p>
+    <p class="scroll-bottom" style="font-size:20px;font-weight:500;color:rgba(247,247,247,0.84);">Closer Digital não exige experiência em vendas, diploma, extroversão ou seguidores. Exige aprender o processo e aplicar.</p>
+  </div>
+  <div class="feature-cards">
+    <!-- Wide card -->
+    <div class="feature-card feature-card-third scroll-bottom">
+      <div class="card-top">
+        <span class="pill pill-gold" style="font-size:16px;letter-spacing:0.7px;">CONDUÇÃO</span>
+        <p class="font-grotesk" style="font-size:24px;font-weight:500;line-height:1.2;color:rgba(247,247,247,0.74);max-width:312px;"><span style="color:#F7F7F7">Conduzir uma conversa de vendas com estrutura,</span> mesmo que nunca tenha feito uma call na vida</p>
+      </div>
+    </div>
+    <!-- OBJEÇÕES card -->
+    <div class="feature-card feature-card-third scroll-bottom">
+      <div class="card-top">
+        <span class="pill pill-gold" style="font-size:16px;letter-spacing:0.7px;">OBJEÇÕES</span>
+        <p class="font-grotesk" style="font-size:24px;font-weight:500;line-height:1.2;color:rgba(247,247,247,0.74);max-width:299px;"><span style="color:#F7F7F7">Responder "tá caro", "preciso pensar" e "vou falar com meu sócio"</span> sem travar e sem perder a venda</p>
+      </div>
+    </div>
+    <!-- PLANO card -->
+    <div class="feature-card feature-card-third scroll-bottom">
+      <div class="card-top">
+        <span class="pill pill-gold" style="font-size:16px;letter-spacing:0.7px;">PLANO</span>
+        <p class="font-grotesk" style="font-size:24px;font-weight:500;line-height:1.2;color:rgba(247,247,247,0.74);max-width:299px;"><span style="color:#F7F7F7">Montar seu plano de 90 dias</span> com metas concretas pra chegar nos R$10k/mês</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- O que voce vai aprender -->
+  <div id="aprender">
+    <div class="header-text">
+      <span class="pill scroll-bottom" style="font-size:16px;letter-spacing:0.7px;">
+        <img loading="lazy" src="img/icon-calendar.svg" alt="" style="width:18px;">
+        18 de Abril | <span style="font-weight:400"> 100% online</span>
+      </span>
+      <p class="font-clash heading-lg-light scroll-bottom" style="max-width:606px;">Cronograma da <span style="color:#EED7A4">imersão ao vivo:</span></p>
+      <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;">
+        <span class="font-grotesk scroll-left" style="font-size:16px;font-weight:500;color:rgba(247,247,247,0.84);display:flex;align-items:center;gap:8px;">
+          <img src="img/signal-03.svg" alt="" style="width:18px;opacity:0.7;">
+          <span style="font-weight:600">AO VIVO</span> pelo Zoom
+        </span>
+        <span class="font-grotesk scroll-right" style="font-size:16px;font-weight:500;color:rgba(247,247,247,0.84);display:flex;align-items:center;gap:8px;">
+          <img loading="lazy" src="img/clock.svg" alt="" style="width:18px;opacity:0.7;">
+          14h às 18h
+        </span>
+      </div>
+    </div>
+
+    <!-- Sticky cards -->
+    <div class="sticky-cards">
+      <div class="sticky-card scroll-bottom" style="top:90px;z-index:1;">
+        <img loading="lazy" src="img/001.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">14h00 — Abertura</span> e introdução à profissão de Closer no digital</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:110px;z-index:2;">
+        <img loading="lazy" src="img/001.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">14h45 — Planejamento estratégico</span> de carreira e metas</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:130px;z-index:3;">
+        <img loading="lazy" src="img/002.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">15h30 — Script na prática</span> e condução de conversa</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:150px;z-index:4;">
+        <img loading="lazy" src="img/003.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">16h15 — Objeções principais</span> e como quebrar com segurança</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:170px;z-index:5;">
+        <img loading="lazy" src="img/003.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">17h00 — Como conseguir a primeira vaga</span> e se posicionar</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:190px;z-index:6;">
+        <img loading="lazy" src="img/003.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);"><span style="color:#F7F7F7;font-weight:500">18h00 — Fechamento</span> e próximos passos</p>
+      </div>
+      <div class="sticky-card scroll-bottom" style="top:210px;z-index:7;">
+        <img loading="lazy" src="img/001.svg" alt="">
+        <p class="font-grotesk" style="font-size:24px;font-weight:400;line-height:1.2;color:rgba(247,247,247,0.74);">Os horários podem ter pequenos ajustes ao vivo</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zoom screenshot -->
+  <div id="zoom-section">
+    <img loading="lazy" src="img/funil.svg" alt="" style="max-width:100%;margin-top:-238px;" class="scroll-bottom">
+  </div>
+</section>
+
+<!-- ==================== SECTION 7 - Investimento ==================== -->
+<section id="investimento">
+  <div style="text-align:center;display:flex;flex-direction:column;align-items:center;gap:0;">
+    <p class="font-grotesk scroll-bottom" style="font-size:14px;font-weight:500;letter-spacing:0.7px;color:#7C848C;">INVESTIMENTO</p>
+    <p class="font-clash blur-anim" style="font-size:62px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#2F2521;max-width:550px;">Veja tudo o que você vai receber...</p>
+  </div>
+  <div class="price-table blur-anim">
+    <div class="price-row scroll-bottom"><span class="item">Imersão ao vivo no Zoom (18/04)</span><span class="price">R$197,00</span></div>
+    <div class="price-row scroll-bottom"><span class="item">Script base que gerou +40 milhões</span><span class="price">R$197,00</span></div>
+    <div class="price-row scroll-bottom"><span class="item">Direção para vagas</span><span class="price">R$197,00</span></div>
+  </div>
+  <div class="persuasion" style="text-align:center;">
+    <p class="font-clash heading-lg-dark scroll-bottom" style="max-width:606px;margin:0 auto;">Se você somou, deu <span style="color:#F25F78">R$591</span></p>
+    <p class="text-body scroll-bottom" style="max-width:550px;margin:0 auto;">Mas hoje por apenas R$27.</p>
+  </div>
+</section>
+
+<!-- ==================== SECTION 8 - Escolha seu ingresso ==================== -->
+<section id="ingressos" style="position:relative;overflow:hidden;">
+  <!-- Top bar -->
+  <div style="display:flex;align-items:center;justify-content:center;border-bottom:1.5px solid rgba(255,255,255,0.16);background:rgba(49,72,76,0.42);backdrop-filter:blur(26px);border-radius:24px 24px 0 0;padding:18px 30px;position:absolute;top:0;left:0;right:0;z-index:3;">
+    <span class="font-grotesk" style="font-size:16px;font-weight:500;color:rgba(247,247,247,0.68);display:flex;align-items:center;gap:10px;">
+      <img loading="lazy" src="img/icon-calendar.svg" alt="" style="width:18px;">
+      VAGAS LIMITADAS <span style="font-weight:600;color:#EED7A4;">— Preço promocional</span>
+    </span>
+  </div>
+
+  <p class="font-clash heading-lg-light scroll-bottom" style="text-align:center;margin-top:40px;">Garante <span style="color:#EED7A4">sua vaga</span></p>
+
+
+  <!-- Ticket cards -->
+  <div class="tickets-row">
+    <!-- Normal -->
+    <div class="ticket-card scroll-bottom" style="max-width:600px;">
+      <div class="card-header" style="gap:12px;">
+        <img src="img/logo-branca-Funi.svg" alt="" style="width:160px;">
+        <p class="font-clash" style="font-size:46px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#F7F7F7;">Closer 360</p>
+        <p class="font-grotesk" style="font-size:14px;font-weight:500;letter-spacing:1px;color:rgba(247,247,247,0.6);text-transform:uppercase;">Ingresso</p>
+      </div>
+      <div class="features">
+        <p class="feat">Imersão ao vivo</p>
+        <hr>
+        <p class="feat">Script</p>
+        <hr>
+        <p class="feat">Direção para vagas</p>
+      </div>
+      <div class="pricing">
+        <p class="font-clash" style="font-size:52px;font-weight:600;line-height:1;letter-spacing:-1px;color:#F7F7F7;">R$27</p>
+        <p class="font-grotesk" style="font-size:20px;font-weight:500;color:rgba(247,247,247,0.72);">à vista</p>
+      </div>
+      <a href="#" class="btn" style="max-width:500px;">
+        <img src="img/ticket-01.svg" alt="">
+        QUERO MINHA VAGA — R$27
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 9 - Urgencia ==================== -->
+<section id="urgencia">
+  <div class="left">
+    <p class="font-clash heading-lg-dark scroll-bottom" style="max-width:500px;">As vagas estão acabando!</p>
+    <div style="display:flex;align-items:center;gap:16px;" class="scroll-bottom">
+      <div style="width:2px;height:60px;background:rgba(124,132,140,0.2);flex-shrink:0;"></div>
+      <div>
+        <p class="font-grotesk" style="font-size:16px;font-weight:500;color:#F25F78;text-transform:uppercase;">Vagas limitadas</p>
+        <div class="progress-wrap" style="margin-top:8px;"><div class="progress-bar"></div></div>
+      </div>
+    </div>
+    <a href="#ingressos" class="btn scroll-bottom" style="max-width:500px;">
+      <img src="img/ticket-01.svg" alt="">
+      QUERO MINHA VAGA — R$27
+    </a>
+  </div>
+  <div class="right">
+    <div style="display:flex;align-items:center;gap:16px;" class="scroll-bottom">
+      <img loading="lazy" src="img/image-23.webp" alt="" style="width:60px;height:60px;border-radius:50%;object-fit:cover;">
+      <p class="text-emphasis" style="max-width:402px;">A Aline era recepcionista. O Lucas era atendente. O Rafael era motorista. Nenhum deles tinha "perfil de vendedor."</p>
+    </div>
+    <p class="text-body scroll-bottom" style="max-width:440px;margin-bottom:14px;">Todos tinham uma coisa em comum: a decisão de aprender o método certo.</p>
+    <p class="text-emphasis scroll-bottom" style="max-width:423px;">Sua vez.</p>
+  </div>
+</section>
+
+<!-- ==================== SECTION 10 - Jezreel ==================== -->
+<section id="jezreel">
+  <div class="bio-row">
+    <div class="photo">
+      <div style="transform:rotate(-5deg);display:inline-block;"><img loading="lazy" src="img/ft-jezreel-11.webp" alt="Jezreel Soares" style="border-radius:20px;" class="blur-anim"></div>
+    </div>
+    <div class="text">
+      <p class="font-grotesk label-text scroll-bottom">QUEM É SEU MENTOR</p>
+      <p class="font-clash heading-lg-light scroll-bottom">Muito prazer, eu sou o <span style="color:#EED7A4">Jezreel Soares</span></p>
+      <p class="text-body-light scroll-bottom">Treinou mais de 1.500 vendedores. Mais de 42 milhões em vendas 1 a 1. Destaque na Wiser Educação.</p>
+      <p class="text-body-light scroll-bottom">Ex Head Comercial de Érico Rocha. Ex Head Comercial da Reg Life. Co-produtor comercial de empresas multimilionárias. Criador do Método Chave Mestra.</p>
+    </div>
+  </div>
+  <div class="bottom-img">
+    <div style="transform:rotate(5deg);display:inline-block;"><img loading="lazy" src="img/ft-jezreel-2-1.webp" alt="" style="border-radius:20px;" class="blur-anim"></div>
+  </div>
+</section>
+
+<!-- ==================== SECTION 11 - FAQ ==================== -->
+<section id="faq">
+  <div class="faq-left">
+    <p class="font-grotesk label-text scroll-bottom">FAQ</p>
+    <p class="font-clash scroll-bottom" style="font-size:62px;font-weight:500;line-height:1.1;letter-spacing:-1px;color:#2F2521;max-width:348px;">Perguntas frequentes</p>
+  </div>
+  <div class="faq-right scroll-right">
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Preciso ter experiência em vendas? <svg viewBox="0 0 24 24" fill="none" stroke="#7C848C" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="faq-a"><p class="text-body">Não. A maioria dos closers que o Jez formou começou sem nenhuma experiência. O método guia a conversa.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">Não tenho perfil de vendedor. Funciona? <svg viewBox="0 0 24 24" fill="none" stroke="#7C848C" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="faq-a"><p class="text-body">Funciona. Vender como Closer não é sobre lábia ou extroversão. É sobre seguir um processo.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">R$27 é o preço real? <svg viewBox="0 0 24 24" fill="none" stroke="#7C848C" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="faq-a"><p class="text-body">Sim. Sem taxa escondida, sem pegadinha.</p></div>
+    </div>
+    <div class="faq-item" onclick="toggleFaq(this)">
+      <div class="faq-q">E se eu não gostar? <svg viewBox="0 0 24 24" fill="none" stroke="#7C848C" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg></div>
+      <div class="faq-a"><p class="text-body">São R$27. Menos do que você gasta num almoço. Mas o que você pode ganhar nessas 4 horas vale mais do que meses tentando sozinho.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer id="footer">
+  <div class="col">
+    <p class="font-grotesk" style="font-size:18px;font-weight:500;letter-spacing:0.9px;color:rgba(47,37,33,0.92);">Copyright &copy;2026</p>
+    <p class="font-grotesk" style="font-size:18px;font-weight:500;letter-spacing:0.4px;color:rgba(47,37,33,0.92);margin-bottom:12px;">Todos os direitos reservados</p>
+    <p class="font-grotesk" style="font-size:16px;font-weight:500;color:rgba(47,37,33,0.92);">Jezreel Soares — Imersão Closer 360</p>
+  </div>
+  <div class="col-contact">
+    <p class="font-grotesk" style="font-size:22px;font-weight:500;letter-spacing:0.9px;color:rgba(47,37,33,0.92);">Tem alguma dúvida?</p>
+    <a href="#" class="whatsapp-btn">
+      <img loading="lazy" src="img/whatsapp-1.svg" alt="">
+      FALAR NO WHATSAPP
+    </a>
+  </div>
+  <div class="col-info">
+    <p class="font-grotesk" style="font-size:22px;font-weight:500;line-height:1.1;color:rgba(47,37,33,0.92);max-width:186px;">Como vou receber esse conteúdo?</p>
+    <p style="font-size:16px;font-weight:400;line-height:1.4;letter-spacing:-0.2px;color:#7C848C;max-width:221px;">O conteúdo é digital e será entregue ao vivo no Zoom na data do evento.</p>
+  </div>
+</footer>
+
+<!-- ==================== SCRIPTS ==================== -->
+<script>
+// Scroll animations
+const elementos = document.querySelectorAll('.scroll-left,.scroll-right,.scroll-top,.scroll-bottom,.blur-anim');
+const posicaoScroll = window.innerHeight * 0.5;
+
+function fadeScroll(){
+  elementos.forEach(el => {
+    const top = el.getBoundingClientRect().top - posicaoScroll;
+    if(top < 320){
+      el.classList.add('ativo');
+    }
+  });
+}
+
+window.addEventListener('scroll', fadeScroll);
+window.addEventListener('load', fadeScroll);
+
+// FAQ toggle
+function toggleFaq(item){
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if(!wasOpen) item.classList.add('open');
+}
+</script>
+</body>
+</html>

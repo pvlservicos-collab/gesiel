@@ -1,0 +1,8 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/api/track", "destination": "/api/lead" },
+    { "source": "/site", "destination": "/site/index.html" }
+  ]
+}

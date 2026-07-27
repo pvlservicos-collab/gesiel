@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Meu Link de Liderança — Aldo Maurício</title>
+  <link rel="icon" type="image/webp" href="img/logo.webp">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=DM+Sans:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --azul: #091f80;
+      --azul-esc: #050e52;
+      --azul-med: #0e2eaa;
+      --ouro: #f5c518;
+      --ouro-esc: #c8a000;
+      --verde: #1a8c2a;
+      --text-esc: #0a1540;
+      --text-med: #3a4a7a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    html {
+      overflow-x: hidden
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-esc);
+      background: radial-gradient(circle at 50% -10%, var(--azul-med) 0%, var(--azul) 45%, var(--azul-esc) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .estrelas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .estrelas i {
+      position: absolute;
+      display: block;
+      border-radius: 50%;
+      background: #fff;
+      opacity: .5;
+      animation: pisca 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pisca {
+
+      0%,
+      100% {
+        opacity: .15
+      }
+
+      50% {
+        opacity: .8
+      }
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .topo {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .topo img {
+      height: 84px;
+      margin-bottom: 14px;
+    }
+
+    .topo h1 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-weight: 800;
+      font-size: clamp(1.9rem, 5vw, 2.4rem);
+      color: var(--azul-esc);
+      line-height: 1.1;
+    }
+
+    .topo p {
+      color: var(--text-med);
+      font-size: .95rem;
+      margin-top: 8px;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 32px 28px;
+      box-shadow: 0 24px 60px rgba(5, 14, 82, .45);
+    }
+
+    .fg {
+      margin-bottom: 4px;
+    }
+
+    .fg label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--text-med);
+      margin-bottom: 6px;
+    }
+
+    .fg input {
+      width: 100%;
+      padding: 13px 14px;
+      border: 1.5px solid #dfe3f2;
+      border-radius: 10px;
+      font: inherit;
+      font-size: 1rem;
+      color: var(--text-esc);
+      background: #f8f9fd;
+    }
+
+    .fg input:focus {
+      outline: none;
+      border-color: var(--azul-med);
+      background: #fff;
+    }
+
+    .ac-wrap {
+      position: relative;
+    }
+
+    .ac-list {
+      position: absolute;
+      top: calc(100% + 4px);
+      left: 0;
+      right: 0;
+      background: #ffffff;
+      border: 1.5px solid #dfe3f2;
+      border-radius: 10px;
+      max-height: 260px;
+      overflow-y: auto;
+      box-shadow: 0 14px 34px rgba(5, 14, 82, .2);
+      z-index: 20;
+      display: none;
+    }
+
+    .ac-list.show {
+      display: block;
+    }
+
+    .ac-item {
+      padding: 11px 14px;
+      font-size: .95rem;
+      color: var(--text-esc);
+      cursor: pointer;
+    }
+
+    .ac-item b {
+      font-weight: 600;
+    }
+
+    .ac-item small {
+      display: block;
+      font-size: .78rem;
+      color: var(--text-med);
+      margin-top: 1px;
+    }
+
+    .ac-item:hover {
+      background: #f0f3fc;
+    }
+
+    .ac-item:hover b {
+      color: var(--azul-med);
+    }
+
+    .ac-empty {
+      padding: 12px 14px;
+      font-size: .88rem;
+      color: var(--text-med);
+      line-height: 1.5;
+    }
+
+    .ac-empty a {
+      color: var(--azul-med);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .resultado {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1.5px dashed #dfe3f2;
+      display: none;
+      text-align: center;
+    }
+
+    .resultado .check {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--verde);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      margin: 0 auto 12px;
+    }
+
+    .resultado h2 {
+      font-family: 'Barlow Condensed', sans-serif;
+      font-size: 1.35rem;
+      color: var(--verde);
+      margin-bottom: 4px;
+    }
+
+    .resultado .sub {
+      color: var(--text-med);
+      font-size: .88rem;
+      margin-bottom: 16px;
+    }
+
+    .link-row {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .link-row input {
+      width: 100%;
+      padding: 16px 14px;
+      border: 1.5px solid #bfe8c9;
+      border-radius: 10px;
+      font-size: .92rem;
+      font-weight: 600;
+      color: var(--text-esc);
+      background: #eaf8ee;
+      text-align: center;
+    }
+
+    .link-row button {
+      width: 100%;
+      padding: 16px;
+      background: var(--azul);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font: inherit;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background .15s ease;
+    }
+
+    .link-row button.copiado {
+      background: var(--verde);
+    }
+
+    .rodape {
+      margin-top: 22px;
+      font-size: .82rem;
+      color: #949494;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .rodape a {
+      color: #949494;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="estrelas" id="estrelas"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <div class="topo">
+        <img src="img/logo.webp" alt="Aldo Maurício">
+        <h1>Meu Link de Liderança</h1>
+        <p>Já é liderança cadastrada? Busque seu nome abaixo e pegue seu link exclusivo pra trazer apoiadores.</p>
+      </div>
+
+      <div class="fg ac-wrap" id="busca-wrap">
+        <label for="busca-nome">Seu nome</label>
+        <input type="text" id="busca-nome" placeholder="Digite seu nome completo" autocomplete="off">
+        <div class="ac-list" id="busca-list"></div>
+      </div>
+
+      <div class="resultado" id="resultado">
+        <div class="check">✓</div>
+        <h2 id="resultado-nome">—</h2>
+        <p class="sub">Esse é o seu link exclusivo — compartilhe pra trazer apoiadores:</p>
+        <div class="link-row">
+          <input type="text" id="linkUnico" readonly onclick="this.select()">
+          <button type="button" id="btnCopiarLink">📋 Copiar link</button>
+        </div>
+      </div>
+
+      <p class="rodape">Ainda não é liderança cadastrada? <a href="/liderancas">Cadastre-se aqui</a>.</p>
+    </div>
+  </div>
+
+  <script>
+    (function criarEstrelas() {
+      const c = document.getElementById('estrelas');
+      for (let i = 0; i < 50; i++) {
+        const s = document.createElement('i');
+        const size = Math.random() * 2.2 + 1;
+        s.style.cssText = `left:${Math.random() * 100}%;top:${Math.random() * 100}%;width:${size}px;height:${size}px;animation-delay:${(Math.random() * 2).toFixed(1)}s;animation-duration:${(Math.random() * 1.6 + 1.6).toFixed(1)}s`;
+        c.appendChild(s);
+      }
+    })();
+
+    function normaliza(s) {
+      return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+    }
+
+    let LIDERANCAS = [];
+    fetch('/api/lideranca').then(r => r.json()).then(d => { LIDERANCAS = d.liderancas || []; }).catch(() => {});
+
+    const buscaInput = document.getElementById('busca-nome');
+    const buscaList = document.getElementById('busca-list');
+    const resultado = document.getElementById('resultado');
+
+    function renderBusca(filtro) {
+      const termo = normaliza(filtro.trim());
+      buscaList.innerHTML = '';
+      if (!termo) { buscaList.classList.remove('show'); return; }
+      const itens = LIDERANCAS.filter(l => normaliza(l.nome).includes(termo)).slice(0, 30);
+      if (!itens.length) {
+        buscaList.innerHTML = '<div class="ac-empty">Nenhuma liderança encontrada com esse nome.<br>Ainda não se cadastrou? <a href="/liderancas">Cadastre-se aqui</a>.</div>';
+      } else {
+        itens.forEach(l => {
+          const item = document.createElement('div');
+          item.className = 'ac-item';
+          item.innerHTML = '<b></b>' + (l.bairro ? '<small></small>' : '');
+          item.querySelector('b').textContent = l.nome;
+          if (l.bairro) item.querySelector('small').textContent = l.bairro;
+          item.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            buscaInput.value = l.nome;
+            buscaList.classList.remove('show');
+            mostrarLink(l);
+          });
+          buscaList.appendChild(item);
+        });
+      }
+      buscaList.classList.add('show');
+    }
+
+    function mostrarLink(l) {
+      const codigo = String(l.id).padStart(3, '0');
+      const link = location.origin + '/apoiadores?lid=' + codigo;
+      document.getElementById('resultado-nome').textContent = l.nome;
+      document.getElementById('linkUnico').value = link;
+      resultado.style.display = 'block';
+    }
+
+    buscaInput.addEventListener('input', () => {
+      resultado.style.display = 'none';
+      renderBusca(buscaInput.value);
+    });
+    buscaInput.addEventListener('focus', () => { if (buscaInput.value.trim()) renderBusca(buscaInput.value); });
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('#busca-wrap')) buscaList.classList.remove('show');
+    });
+
+    document.getElementById('btnCopiarLink').addEventListener('click', async (e) => {
+      const input = document.getElementById('linkUnico');
+      const btnCopiar = e.currentTarget;
+      try {
+        await navigator.clipboard.writeText(input.value);
+      } catch {
+        input.select();
+        document.execCommand('copy');
+      }
+      const textoOriginal = btnCopiar.textContent;
+      btnCopiar.textContent = '✓ Copiado!';
+      btnCopiar.classList.add('copiado');
+      setTimeout(() => {
+        btnCopiar.textContent = textoOriginal;
+        btnCopiar.classList.remove('copiado');
+      }, 1800);
+    });
+
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/meulink', referrer: document.referrer || null })
+    }).catch(() => {});
+  </script>
+</body>
+
+</html>

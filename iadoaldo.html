@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>IA do Aldo · Aldo Maurício</title>
+  <link rel="icon" type="image/webp" href="img/logo.webp">
+  <meta name="description" content="Converse com a IA do Aldo Maurício e conheça as propostas do pré-candidato a deputado estadual." />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Outfit:wght@500;600&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #03070f;
+      --bg2: #060d1c;
+      --ink: #f2f7ff;
+      --muted: #8ca3c7;
+      --dim: #5f7396;
+      --line: rgba(150, 190, 255, .14);
+      --glass: rgba(120, 165, 255, .09);
+      --glass2: rgba(120, 165, 255, .04);
+      --grad-accent: linear-gradient(135deg, #2563eb 0%, #22d3ee 100%);
+      --onda: rgba(148, 163, 184, .55);
+      --verde: #4ade80;
+      --topo-h: 255px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0 }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 15px;
+    }
+
+    /* brilho azul bem discreto atrás da foto */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0; pointer-events: none;
+      background:
+        radial-gradient(520px 340px at 50% -60px, rgba(37, 99, 235, .18), transparent 70%),
+        radial-gradient(900px 600px at 50% 115%, rgba(34, 211, 238, .06), transparent 70%);
+    }
+
+    /* ───── topo fixo: foto redonda + nome ───── */
+    .topo {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+      display: flex; flex-direction: column; align-items: center;
+      padding: calc(21px + env(safe-area-inset-top)) 16px 0;
+      pointer-events: none;
+    }
+
+    .foto-wrap { position: relative; width: 152px; height: 152px; }
+
+    .foto-wrap img {
+      position: relative; z-index: 2;
+      width: 152px; height: 152px; border-radius: 50%; object-fit: cover;
+      border: 2.5px solid rgba(150, 190, 255, .35);
+      box-shadow: 0 14px 44px rgba(1, 4, 14, .7), 0 0 0 6px rgba(120, 165, 255, .07);
+      background: var(--bg2);
+    }
+
+    /* ondas cinzas circulares quando ele "fala" — finas e suaves */
+    .onda {
+      position: absolute; inset: 0; z-index: 1;
+      border-radius: 50%;
+      border: 1px solid var(--onda);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .falando .onda { animation: sonar 2.4s ease-out infinite; }
+    .falando .onda:nth-child(2) { animation-delay: .8s }
+    .falando .onda:nth-child(3) { animation-delay: 1.6s }
+    @keyframes sonar {
+      0% { transform: scale(1); opacity: .45 }
+      100% { transform: scale(2.15); opacity: 0 }
+    }
+
+    .topo .nome {
+      margin-top: 13px;
+      font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 20px;
+      letter-spacing: -.01em;
+    }
+    .topo .st {
+      margin-top: 4px;
+      font-family: 'Montserrat', sans-serif; font-weight: 400; font-size: 12.5px;
+      color: var(--muted); display: flex; align-items: center; gap: 7px;
+    }
+    .topo .st .dot {
+      width: 8px; height: 8px; border-radius: 50%; background: var(--verde);
+      box-shadow: 0 0 8px rgba(74, 222, 128, .8); flex: none;
+    }
+
+    /* degradê fixo: as mensagens vão sumindo por trás da foto */
+    .veu {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 20;
+      height: calc(var(--topo-h) + 120px);
+      pointer-events: none;
+      background: linear-gradient(to bottom, var(--bg) 0%, var(--bg) 64%, rgba(3, 7, 15, 0) 100%);
+    }
+
+    /* ───── conversa ───── */
+    main {
+      position: relative; z-index: 10;
+      max-width: 560px; margin: 0 auto;
+      padding: calc(var(--topo-h) + 174px) 18px 220px;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+
+    .msg {
+      max-width: 82%;
+      padding: 9px 13px;
+      border-radius: 16px;
+      line-height: 1.45;
+      font-size: 14.5px;
+      word-wrap: break-word;
+      animation: pop .28s cubic-bezier(.34, 1.4, .5, 1);
+      transform-origin: bottom left;
+    }
+    .msg.dele {
+      align-self: flex-start;
+      background: linear-gradient(160deg, rgba(96, 165, 250, .24) 0%, rgba(59, 130, 246, .14) 100%);
+      border: 1px solid rgba(96, 165, 250, .4);
+      border-bottom-left-radius: 5px;
+      color: var(--ink);
+    }
+    .msg.meu {
+      align-self: flex-end;
+      background: var(--grad-accent);
+      border-bottom-right-radius: 5px;
+      color: #fff;
+      font-weight: 500;
+      transform-origin: bottom right;
+      box-shadow: 0 6px 18px rgba(37, 99, 235, .35);
+    }
+    @keyframes pop {
+      0% { transform: scale(.6); opacity: 0 }
+      100% { transform: scale(1); opacity: 1 }
+    }
+
+    /* digitando… */
+    .msg.digitando { display: flex; gap: 5px; align-items: center; padding: 13px 15px; }
+    .msg.digitando i {
+      width: 6px; height: 6px; border-radius: 50%; background: var(--muted);
+      animation: pisca 1.1s ease-in-out infinite;
+    }
+    .msg.digitando i:nth-child(2) { animation-delay: .18s }
+    .msg.digitando i:nth-child(3) { animation-delay: .36s }
+    @keyframes pisca {
+      0%, 60%, 100% { transform: translateY(0); opacity: .45 }
+      30% { transform: translateY(-4px); opacity: 1 }
+    }
+
+    /* ───── botões de resposta (fixos embaixo, no lugar do campo de digitar) ───── */
+    .opcoes-area {
+      position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+      padding: 16px 14px calc(22px + env(safe-area-inset-bottom));
+      background: linear-gradient(to top, var(--bg) 0%, var(--bg) 55%, rgba(3, 7, 15, 0) 100%);
+    }
+    .opcoes {
+      max-width: 560px; margin: 0 auto;
+      display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    }
+    .opcoes button {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600; font-size: 13.5px; letter-spacing: .01em;
+      color: var(--ink);
+      background: rgba(120, 165, 255, .07);
+      border: 1px solid rgba(150, 190, 255, .28);
+      border-radius: 999px;
+      padding: 9px 18px;
+      cursor: pointer;
+      transition: background .18s, border-color .18s, transform .18s;
+      animation: sobe .3s cubic-bezier(.34, 1.3, .5, 1) backwards;
+    }
+    .opcoes button:nth-child(2) { animation-delay: .06s }
+    .opcoes button:nth-child(3) { animation-delay: .12s }
+    .opcoes button:nth-child(4) { animation-delay: .18s }
+    .opcoes button:nth-child(5) { animation-delay: .24s }
+    .opcoes button:hover, .opcoes button:focus-visible {
+      background: rgba(120, 165, 255, .16);
+      border-color: rgba(150, 190, 255, .55);
+      transform: translateY(-1px);
+      outline: none;
+    }
+    @keyframes sobe {
+      0% { transform: translateY(12px); opacity: 0 }
+      100% { transform: translateY(0); opacity: 1 }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .msg, .opcoes button { animation: none }
+      .falando .onda { animation-duration: 3.5s }
+      html { scroll-behavior: auto }
+    }
+
+    /* botão fixo de ajuda, sempre por último, em toda tela — mesma cara dos outros */
+    .opcoes button.btn-ajuda {
+      flex-basis: 100%;
+    }
+
+    /* CTA final, brilhoso, sempre em cima do botão de ajuda */
+    .opcoes button.btn-apoiar {
+      flex-basis: 100%;
+      background: var(--grad-accent);
+      border: none;
+      color: #fff;
+      font-weight: 700;
+      animation: sobe .3s cubic-bezier(.34, 1.3, .5, 1) backwards, brilho 2.4s ease-in-out .3s infinite;
+    }
+    .opcoes button.btn-apoiar:hover, .opcoes button.btn-apoiar:focus-visible {
+      transform: translateY(-1px) scale(1.02);
+    }
+    @keyframes brilho {
+      0%, 100% { box-shadow: 0 4px 18px rgba(37, 99, 235, .35), 0 0 0 rgba(34, 211, 238, 0); }
+      50% { box-shadow: 0 4px 26px rgba(37, 99, 235, .55), 0 0 22px rgba(34, 211, 238, .4); }
+    }
+
+    /* caixa de mensagem (só aparece no fluxo de ajuda) */
+    .ajuda-form {
+      width: 100%;
+      display: flex; align-items: flex-end; gap: 8px;
+    }
+    .ajuda-form textarea {
+      flex: 1;
+      resize: none;
+      max-height: 120px;
+      font: inherit;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      background: rgba(120, 165, 255, .07);
+      border: 1px solid rgba(150, 190, 255, .28);
+      border-radius: 20px;
+      padding: 12px 18px;
+      line-height: 1.4;
+    }
+    .ajuda-form textarea::placeholder { color: var(--dim); }
+    .ajuda-form textarea:focus {
+      outline: none;
+      border-color: rgba(150, 190, 255, .55);
+      background: rgba(120, 165, 255, .12);
+    }
+    .ajuda-form button {
+      flex: none;
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: none;
+      background: var(--grad-accent);
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: transform .15s, opacity .15s;
+    }
+    .ajuda-form button:hover { transform: scale(1.06); }
+    .ajuda-form button:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+  </style>
+</head>
+
+<body>
+  <div class="veu"></div>
+
+  <header class="topo">
+    <div class="foto-wrap" id="fotoWrap">
+      <span class="onda"></span><span class="onda"></span><span class="onda"></span>
+      <img id="foto" src="img/fotocandidato.webp" alt="Aldo Maurício">
+    </div>
+    <div class="nome" id="nome">Aldo Maurício</div>
+    <div class="st"><span class="dot"></span><span id="statusTxt">Pode perguntar 👇</span></div>
+  </header>
+
+  <main id="chat" aria-live="polite"></main>
+
+  <div class="opcoes-area">
+    <div class="opcoes" id="opcoes"></div>
+  </div>
+
+  <script>
+    // conteúdo reserva: se a API falhar por qualquer motivo, a página nunca fica muda
+    // (é o mesmo conteúdo padrão de api/_iadoaldo.js)
+    let CFG = {
+      nome: 'Aldo Maurício', status: 'Pode perguntar 👇', foto: 'img/fotocandidato.webp', inicio: 'p1',
+      passos: [
+        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Aldo Maurício, pré-candidato a deputado estadual pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
+        { id: 'p2', titulo: 'Quem é Aldo Maurício', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Sou enfermeiro há 26 anos e professor há 15. Também sou bacharel em Direito pela UNIFAP.', 'Sou funcionário público, escritor, teólogo e participo de vários projetos sociais aqui na nossa terra.', 'Minha vida inteira foi servindo pessoas — na saúde, na sala de aula e na comunidade. Agora quero servir o nosso estado inteiro.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos que já saíram do papel, viu? 💪', 'Sou diretor da UBS Cláudio Leão e já fui voluntário da Cruz Vermelha — sempre na linha de frente da saúde.', 'Como sindicalista, lutei junto com a categoria pelo piso da enfermagem.', 'Na educação, idealizei o Aulão Solidário pra ajudar quem tá se preparando pra concursos — não à toa me chamam de amigo dos concurseiros 📚'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.', 'Sou líder evangélico na comunidade e vice-líder da UJAMA, a nossa juventude gospel.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p5', titulo: 'No que você vai ajudar a cidade', msgs: ['Vou trabalhar em cima de bandeiras bem claras pela nossa cidade:', '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.', '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.', '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+      ],
+    };
+
+    const chat = document.getElementById('chat');
+    const opcoesEl = document.getElementById('opcoes');
+    const fotoWrap = document.getElementById('fotoWrap');
+    const opcoesArea = document.querySelector('.opcoes-area');
+    let porId = {};
+    let tocando = false;
+
+    const espera = ms => new Promise(r => setTimeout(r, ms));
+    const rolar = () => window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+
+    function bolha(classe, texto) {
+      const d = document.createElement('div');
+      d.className = 'msg ' + classe;
+      d.textContent = texto;
+      chat.appendChild(d);
+      rolar();
+      return d;
+    }
+
+    function bolhaDigitando() {
+      const d = document.createElement('div');
+      d.className = 'msg dele digitando';
+      d.innerHTML = '<i></i><i></i><i></i>';
+      chat.appendChild(d);
+      rolar();
+      return d;
+    }
+
+    function limparOpcoes() {
+      opcoesEl.replaceChildren();
+      ajustarEspaco();
+    }
+
+    function ajustarEspaco() {
+      // garante que a última mensagem nunca fique escondida atrás dos botões
+      chat.style.paddingBottom = (opcoesArea.offsetHeight + 10) + 'px';
+    }
+
+    const AJUDA_LABEL = 'Quero pedir uma ajuda / Relatar um problema!';
+    const WHATSAPP_LABEL = 'Fala com equipe Aldo Maurício';
+    const WHATSAPP_LINK = 'https://wa.me/559681419718?text=' +
+      encodeURIComponent('Olá, Aldo Maurício! Vim pelo chat da IA e quero falar com a equipe.');
+    const APOIAR_LABEL = 'Apoiar Aldo Maurício';
+    const APOIAR_LINK = 'https://aldomauricio.vercel.app/';
+
+    // cada resposta clicada "some" — uma vez visto aquele passo, a opção que
+    // levava até ele não aparece mais em lugar nenhum. Quando não sobra mais
+    // nenhum passo novo pra descobrir, a conversa termina no CTA de apoio.
+    let visitados = new Set();
+    function acabouAConversa() {
+      return CFG.passos.every(p => visitados.has(p.id));
+    }
+
+    function mostrarOpcoes(passo) {
+      visitados.add(passo.id);
+      if (acabouAConversa()) return mostrarOpcoesFinal();
+
+      let ops = (passo.opcoes || []).filter(o => !o.goto || o.goto === CFG.inicio || !visitados.has(o.goto));
+      if (!ops.length) ops = [{ label: '⟲ Voltar ao início', goto: CFG.inicio }];
+      opcoesEl.replaceChildren();
+      ops.forEach(o => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.textContent = o.label;
+        b.onclick = () => escolher(o);
+        opcoesEl.appendChild(b);
+      });
+      // fixo, sempre por último, em todo passo — não vem do conteúdo editável
+      const ajuda = document.createElement('button');
+      ajuda.type = 'button';
+      ajuda.className = 'btn-ajuda';
+      ajuda.textContent = AJUDA_LABEL;
+      ajuda.onclick = () => abrirAjuda();
+      opcoesEl.appendChild(ajuda);
+      ajustarEspaco();
+      rolar();
+    }
+
+    // fim de papo: já respondeu tudo — só sobra o convite pra apoiar e o
+    // botão de ajuda (sempre presente)
+    function mostrarOpcoesFinal() {
+      opcoesEl.replaceChildren();
+      const apoiar = document.createElement('button');
+      apoiar.type = 'button';
+      apoiar.className = 'btn-apoiar';
+      apoiar.textContent = APOIAR_LABEL;
+      apoiar.onclick = () => { window.location.href = APOIAR_LINK; };
+      opcoesEl.appendChild(apoiar);
+
+      const ajuda = document.createElement('button');
+      ajuda.type = 'button';
+      ajuda.className = 'btn-ajuda';
+      ajuda.textContent = AJUDA_LABEL;
+      ajuda.onclick = () => abrirAjuda();
+      opcoesEl.appendChild(ajuda);
+      ajustarEspaco();
+      rolar();
+    }
+
+    // só aparece depois que a pessoa manda uma mensagem de ajuda — não em
+    // todo passo, ao contrário do botão de ajuda
+    function mostrarOpcoesPosAjuda() {
+      opcoesEl.replaceChildren();
+      const voltar = document.createElement('button');
+      voltar.type = 'button';
+      voltar.textContent = '⟲ Voltar ao início';
+      voltar.onclick = () => escolher({ label: '⟲ Voltar ao início', goto: CFG.inicio });
+      opcoesEl.appendChild(voltar);
+
+      const ajuda = document.createElement('button');
+      ajuda.type = 'button';
+      ajuda.className = 'btn-ajuda';
+      ajuda.textContent = AJUDA_LABEL;
+      ajuda.onclick = () => abrirAjuda();
+      opcoesEl.appendChild(ajuda);
+
+      const wpp = document.createElement('button');
+      wpp.type = 'button';
+      wpp.className = 'btn-ajuda';
+      wpp.textContent = WHATSAPP_LABEL;
+      wpp.onclick = () => window.open(WHATSAPP_LINK, '_blank');
+      opcoesEl.appendChild(wpp);
+      ajustarEspaco();
+      rolar();
+    }
+
+    function escolher(o) {
+      if (tocando) return;
+      limparOpcoes();
+      bolha('meu', o.label);
+      tocar(o.goto || CFG.inicio);
+    }
+
+    function abrirAjuda() {
+      if (tocando) return;
+      limparOpcoes();
+      bolha('meu', AJUDA_LABEL);
+      tocarAjuda();
+    }
+
+    async function tocarAjuda() {
+      tocando = true;
+      fotoWrap.classList.add('falando');
+      const dig = bolhaDigitando();
+      await espera(650);
+      dig.remove();
+      bolha('dele', 'É claro, me fala o que te preocupa?');
+      fotoWrap.classList.remove('falando');
+      tocando = false;
+      mostrarCaixaAjuda();
+    }
+
+    let ajudaMensagemPendente = '';
+
+    // caixa de texto genérica (usada tanto pra pedir a mensagem quanto o
+    // nome) — cresce sozinha, Enter envia, Shift+Enter quebra linha
+    function mostrarCaixaTexto(placeholder, maxLength, aoEnviar) {
+      opcoesEl.replaceChildren();
+      const form = document.createElement('form');
+      form.className = 'ajuda-form';
+      const ta = document.createElement('textarea');
+      ta.className = 'ajudaCampo';
+      ta.rows = 1;
+      ta.maxLength = maxLength;
+      ta.placeholder = placeholder;
+      ta.required = true;
+      const btn = document.createElement('button');
+      btn.type = 'submit';
+      btn.setAttribute('aria-label', 'Enviar');
+      btn.textContent = '➤';
+      form.append(ta, btn);
+      opcoesEl.appendChild(form);
+      ajustarEspaco();
+      ta.focus();
+
+      ta.addEventListener('input', () => {
+        ta.style.height = 'auto';
+        ta.style.height = Math.min(ta.scrollHeight, 120) + 'px';
+        ajustarEspaco();
+      });
+      ta.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+      });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const valor = ta.value.trim();
+        if (!valor || tocando) return;
+        ta.disabled = true; btn.disabled = true;
+        aoEnviar(valor);
+      });
+    }
+
+    function mostrarCaixaAjuda() {
+      mostrarCaixaTexto('Escreve aqui…', 4000, receberMensagemAjuda);
+    }
+
+    async function receberMensagemAjuda(texto) {
+      ajudaMensagemPendente = texto;
+      tocando = true;
+      limparOpcoes();
+      bolha('meu', texto);
+      fotoWrap.classList.add('falando');
+      const dig = bolhaDigitando();
+      await espera(600);
+      dig.remove();
+      bolha('dele', 'Perfeito! E qual é o seu nome?');
+      fotoWrap.classList.remove('falando');
+      tocando = false;
+      mostrarCaixaTexto('Seu nome…', 200, enviarAjuda);
+    }
+
+    async function enviarAjuda(nome) {
+      tocando = true;
+      limparOpcoes();
+      bolha('meu', nome);
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nome, mensagem: ajudaMensagemPendente }),
+        });
+        if (!res.ok) throw new Error('falha ao enviar');
+        fotoWrap.classList.add('falando');
+        const dig = bolhaDigitando();
+        await espera(650);
+        dig.remove();
+        bolha('dele', 'Recebi sua mensagem! Nossa equipe vai dar uma olhada e verificar. Obrigado por falar com a gente 🙏');
+        fotoWrap.classList.remove('falando');
+        tocando = false;
+        mostrarOpcoesPosAjuda();
+      } catch (err) {
+        tocando = false;
+        bolha('dele', 'Ops, não consegui enviar agora. Tenta de novo?');
+        mostrarCaixaTexto('Seu nome…', 200, enviarAjuda);
+      }
+    }
+
+    async function tocar(id) {
+      const passo = porId[id] || porId[CFG.inicio];
+      if (!passo) return;
+      tocando = true;
+      fotoWrap.classList.add('falando');
+      for (const m of passo.msgs) {
+        const dig = bolhaDigitando();
+        await espera(Math.min(520 + m.length * 16, 1700));
+        dig.remove();
+        bolha('dele', m);
+        await espera(300);
+      }
+      fotoWrap.classList.remove('falando');
+      tocando = false;
+      mostrarOpcoes(passo);
+    }
+
+    function aplicarConfig(cfg) {
+      CFG = cfg;
+      porId = {};
+      cfg.passos.forEach(p => { porId[p.id] = p; });
+      document.getElementById('nome').textContent = cfg.nome || 'Aldo Maurício';
+      document.getElementById('statusTxt').textContent = cfg.status || 'Pode perguntar 👇';
+      if (cfg.foto) document.getElementById('foto').src = cfg.foto;
+    }
+
+    (async function iniciar() {
+      try {
+        const res = await fetch('/api/iadoaldo');
+        const data = await res.json();
+        if (data && data.config && Array.isArray(data.config.passos) && data.config.passos.length) {
+          aplicarConfig(data.config);
+        } else {
+          aplicarConfig(CFG);
+        }
+      } catch (e) {
+        aplicarConfig(CFG); // sem internet com a API? segue com o conteúdo reserva
+      }
+      ajustarEspaco();
+      tocar(CFG.inicio);
+    })();
+
+    /* rastreamento de visitas — aparece nas métricas do painel como /iadoaldo */
+    fetch('/api/track', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ path: '/iadoaldo', referrer: document.referrer || null })
+    }).catch(() => {});
+  </script>
+</body>
+
+</html>
