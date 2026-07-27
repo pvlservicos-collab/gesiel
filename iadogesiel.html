@@ -11,16 +11,16 @@
   <style>
     :root {
       color-scheme: dark;
-      --bg: #03070f;
-      --bg2: #060d1c;
-      --ink: #f2f7ff;
-      --muted: #8ca3c7;
-      --dim: #5f7396;
-      --line: rgba(150, 190, 255, .14);
-      --glass: rgba(120, 165, 255, .09);
-      --glass2: rgba(120, 165, 255, .04);
-      --grad-accent: linear-gradient(135deg, #2563eb 0%, #22d3ee 100%);
-      --onda: rgba(148, 163, 184, .55);
+      --bg: #000000;
+      --bg2: #0a0a0a;
+      --ink: #f2f2ec;
+      --muted: #9a9d97;
+      --dim: #6e716b;
+      --line: rgba(0,156,59,.14);
+      --glass: rgba(0,156,59,.09);
+      --glass2: rgba(0,156,59,.04);
+      --grad-accent: linear-gradient(135deg, #00732e 0%, #009c3b 100%);
+      --onda: rgba(150,180,162,.55);
       --verde: #4ade80;
       --topo-h: 255px;
     }
@@ -40,8 +40,8 @@
       content: '';
       position: fixed; inset: 0; z-index: 0; pointer-events: none;
       background:
-        radial-gradient(520px 340px at 50% -60px, rgba(37, 99, 235, .18), transparent 70%),
-        radial-gradient(900px 600px at 50% 115%, rgba(34, 211, 238, .06), transparent 70%);
+        radial-gradient(520px 340px at 50% -60px, rgba(0,115,46,.18), transparent 70%),
+        radial-gradient(900px 600px at 50% 115%, rgba(0,156,59,.06), transparent 70%);
     }
 
     /* ───── topo fixo: foto redonda + nome ───── */
@@ -57,8 +57,8 @@
     .foto-wrap img {
       position: relative; z-index: 2;
       width: 152px; height: 152px; border-radius: 50%; object-fit: cover;
-      border: 2.5px solid rgba(150, 190, 255, .35);
-      box-shadow: 0 14px 44px rgba(1, 4, 14, .7), 0 0 0 6px rgba(120, 165, 255, .07);
+      border: 2.5px solid rgba(0,156,59,.35);
+      box-shadow: 0 14px 44px rgba(1, 4, 14, .7), 0 0 0 6px rgba(0,156,59,.07);
       background: var(--bg2);
     }
 
@@ -121,8 +121,8 @@
     }
     .msg.dele {
       align-self: flex-start;
-      background: linear-gradient(160deg, rgba(96, 165, 250, .24) 0%, rgba(59, 130, 246, .14) 100%);
-      border: 1px solid rgba(96, 165, 250, .4);
+      background: linear-gradient(160deg, rgba(52,199,110,.24) 0%, rgba(0,156,59,.14) 100%);
+      border: 1px solid rgba(52,199,110,.4);
       border-bottom-left-radius: 5px;
       color: var(--ink);
     }
@@ -133,7 +133,7 @@
       color: #fff;
       font-weight: 500;
       transform-origin: bottom right;
-      box-shadow: 0 6px 18px rgba(37, 99, 235, .35);
+      box-shadow: 0 6px 18px rgba(0,115,46,.35);
     }
     @keyframes pop {
       0% { transform: scale(.6); opacity: 0 }
@@ -167,8 +167,8 @@
       font-family: 'Quicksand', sans-serif;
       font-weight: 600; font-size: 13.5px; letter-spacing: .01em;
       color: var(--ink);
-      background: rgba(120, 165, 255, .07);
-      border: 1px solid rgba(150, 190, 255, .28);
+      background: rgba(0,156,59,.07);
+      border: 1px solid rgba(0,156,59,.28);
       border-radius: 999px;
       padding: 9px 18px;
       cursor: pointer;
@@ -180,8 +180,8 @@
     .opcoes button:nth-child(4) { animation-delay: .18s }
     .opcoes button:nth-child(5) { animation-delay: .24s }
     .opcoes button:hover, .opcoes button:focus-visible {
-      background: rgba(120, 165, 255, .16);
-      border-color: rgba(150, 190, 255, .55);
+      background: rgba(0,156,59,.16);
+      border-color: rgba(0,156,59,.55);
       transform: translateY(-1px);
       outline: none;
     }
@@ -214,8 +214,8 @@
       transform: translateY(-1px) scale(1.02);
     }
     @keyframes brilho {
-      0%, 100% { box-shadow: 0 4px 18px rgba(37, 99, 235, .35), 0 0 0 rgba(34, 211, 238, 0); }
-      50% { box-shadow: 0 4px 26px rgba(37, 99, 235, .55), 0 0 22px rgba(34, 211, 238, .4); }
+      0%, 100% { box-shadow: 0 4px 18px rgba(0,115,46,.35), 0 0 0 rgba(0,156,59,0); }
+      50% { box-shadow: 0 4px 26px rgba(0,115,46,.55), 0 0 22px rgba(0,156,59,.4); }
     }
 
     /* caixa de mensagem (só aparece no fluxo de ajuda) */
@@ -231,8 +231,8 @@
       font-family: 'Inter', sans-serif;
       font-size: 15px;
       color: var(--ink);
-      background: rgba(120, 165, 255, .07);
-      border: 1px solid rgba(150, 190, 255, .28);
+      background: rgba(0,156,59,.07);
+      border: 1px solid rgba(0,156,59,.28);
       border-radius: 20px;
       padding: 12px 18px;
       line-height: 1.4;
@@ -240,8 +240,8 @@
     .ajuda-form textarea::placeholder { color: var(--dim); }
     .ajuda-form textarea:focus {
       outline: none;
-      border-color: rgba(150, 190, 255, .55);
-      background: rgba(120, 165, 255, .12);
+      border-color: rgba(0,156,59,.55);
+      background: rgba(0,156,59,.12);
     }
     .ajuda-form button {
       flex: none;
@@ -280,16 +280,15 @@
 
   <script>
     // conteúdo reserva: se a API falhar por qualquer motivo, a página nunca fica muda
-    // (é o mesmo conteúdo padrão de api/_iadogesiel.js — textos genéricos até o
-    // painel ser editado com a trajetória real do Gesiel)
+    // (é o mesmo conteúdo padrão de api/_iadogesiel.js)
     let CFG = {
       nome: 'Gesiel Oliveira', status: 'Pode perguntar 👇', foto: 'img/fotocandidato.webp', inicio: 'p1',
       passos: [
-        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Gesiel Oliveira, pré-candidato a deputado federal pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
-        { id: 'p2', titulo: 'Quem é Gesiel Oliveira', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Estou preparando essa apresentação com calma — em breve você vai conhecer minha trajetória aqui.', 'Minha vida tem sido dedicada a servir pessoas e a nossa comunidade. Agora quero servir o nosso estado inteiro.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos e conquistas pra mostrar — em breve atualizo essa parte com todos os detalhes 💪', 'Por enquanto, o resumo é esse: quero transformar a saúde, a educação, a segurança e o trabalho no nosso estado.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p5', titulo: 'No que você vai ajudar a cidade', msgs: ['Vou trabalhar em cima de bandeiras bem claras pela nossa cidade:', '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.', '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.', '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Gesiel Oliveira, pré-candidato a Deputado Federal pelo PL no Amapá.', '"O Amapá que sonhamos começa agora." Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
+        { id: 'p2', titulo: 'Quem é Gesiel Oliveira', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Nasci em Macapá em 1978 e morei um tempo em Serra do Navio. Hoje, aos 47 anos, sou Geógrafo, Bacharel em Direito e Teólogo.', 'Sou casado com a Pastora Berenice Rabelo há 26 anos, pai de Gabriel, Miguel e Larissa. Também sou Oficial de Justiça do Tribunal de Justiça do Amapá e professor de Direito e Geopolítica.', 'Há quase 20 anos sirvo como pastor missionário nas comunidades ribeirinhas e indígenas da Amazônia — foi ali que minha missão de servir o Amapá começou de verdade.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos que já saíram do papel! 💪', 'Fundei a Base de Ação Social Getsêmani, que distribui cestas básicas, roupas e remédios pra quem mais precisa em Macapá.', 'Sou presidente internacional da APEBE — Aliança Pró-Evangélicos do Brasil e Exterior, presente em quase todo o Brasil e em 9 países.', 'Também toco o Projeto Valorizando Vida, de combate à depressão e ao suicídio entre jovens, e sou vice-presidente da COMADEZON, com milhares de membros na nossa região.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Minhas bandeiras são Vida, Família, Liberdades e Princípios Cristãos — as mesmas que sustentam a APEBE e toda a minha trajetória.', 'Sou pastor evangélico há quase 20 anos e membro vitalício (cadeira nº 19) da Academia de Letras Evangélica do Amapá.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p5', titulo: 'No que você vai ajudar a cidade', msgs: ['Meu plano de mandato tem 13 eixos e 60 propostas pro Amapá entre 2027 e 2030. Alguns destaques:', '⚡ Tarifa Justa — lutar pela redução da tarifa de energia pros amapaenses, que produzem energia mas pagam caro por ela.', '📚 Educação e Saúde — prioridade nas emendas pra escolas, hospitais e valorização dos profissionais.', '🌱 Agricultura Familiar e Juventude — apoio aos pequenos produtores e mais oportunidade de emprego e empreendedorismo pros jovens.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
       ],
     };
 

@@ -9,14 +9,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Archivo+Narrow:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg-0:#070d24; --bg-1:#0b1233; --bg-2:#101c44;
-    --card:#121e48; --card-2:#16234f;
+    --bg-0:#030905; --bg-1:#05170b; --bg-2:#0a2313;
+    --card:#0d3319; --card-2:#0a2812;
     --border:rgba(255,255,255,.09);
-    --text:#e9edf8; --muted:#9aa5c6;
+    --text:#f2f2ec; --muted:#9a9d97;
     --gold:#f2c218; --gold-soft:rgba(242,194,24,.14);
-    --azul-forte:#132a68;   /* azul escuro escuro — liderança consolidada */
-    --azul-medio:#3f64d8;   /* azul escuro claro — liderança em construção */
-    --sem:#2b3352;          /* sem liderança cadastrada */
+    --azul-forte:#0f4d24;   /* verde escuro — liderança consolidada */
+    --azul-medio:#3fae5f;   /* verde médio — liderança em construção */
+    --sem:#2a2f2b;          /* sem liderança cadastrada */
     --verde:#2ee06f;        /* destaque ao passar o mouse */
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -28,11 +28,11 @@
   }
   main{flex:1;display:flex;min-height:0}
   #map{flex:1;background:var(--bg-0)}
-  aside{width:300px;min-width:260px;border-left:1px solid var(--border);background:rgba(9,15,40,.72);display:flex;flex-direction:column;overflow:hidden}
+  aside{width:300px;min-width:260px;border-left:1px solid var(--border);background:rgba(5,26,13,.72);display:flex;flex-direction:column;overflow:hidden}
   .panel{padding:16px 18px;border-bottom:1px solid var(--border)}
   .panel h2{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:10px;font-weight:600}
   .metric-row{display:flex;align-items:center;justify-content:space-between;font-size:13.5px}
-  .metric-row b{font-size:20px;font-weight:800;color:#7d9bff}
+  .metric-row b{font-size:20px;font-weight:800;color:#6ee89a}
   .list-wrap{flex:1;overflow-y:auto;padding:10px 12px}
   .search{width:100%;padding:8px 12px;margin-bottom:10px;background:var(--card);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:inherit;font-size:13px;outline:none}
   .search:focus{border-color:var(--gold)}
@@ -40,8 +40,8 @@
   .bairro-item{display:flex;align-items:center;padding:10px 12px;cursor:pointer;border-bottom:1px solid var(--border)}
   .bairro-item:last-child{border-bottom:none}
   .bairro-item:hover{background:var(--card)}
-  .bairro-item.selecionado{background:#050a1c;border-left:3px solid #3f7bff;padding-left:9px}
-  .bairro-item.selecionado .bn{color:#7d9bff}
+  .bairro-item.selecionado{background:#030d06;border-left:3px solid #009c3b;padding-left:9px}
+  .bairro-item.selecionado .bn{color:#6ee89a}
   .bairro-item .bn{font-size:13.5px;font-weight:600}
   .bairro-item .ln{font-size:11px;color:var(--muted);margin-top:1px}
   .list-wrap::-webkit-scrollbar{width:8px}
@@ -65,15 +65,15 @@
   .leaflet-bar a{background:var(--card);color:var(--text);border-bottom:1px solid var(--border)}
   .leaflet-bar a:hover{background:var(--card-2)}
 
-  /* quadrado azul brilhante = liderança cadastrada */
-  .lid-marker{width:15px;height:15px;background:#3f7bff;border:2px solid #fff;border-radius:3px;box-shadow:0 0 10px 4px rgba(63,123,255,.85);cursor:pointer;transform-origin:center center}
+  /* quadrado verde brilhante = liderança cadastrada */
+  .lid-marker{width:15px;height:15px;background:#009c3b;border:2px solid #fff;border-radius:3px;box-shadow:0 0 10px 4px rgba(0,156,59,.85);cursor:pointer;transform-origin:center center}
   .tt-end{font-size:12px;color:var(--muted);margin-top:2px}
 
   /* pin dos locais de votação: bolinha em cima de uma barra, só clareia no hover */
   .voto-pin{position:relative;width:10px;height:22px;cursor:pointer;transform-origin:bottom center}
-  .voto-bar{position:absolute;bottom:0;left:50%;width:2px;height:15px;background:linear-gradient(to top,#3a4050,rgba(58,64,80,.12));transform:translateX(-50%);border-radius:2px}
+  .voto-bar{position:absolute;bottom:0;left:50%;width:2px;height:15px;background:linear-gradient(to top,#2a3d2e,rgba(42,61,46,.12));transform:translateX(-50%);border-radius:2px}
   .voto-dot{position:absolute;top:0;left:50%;width:7px;height:7px;background:#6b5410;border:1.5px solid rgba(255,255,255,.45);border-radius:50%;transform:translateX(-50%);transition:background .2s,box-shadow .2s,border-color .2s}
-  .voto-pin:hover .voto-dot{background:#3f7bff;border-color:#fff;box-shadow:0 0 14px 6px rgba(63,123,255,.8)}
+  .voto-pin:hover .voto-dot{background:#009c3b;border-color:#fff;box-shadow:0 0 14px 6px rgba(0,156,59,.8)}
   .tt-votos{font-size:12px;color:var(--muted);margin-top:4px}
 
   @media (max-width:760px){
@@ -205,8 +205,8 @@ function tooltipBairro(nome){
 function estiloBairro(nome){
   const tem = liderancasDoBairro(nome).length > 0;
   return tem
-    ? { color:"transparent", weight:1.5, fillColor:"#3a5578", fillOpacity:.015 }
-    : { color:"rgba(255,255,255,.08)", weight:1, fillColor:"#3a5578", fillOpacity:0 };
+    ? { color:"transparent", weight:1.5, fillColor:"#3a7850", fillOpacity:.015 }
+    : { color:"rgba(255,255,255,.08)", weight:1, fillColor:"#3a7850", fillOpacity:0 };
 }
 
 const camadas = {};
@@ -221,7 +221,7 @@ const geoLayer = L.geoJSON(BAIRROS_GEO, {
       if (liderancasDoBairro(nome).length === 0) {
         e.target.setStyle({ color:"rgba(255,255,255,.4)", weight:1.5 });
       } else {
-        e.target.setStyle({ color:"rgba(63,123,255,.95)", weight:2, fillOpacity:.32 });
+        e.target.setStyle({ color:"rgba(0,156,59,.95)", weight:2, fillOpacity:.32 });
       }
     });
     layer.on("mouseout", e => {

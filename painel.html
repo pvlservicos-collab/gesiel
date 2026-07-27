@@ -32,6 +32,7 @@
       --green: #4ade80;
       --amber: #fbbf24;
       --red: #f87171;
+      --flagblue: #3b82f6;
       --grad-accent: linear-gradient(135deg, #00732e 0%, #009c3b 100%);
       --grad-card: linear-gradient(160deg, var(--glass) 0%, var(--glass2) 100%);
       --shadow-card: 0 10px 34px rgba(1, 4, 14, .55);
@@ -744,6 +745,10 @@
 
     .big-stat.st-amber .num {
       color: var(--amber)
+    }
+
+    .big-stat.st-blue .num {
+      color: var(--flagblue)
     }
 
     .big-stat .lbl {
@@ -2235,11 +2240,11 @@
               <div class="lbl">Votos previstos</div>
               <div class="sub" style="color:var(--muted)">Média de 30 votos por liderança</div>
             </div>
-            <div class="big-stat st-green">
+            <div class="big-stat st-amber">
               <div class="num mascaravel" id="tf-liderancas">—</div>
               <div class="lbl">Lideranças cadastradas</div>
             </div>
-            <div class="big-stat st-amber">
+            <div class="big-stat st-blue">
               <div class="num mascaravel" id="tf-bairros">—</div>
               <div class="lbl">Bairros com liderança</div>
             </div>

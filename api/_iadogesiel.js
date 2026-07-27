@@ -1,9 +1,5 @@
 // Conteúdo padrão + validação da "IA do Gesiel".
 // Usado por api/iadogesiel.js (GET público + PUT/DELETE do painel, protegidos por login).
-//
-// Os textos de biografia/projetos abaixo são propositalmente genéricos (sem
-// nenhum dado específico do candidato anterior) — edite pela aba "IA do
-// Gesiel" no painel com a trajetória real do Gesiel antes de divulgar.
 
 const DEFAULT_CONFIG = {
   nome: 'Gesiel Oliveira',
@@ -15,8 +11,8 @@ const DEFAULT_CONFIG = {
       id: 'p1', titulo: 'Boas-vindas',
       msgs: [
         'Eae! Tudo beleza? 👋',
-        'Aqui é o Gesiel Oliveira, pré-candidato a deputado federal pelo Amapá.',
-        'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
+        'Aqui é o Gesiel Oliveira, pré-candidato a Deputado Federal pelo PL no Amapá.',
+        '"O Amapá que sonhamos começa agora." Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
@@ -29,8 +25,9 @@ const DEFAULT_CONFIG = {
       id: 'p2', titulo: 'Quem é Gesiel Oliveira',
       msgs: [
         'Boa! Deixa eu me apresentar direitinho 😄',
-        'Estou preparando essa apresentação com calma — em breve você vai conhecer minha trajetória aqui.',
-        'Minha vida tem sido dedicada a servir pessoas e a nossa comunidade. Agora quero servir o nosso estado inteiro.',
+        'Nasci em Macapá em 1978 e morei um tempo em Serra do Navio. Hoje, aos 47 anos, sou Geógrafo, Bacharel em Direito e Teólogo.',
+        'Sou casado com a Pastora Berenice Rabelo há 26 anos, pai de Gabriel, Miguel e Larissa. Também sou Oficial de Justiça do Tribunal de Justiça do Amapá e professor de Direito e Geopolítica.',
+        'Há quase 20 anos sirvo como pastor missionário nas comunidades ribeirinhas e indígenas da Amazônia — foi ali que minha missão de servir o Amapá começou de verdade.',
       ],
       opcoes: [
         { label: 'Quais são os seus projetos?', goto: 'p3' },
@@ -41,8 +38,10 @@ const DEFAULT_CONFIG = {
     {
       id: 'p3', titulo: 'Quais são os seus projetos',
       msgs: [
-        'Tenho vários projetos e conquistas pra mostrar — em breve atualizo essa parte com todos os detalhes 💪',
-        'Por enquanto, o resumo é esse: quero transformar a saúde, a educação, a segurança e o trabalho no nosso estado.',
+        'Tenho vários projetos que já saíram do papel! 💪',
+        'Fundei a Base de Ação Social Getsêmani, que distribui cestas básicas, roupas e remédios pra quem mais precisa em Macapá.',
+        'Sou presidente internacional da APEBE — Aliança Pró-Evangélicos do Brasil e Exterior, presente em quase todo o Brasil e em 9 países.',
+        'Também toco o Projeto Valorizando Vida, de combate à depressão e ao suicídio entre jovens, e sou vice-presidente da COMADEZON, com milhares de membros na nossa região.',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
@@ -55,7 +54,8 @@ const DEFAULT_CONFIG = {
       id: 'p4', titulo: 'Fé e valores',
       msgs: [
         'Aqui é simples: fé, verdade, coragem e coerência 🙏',
-        'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.',
+        'Minhas bandeiras são Vida, Família, Liberdades e Princípios Cristãos — as mesmas que sustentam a APEBE e toda a minha trajetória.',
+        'Sou pastor evangélico há quase 20 anos e membro vitalício (cadeira nº 19) da Academia de Letras Evangélica do Amapá.',
         '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.',
       ],
       opcoes: [
@@ -67,10 +67,10 @@ const DEFAULT_CONFIG = {
     {
       id: 'p5', titulo: 'No que você vai ajudar a cidade',
       msgs: [
-        'Vou trabalhar em cima de bandeiras bem claras pela nossa cidade:',
-        '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.',
-        '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.',
-        '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.',
+        'Meu plano de mandato tem 13 eixos e 60 propostas pro Amapá entre 2027 e 2030. Alguns destaques:',
+        '⚡ Tarifa Justa — lutar pela redução da tarifa de energia pros amapaenses, que produzem energia mas pagam caro por ela.',
+        '📚 Educação e Saúde — prioridade nas emendas pra escolas, hospitais e valorização dos profissionais.',
+        '🌱 Agricultura Familiar e Juventude — apoio aos pequenos produtores e mais oportunidade de emprego e empreendedorismo pros jovens.',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
