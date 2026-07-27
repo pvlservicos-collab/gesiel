@@ -19,20 +19,20 @@
       --ink: #f2f2ec;
       --muted: #9a9d97;
       --dim: #6e716b;
-      --line: rgba(52,211,153,.14);
-      --line-strong: rgba(52,211,153,.26);
-      --glass: rgba(52,211,153,.06);
-      --glass2: rgba(52,211,153,.025);
-      --glass-hi: rgba(52,211,153,.11);
+      --line: rgba(0,156,59,.16);
+      --line-strong: rgba(0,156,59,.3);
+      --glass: rgba(6,46,24,.55);
+      --glass2: rgba(4,28,15,.32);
+      --glass-hi: rgba(0,156,59,.16);
       --field: rgba(5, 8, 7, .82);
-      --cyan: #34d399;
+      --cyan: #009c3b;
       --blue: #fde047;
       --royal: #22c55e;
       --indigo: #eab308;
       --green: #4ade80;
       --amber: #fbbf24;
       --red: #f87171;
-      --grad-accent: linear-gradient(135deg, #059669 0%, #34d399 100%);
+      --grad-accent: linear-gradient(135deg, #00732e 0%, #009c3b 100%);
       --grad-card: linear-gradient(160deg, var(--glass) 0%, var(--glass2) 100%);
       --shadow-card: 0 10px 34px rgba(1, 4, 14, .55);
       --shadow-pop: 0 18px 50px rgba(1, 4, 14, .7);
@@ -89,9 +89,9 @@
       z-index: 0;
       pointer-events: none;
       background:
-        radial-gradient(1000px 560px at 10% -10%, rgba(5,150,105,.22), transparent 60%),
+        radial-gradient(1000px 560px at 10% -10%, rgba(0,115,46,.22), transparent 60%),
         radial-gradient(800px 500px at 98% 0%, rgba(234,179,8,.13), transparent 60%),
-        radial-gradient(1100px 760px at 50% 115%, rgba(52,211,153,.08), transparent 60%);
+        radial-gradient(1100px 760px at 50% 115%, rgba(0,156,59,.08), transparent 60%);
     }
 
     #screen-login,
@@ -101,7 +101,7 @@
     }
 
     ::selection {
-      background: rgba(52,211,153,.35)
+      background: rgba(0,156,59,.35)
     }
 
     ::-webkit-scrollbar {
@@ -114,13 +114,13 @@
     }
 
     ::-webkit-scrollbar-thumb {
-      background: rgba(52,211,153,.18);
+      background: rgba(0,156,59,.18);
       border-radius: 99px;
       border: 2px solid var(--bg)
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: rgba(52,211,153,.32)
+      background: rgba(0,156,59,.32)
     }
 
     @keyframes fadeUp {
@@ -139,11 +139,11 @@
 
       0%,
       100% {
-        text-shadow: 0 0 22px rgba(52,211,153,.4)
+        text-shadow: 0 0 22px rgba(0,156,59,.4)
       }
 
       50% {
-        text-shadow: 0 0 36px rgba(52,211,153,.7)
+        text-shadow: 0 0 36px rgba(0,156,59,.7)
       }
     }
 
@@ -154,7 +154,7 @@
       align-items: center;
       justify-content: center;
       padding: 20px;
-      background: radial-gradient(760px 480px at 50% -12%, rgba(5,150,105,.35), transparent 62%)
+      background: radial-gradient(760px 480px at 50% -12%, rgba(0,115,46,.35), transparent 62%)
     }
 
     .login-card {
@@ -178,14 +178,14 @@
       inset: 0 0 auto 0;
       height: 1px;
       border-radius: 20px 20px 0 0;
-      background: linear-gradient(90deg, transparent, rgba(52,211,153,.8), transparent)
+      background: linear-gradient(90deg, transparent, rgba(0,156,59,.8), transparent)
     }
 
     .login-card img {
       height: 46px;
       width: auto;
       margin-bottom: 14px;
-      filter: drop-shadow(0 0 16px rgba(52,211,153,.4))
+      filter: drop-shadow(0 0 16px rgba(0,156,59,.4))
     }
 
     .login-card h1 {
@@ -234,7 +234,7 @@
     .login-field input:focus {
       outline: none;
       border-color: var(--cyan);
-      box-shadow: 0 0 0 3px rgba(52,211,153,.14)
+      box-shadow: 0 0 0 3px rgba(0,156,59,.14)
     }
 
     .login-err {
@@ -255,7 +255,7 @@
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 8px 24px rgba(5,150,105,.45);
+      box-shadow: 0 8px 24px rgba(0,115,46,.45);
       transition: transform var(--t-fast), box-shadow var(--t-fast), filter var(--t-fast)
     }
 
@@ -282,7 +282,7 @@
       left: 0;
       width: 222px;
       height: 100vh;
-      background: linear-gradient(180deg, rgba(8, 17, 36, .9), rgba(5,5,5,.9));
+      background: linear-gradient(180deg, rgba(4,14,8,.9), rgba(5,5,5,.9));
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       border-right: 1px solid var(--line);
@@ -304,7 +304,7 @@
       width: auto;
       align-self: flex-start;
       margin-bottom: 8px;
-      filter: drop-shadow(0 0 14px rgba(52,211,153,.3))
+      filter: drop-shadow(0 0 14px rgba(0,156,59,.3))
     }
 
     .sidebar-logo .title {
@@ -369,7 +369,7 @@
       background: var(--grad-accent);
       color: #fff;
       font-weight: 600;
-      box-shadow: 0 5px 18px rgba(5,150,105,.5)
+      box-shadow: 0 5px 18px rgba(0,115,46,.5)
     }
 
     .sidebar-bottom {
@@ -464,7 +464,7 @@
       display: grid;
       grid-template-columns: auto 2.1fr 0.72fr 0.72fr 1.15fr;
       align-items: stretch;
-      background: linear-gradient(165deg, rgba(10, 20, 42, .96), rgba(4, 9, 22, .96));
+      background: linear-gradient(165deg, rgba(5,16,9,.96), rgba(3,8,5,.96));
       backdrop-filter: blur(22px);
       -webkit-backdrop-filter: blur(22px);
       border-bottom: 1px solid var(--line);
@@ -479,7 +479,7 @@
       position: absolute;
       inset: auto 0 0 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent 5%, rgba(52,211,153,.65) 30%, rgba(234,179,8,.5) 70%, transparent 95%)
+      background: linear-gradient(90deg, transparent 5%, rgba(0,156,59,.65) 30%, rgba(234,179,8,.5) 70%, transparent 95%)
     }
 
     .topo-foto {
@@ -695,7 +695,7 @@
 
     .mini-row {
       font-size: 12px;
-      color: rgba(240, 246, 255, .88)
+      color: rgba(242,242,236,.88)
     }
 
     .mini-row b {
@@ -705,7 +705,7 @@
     }
 
     .mini-row.dim {
-      color: rgba(240, 246, 255, .68);
+      color: rgba(242,242,236,.68);
       font-size: 11.5px
     }
 
@@ -819,7 +819,7 @@
     .progress-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #059669, var(--cyan));
+      background: linear-gradient(90deg, #00732e, var(--cyan));
       border-radius: 99px;
       transition: width .5s ease
     }
@@ -874,14 +874,14 @@
       border-color: transparent;
       color: #fff;
       font-weight: 700;
-      box-shadow: 0 4px 16px rgba(5,150,105,.45)
+      box-shadow: 0 4px 16px rgba(0,115,46,.45)
     }
 
     /* ===== popup calendário ===== */
     .cal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(2, 6, 16, .65);
+      background: rgba(1,5,3,.65);
       backdrop-filter: blur(5px);
       -webkit-backdrop-filter: blur(5px);
       z-index: 100;
@@ -897,7 +897,7 @@
     }
 
     .cal-panel {
-      background: linear-gradient(165deg, rgba(12, 23, 48, .98), rgba(5, 10, 24, .98));
+      background: linear-gradient(165deg, rgba(6,18,10,.98), rgba(3,9,5,.98));
       border: 1px solid var(--line-strong);
       border-radius: 18px;
       padding: 18px;
@@ -986,7 +986,7 @@
     }
 
     .cal-grid .dia.inrange {
-      background: rgba(52,211,153,.14);
+      background: rgba(0,156,59,.14);
       border-radius: 0
     }
 
@@ -1035,7 +1035,7 @@
       border: none;
       color: #fff;
       font-weight: 700;
-      box-shadow: 0 4px 14px rgba(5,150,105,.4)
+      box-shadow: 0 4px 14px rgba(0,115,46,.4)
     }
 
     .cal-aplicar:hover {
@@ -1275,7 +1275,7 @@
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(5,150,105,.4);
+      box-shadow: 0 4px 16px rgba(0,115,46,.4);
       transition: transform var(--t-fast), filter var(--t-fast)
     }
 
@@ -1323,7 +1323,7 @@
     .form-agenda textarea:focus {
       outline: none;
       border-color: var(--cyan);
-      box-shadow: 0 0 0 3px rgba(52,211,153,.12)
+      box-shadow: 0 0 0 3px rgba(0,156,59,.12)
     }
 
     .toolbar input[type=date] {
@@ -1411,7 +1411,7 @@
       font-weight: 700;
       color: #fff;
       cursor: pointer;
-      box-shadow: 0 4px 16px rgba(5,150,105,.4);
+      box-shadow: 0 4px 16px rgba(0,115,46,.4);
       transition: transform var(--t-fast), filter var(--t-fast)
     }
 
@@ -1536,13 +1536,13 @@
       text-align: right;
       padding: 6px 8px 0 0;
       border-right: 1px solid var(--line);
-      border-bottom: 1px solid rgba(52,211,153,.07);
+      border-bottom: 1px solid rgba(0,156,59,.07);
       white-space: nowrap
     }
 
     .whg-cell {
       border-right: 1px solid var(--line);
-      border-bottom: 1px solid rgba(52,211,153,.07);
+      border-bottom: 1px solid rgba(0,156,59,.07);
       min-height: 40px;
       padding: 3px 4px;
       display: flex;
@@ -1553,7 +1553,7 @@
     }
 
     .whg-cell:hover {
-      background: rgba(52,211,153,.08)
+      background: rgba(0,156,59,.08)
     }
 
     .whg-cell:last-child {
@@ -1561,7 +1561,7 @@
     }
 
     .whg-cell.hoje {
-      background: rgba(52,211,153,.045)
+      background: rgba(0,156,59,.045)
     }
 
     .week-item {
@@ -1581,7 +1581,7 @@
     }
 
     .week-item:hover {
-      background: rgba(52,211,153,.18)
+      background: rgba(0,156,59,.18)
     }
 
     .week-item .wi-hora {
@@ -1732,7 +1732,7 @@
     .pager button:hover:not(:disabled) {
       border-color: var(--cyan);
       color: var(--cyan);
-      background: rgba(52,211,153,.08)
+      background: rgba(0,156,59,.08)
     }
 
     .pager button:disabled {
@@ -1856,7 +1856,7 @@
         flex: none;
         padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
         gap: 0;
-        background: linear-gradient(180deg, rgba(8, 17, 36, .97), rgba(5,5,5,.99));
+        background: linear-gradient(180deg, rgba(4,14,8,.97), rgba(5,5,5,.99));
         backdrop-filter: blur(22px);
         -webkit-backdrop-filter: blur(22px);
         border-top: 1px solid var(--line-strong);
@@ -1896,7 +1896,7 @@
       }
 
       nav a.active {
-        background: rgba(52,211,153,.13);
+        background: rgba(0,156,59,.13);
         color: var(--cyan);
         box-shadow: none;
         font-weight: 600
@@ -2062,20 +2062,20 @@
       background: var(--grad-card); border: 1px solid var(--line);
       border-radius: var(--r-lg); padding: 16px; margin-bottom: 14px;
     }
-    .ia-passo.inicio { border-color: rgba(52,211,153,.45) }
+    .ia-passo.inicio { border-color: rgba(0,156,59,.45) }
     .ia-passo-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 12px }
     .ia-badge {
       font-family: var(--font-num); font-weight: 500; font-size: 12px; letter-spacing: .04em;
-      background: rgba(52,211,153,.12); border: 1px solid var(--line);
+      background: rgba(0,156,59,.12); border: 1px solid var(--line);
       border-radius: 999px; padding: 4px 11px; white-space: nowrap;
     }
-    .ia-badge.ini { background: rgba(52,211,153,.16); border-color: rgba(52,211,153,.4); color: var(--cyan) }
+    .ia-badge.ini { background: rgba(0,156,59,.16); border-color: rgba(0,156,59,.4); color: var(--cyan) }
     .ia-passo-head input {
       flex: 1; min-width: 150px; background: var(--field); border: 1px solid var(--line);
       border-radius: 10px; color: var(--ink); padding: 8px 11px; font-size: 14px;
     }
     .ia-mini {
-      background: rgba(52,211,153,.08); border: 1px solid var(--line); color: var(--muted);
+      background: rgba(0,156,59,.08); border: 1px solid var(--line); color: var(--muted);
       border-radius: 8px; padding: 5px 9px; font-size: 12.5px; cursor: pointer;
       transition: var(--t-fast);
     }
@@ -2109,7 +2109,7 @@
     .ia-salvar {
       background: var(--grad-accent); border: none; color: #fff; font-weight: 600;
       border-radius: 12px; padding: 11px 22px; font-size: 14px; cursor: pointer;
-      box-shadow: 0 8px 22px rgba(5,150,105,.35); transition: var(--t-fast);
+      box-shadow: 0 8px 22px rgba(0,115,46,.35); transition: var(--t-fast);
     }
     .ia-salvar:hover { transform: translateY(-1px) }
     .ia-salvar:disabled { opacity: .55; cursor: default; transform: none }
@@ -2131,7 +2131,7 @@
     <div class="login-card">
       <img src="img/logo.webp" alt="Gesiel Oliveira">
       <h1>Painel</h1>
-      <p>Gesiel Oliveira · Pré-Candidato a Deputado Estadual</p>
+      <p>Gesiel Oliveira · Pré-Candidato a Deputado Federal</p>
       <div class="login-field"><label>E-mail</label><input id="l-user" type="text" autocomplete="username"
           autocapitalize="off" autocorrect="off" spellcheck="false"
           onkeydown="if(event.key==='Enter')document.getElementById('l-senha').focus()"></div>
@@ -2200,7 +2200,7 @@
           <label for="tf-estagio">Estágio da campanha</label>
           <select id="tf-estagio" class="select-estagio">
             <option value="pre" style="background:#6b6b6b;color:#16181a">Pré campanha</option>
-            <option value="campanha" style="background:#34d399;color:#04140f">Em campanha</option>
+            <option value="campanha" style="background:#009c3b;color:#04140f">Em campanha</option>
             <option value="eleicoes" style="background:#fbbf24;color:#1f1503">Eleições</option>
             <option value="eleito" style="background:#4ade80;color:#03170c">Eleito</option>
             <option value="naoeleito" style="background:#f87171;color:#1f0606">Não eleito</option>
@@ -2272,12 +2272,11 @@
             <span>Candidato a</span>
             <select id="cargo-select" class="select-cargo">
               <option selected>Deputado Federal</option>
-              <option>Deputado Estadual</option>
               <option>Senador</option>
               <option>Governador</option>
             </select>
           </div>
-          <div class="mini-row" style="color:var(--muted)">Nota de corte 2022: <b class="mascaravel" style="color:#fff">3.898 votos</b> · R Nelson (PL)</div>
+          <div class="mini-row" style="color:var(--muted)">Nota de corte 2022: <b class="mascaravel" style="color:#fff">5.435 votos</b> · Silvia Waiãpi (PL)</div>
           <div class="faltam-box">
             <div class="faltam-row">
               <span class="num mascaravel" id="tf-faltam">—</span>
@@ -2673,7 +2672,7 @@
     });
     atualizarIconePrivacidade();
     let customFrom = '', customTo = '';
-    const NOTA_DE_CORTE = 3898;
+    const NOTA_DE_CORTE = 5435;
 
     async function api(path, opts) {
       const res = await fetch(path, Object.assign({ credentials: 'same-origin' }, opts || {}));
@@ -2700,7 +2699,7 @@
       }
     }
 
-    const ESTAGIO_CORES = { pre: '#6b6b6b', campanha: '#34d399', eleicoes: '#fbbf24', eleito: '#4ade80', naoeleito: '#f87171' };
+    const ESTAGIO_CORES = { pre: '#6b6b6b', campanha: '#009c3b', eleicoes: '#fbbf24', eleito: '#4ade80', naoeleito: '#f87171' };
     const ESTAGIO_TEXTO = { pre: '#16181a', campanha: '#04140f', eleicoes: '#1f1503', eleito: '#03170c', naoeleito: '#1f0606' };
     const selEstagio = document.getElementById('tf-estagio');
     function aplicarCorEstagio() {
@@ -2884,8 +2883,8 @@
       const labels = serie.map(s => s.data.slice(5).split('-').reverse().join('/'));
       const ctx = document.getElementById('chartMetricas').getContext('2d');
       const gVisitas = ctx.createLinearGradient(0, 0, 0, 240);
-      gVisitas.addColorStop(0, 'rgba(52,211,153,.22)');
-      gVisitas.addColorStop(1, 'rgba(52,211,153,0)');
+      gVisitas.addColorStop(0, 'rgba(0,156,59,.22)');
+      gVisitas.addColorStop(1, 'rgba(0,156,59,0)');
       const gMsgs = ctx.createLinearGradient(0, 0, 0, 240);
       gMsgs.addColorStop(0, 'rgba(234,179,8,.22)');
       gMsgs.addColorStop(1, 'rgba(234,179,8,0)');
@@ -2894,9 +2893,9 @@
         data: {
           labels, datasets: [
             {
-              label: 'Visitas', data: serie.map(s => s.site_view), borderColor: '#34d399', backgroundColor: gVisitas,
+              label: 'Visitas', data: serie.map(s => s.site_view), borderColor: '#009c3b', backgroundColor: gVisitas,
               fill: true, tension: .35, borderWidth: 2, pointRadius: 2.5, pointHoverRadius: 5,
-              pointBackgroundColor: '#34d399', pointBorderColor: 'rgba(52,211,153,.35)', pointBorderWidth: 3
+              pointBackgroundColor: '#009c3b', pointBorderColor: 'rgba(0,156,59,.35)', pointBorderWidth: 3
             },
             {
               label: 'Mensagens', data: serie.map(s => s.leads), borderColor: '#eab308', backgroundColor: gMsgs,
@@ -2909,13 +2908,13 @@
           responsive: true, maintainAspectRatio: false,
           interaction: { mode: 'index', intersect: false },
           scales: {
-            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } },
-            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } }
+            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(0,156,59,.07)' } },
+            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(0,156,59,.07)' } }
           },
           plugins: {
             legend: { labels: { color: '#f2f2ec', usePointStyle: true, pointStyle: 'circle', boxWidth: 7, padding: 16 } },
             tooltip: {
-              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(52,211,153,.25)', borderWidth: 1,
+              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(0,156,59,.25)', borderWidth: 1,
               titleColor: '#f2f2ec', bodyColor: '#9a9d97', cornerRadius: 10, padding: 12
             }
           }
@@ -2948,13 +2947,13 @@
           responsive: true, maintainAspectRatio: false,
           interaction: { mode: 'index', intersect: false },
           scales: {
-            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(52,211,153,.07)' } },
-            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 }, precision: 0 }, grid: { color: 'rgba(52,211,153,.07)' } }
+            x: { ticks: { color: '#9a9d97', font: { size: 11 } }, grid: { color: 'rgba(0,156,59,.07)' } },
+            y: { beginAtZero: true, ticks: { color: '#9a9d97', font: { size: 11 }, precision: 0 }, grid: { color: 'rgba(0,156,59,.07)' } }
           },
           plugins: {
             legend: { labels: { color: '#f2f2ec', usePointStyle: true, pointStyle: 'circle', boxWidth: 7, padding: 16 } },
             tooltip: {
-              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(52,211,153,.25)', borderWidth: 1,
+              backgroundColor: 'rgba(5,5,5,.95)', borderColor: 'rgba(0,156,59,.25)', borderWidth: 1,
               titleColor: '#f2f2ec', bodyColor: '#9a9d97', cornerRadius: 10, padding: 12
             }
           }

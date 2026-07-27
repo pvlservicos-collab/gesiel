@@ -15,7 +15,7 @@ const DEFAULT_CONFIG = {
       id: 'p1', titulo: 'Boas-vindas',
       msgs: [
         'Eae! Tudo beleza? 👋',
-        'Aqui é o Gesiel Oliveira, pré-candidato a deputado estadual pelo Amapá.',
+        'Aqui é o Gesiel Oliveira, pré-candidato a deputado federal pelo Amapá.',
         'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
       ],
       opcoes: [

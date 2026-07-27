@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>IA do Gesiel · Gesiel Oliveira</title>
   <link rel="icon" type="image/webp" href="img/logo.webp">
-  <meta name="description" content="Converse com a IA do Gesiel Oliveira e conheça as propostas do pré-candidato a deputado estadual." />
+  <meta name="description" content="Converse com a IA do Gesiel Oliveira e conheça as propostas do pré-candidato a deputado federal." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Outfit:wght@500;600&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -285,7 +285,7 @@
     let CFG = {
       nome: 'Gesiel Oliveira', status: 'Pode perguntar 👇', foto: 'img/fotocandidato.webp', inicio: 'p1',
       passos: [
-        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Gesiel Oliveira, pré-candidato a deputado estadual pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
+        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Gesiel Oliveira, pré-candidato a deputado federal pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
         { id: 'p2', titulo: 'Quem é Gesiel Oliveira', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Estou preparando essa apresentação com calma — em breve você vai conhecer minha trajetória aqui.', 'Minha vida tem sido dedicada a servir pessoas e a nossa comunidade. Agora quero servir o nosso estado inteiro.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
         { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos e conquistas pra mostrar — em breve atualizo essa parte com todos os detalhes 💪', 'Por enquanto, o resumo é esse: quero transformar a saúde, a educação, a segurança e o trabalho no nosso estado.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
         { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
