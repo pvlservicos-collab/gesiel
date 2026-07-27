@@ -17,7 +17,8 @@ module.exports = async (req, res) => {
       return res.status(200).json({ config: cfg, version });
     } catch (e) {
       // banco fora do ar não pode derrubar a página: entrega o padrão
-      return res.status(200).json({ config: DEFAULT_CONFIG, version: 0, aviso: 'usando conteúdo padrão (' + e.message + ')' });
+      console.error('GET /api/iadogesiel:', e);
+      return res.status(200).json({ config: DEFAULT_CONFIG, version: 0, aviso: 'usando conteúdo padrão' });
     }
   }
 

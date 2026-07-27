@@ -54,6 +54,7 @@ module.exports = async (req, res) => {
 
     res.status(405).json({ error: 'Método não permitido' });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    console.error('/api/exclusao:', e);
+    res.status(500).json({ error: 'Não foi possível processar o pedido agora. Tente novamente em instantes.' });
   }
 };

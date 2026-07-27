@@ -1,5 +1,6 @@
 const { getPool, ensureSchema } = require('../_db');
 const { isAuthenticated } = require('../_auth');
+const { geocodeEnderecoBairro } = require('../_geocode');
 
 const PAGE_SIZE = 20;
 
@@ -60,6 +61,22 @@ module.exports = async (req, res) => {
       return res.status(200).json({ ok: true });
     }
 
+    if (req.method === 'PUT' && req.query.action === 'regeocode') {
+      const id = Number(req.query.id);
+      if (!id) return res.status(400).json({ error: 'id inválido' });
+      const { rows } = await getPool().query('SELECT endereco, bairro FROM liderancas WHERE id = $1', [id]);
+      if (!rows.length) return res.status(404).json({ error: 'liderança não encontrada' });
+      const { endereco, bairro } = rows[0];
+      let geo = null;
+      try { geo = await geocodeEnderecoBairro(endereco, bairro); } catch {}
+      if (geo) {
+        await getPool().query('UPDATE liderancas SET lat = $1, lng = $2 WHERE id = $3', [geo.lat, geo.lng, id]);
+        return res.status(200).json({ ok: true, encontrado: true, lat: geo.lat, lng: geo.lng });
+      }
+      await getPool().query('UPDATE liderancas SET lat = NULL, lng = NULL WHERE id = $1', [id]);
+      return res.status(200).json({ ok: true, encontrado: false });
+    }
+
     if (req.method !== 'GET') return res.status(405).json({ error: 'Método não permitido' });
 
     const { whereSql, params } = buildFiltro(req.query);
@@ -81,7 +98,7 @@ module.exports = async (req, res) => {
     const bairros = bairrosRes.rows[0].n;
 
     const itensRes = await getPool().query(
-      `SELECT id, nome, numero, bairro, nome_mae, data_nascimento, endereco, criado_em,
+      `SELECT id, nome, numero, bairro, nome_mae, data_nascimento, endereco, criado_em, lat, lng,
               (SELECT count(*)::int FROM apoiadores a WHERE a.indicado_por_id = liderancas.id) AS apoiadores_count
        FROM liderancas ${whereSql}
        ORDER BY criado_em DESC

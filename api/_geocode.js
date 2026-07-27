@@ -29,13 +29,25 @@ function extrairMunicipioBairro(bairroBruto) {
 
 async function consultaNominatim(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&limit=3&countrycodes=br&q=${encodeURIComponent(query)}`;
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'GesielOliveiraMapaLiderancas/1.0 (uso interno)' },
-  });
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
-  const bons = data.filter(r => dentroDosLimites(Number(r.lat), Number(r.lon)));
-  return bons[0] || null;
+  // trava de tempo: sem isso, se o Nominatim demorar ou travar, o cadastro
+  // de liderança (que espera essa chamada terminar) fica pendurado até o
+  // timeout da função na Vercel — com muita gente cadastrando ao mesmo
+  // tempo isso prende conexão de banco e função serverless por mais tempo
+  // do que precisa
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 4000);
+  try {
+    const res = await fetch(url, {
+      headers: { 'User-Agent': 'GesielOliveiraMapaLiderancas/1.0 (uso interno)' },
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    const bons = data.filter(r => dentroDosLimites(Number(r.lat), Number(r.lon)));
+    return bons[0] || null;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function geocodeEnderecoBairro(endereco, bairroBruto) {

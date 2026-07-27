@@ -28,6 +28,7 @@ module.exports = async (req, res) => {
     );
     res.status(201).json({ ok: true });
   } catch (e) {
-    res.status(500).json({ error: e.message });
+    console.error('POST /api/lead:', e);
+    res.status(500).json({ error: 'Não foi possível enviar agora. Tente novamente em instantes.' });
   }
 };

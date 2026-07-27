@@ -12,7 +12,17 @@ function getPool() {
     if (!connectionString) throw new Error('Banco não configurado (defina DATABASE_URL nas env vars da Vercel).');
     // banco local (teste) não tem SSL; em produção continua igual
     const local = /localhost|127\.0\.0\.1/.test(connectionString);
-    pool = new Pool({ connectionString, ssl: local ? false : { rejectUnauthorized: false } });
+    pool = new Pool({
+      connectionString,
+      ssl: local ? false : { rejectUnauthorized: false },
+      // cada função serverless só processa 1 requisição por vez — um pool grande aqui
+      // só multiplicaria conexões ociosas por instância. Com muita gente acessando ao
+      // mesmo tempo, a Vercel sobe várias instâncias; manter isso baixo evita estourar
+      // o limite de conexões do pooler do Neon.
+      max: 5,
+      idleTimeoutMillis: 10000,
+      connectionTimeoutMillis: 8000,
+    });
   }
   return pool;
 }
@@ -50,6 +60,8 @@ async function ensureSchemaImpl() {
         criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
       );
       CREATE INDEX IF NOT EXISTS leads_criado_em_idx ON leads (criado_em);
+      CREATE INDEX IF NOT EXISTS leads_ip_criado_idx ON leads (ip, criado_em);
+      CREATE INDEX IF NOT EXISTS leads_whatsapp_norm_idx ON leads ((regexp_replace(whatsapp, '\\D', '', 'g')));
 
       CREATE TABLE IF NOT EXISTS ignored_ips (
         ip TEXT PRIMARY KEY,
@@ -68,6 +80,8 @@ async function ensureSchemaImpl() {
         criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
       );
       CREATE INDEX IF NOT EXISTS liderancas_criado_em_idx ON liderancas (criado_em);
+      CREATE INDEX IF NOT EXISTS liderancas_ip_criado_idx ON liderancas (ip, criado_em);
+      CREATE INDEX IF NOT EXISTS liderancas_numero_norm_idx ON liderancas ((regexp_replace(numero, '\\D', '', 'g')));
       ALTER TABLE liderancas ADD COLUMN IF NOT EXISTS nome_mae TEXT;
       ALTER TABLE liderancas ADD COLUMN IF NOT EXISTS data_nascimento DATE;
       ALTER TABLE liderancas ADD COLUMN IF NOT EXISTS endereco TEXT;
@@ -89,6 +103,8 @@ async function ensureSchemaImpl() {
         criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
       );
       CREATE INDEX IF NOT EXISTS apoiadores_criado_em_idx ON apoiadores (criado_em);
+      CREATE INDEX IF NOT EXISTS apoiadores_ip_criado_idx ON apoiadores (ip, criado_em);
+      CREATE INDEX IF NOT EXISTS apoiadores_numero_norm_idx ON apoiadores ((regexp_replace(numero, '\\D', '', 'g')));
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por TEXT;
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por_id BIGINT;
 

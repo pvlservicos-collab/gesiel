@@ -409,6 +409,26 @@
       filter: brightness(1.08)
     }
 
+    .select-geo {
+      font: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      cursor: pointer;
+      transition: filter var(--t-fast)
+    }
+
+    .select-geo:hover {
+      filter: brightness(1.08)
+    }
+
+    .select-geo:disabled {
+      cursor: wait;
+      opacity: .8
+    }
+
     .btn-sair {
       width: 100%;
       padding: 9px;
@@ -2477,6 +2497,7 @@
                 <th>Nome da mãe</th>
                 <th>Nascimento</th>
                 <th>Endereço</th>
+                <th>Localização</th>
                 <th>Apoiadores</th>
                 <th>Data</th>
                 <th></th>
@@ -3310,16 +3331,24 @@
                 '<span style="color:var(--green);font-weight:600">' + l.apoiadores_count + '</span>' +
                 '<span class="expand-arrow">▾</span></button>'
             : '<span style="color:var(--muted)">Padrão (30)</span>';
+          const temGeo = l.lat !== null && l.lat !== undefined;
+          const selectGeo = '<select class="select-geo" data-id="' + l.id + '" data-encontrado="' + (temGeo ? '1' : '0') + '">' +
+            '<option value="ok"' + (temGeo ? ' selected' : '') + '>✓ Confirmado</option>' +
+            '<option value="falta"' + (!temGeo ? ' selected' : '') + '>✗ Não encontrado</option>' +
+            '<option value="retry">🔄 Tentar de novo</option>' +
+            '</select>';
           tr.innerHTML = '<td>' + esc(l.nome) + '</td>' +
             '<td>' + (link ? ('<a class="wa-link" target="_blank" href="' + link + '">' + esc(l.numero || '') + '</a>') : '—') + '</td>' +
             '<td>' + esc(l.bairro || '—') + '</td>' +
             '<td>' + esc(l.nome_mae || '—') + '</td>' +
             '<td>' + nasc + '</td>' +
             '<td>' + esc(l.endereco || '—') + '</td>' +
+            '<td>' + selectGeo + '</td>' +
             '<td>' + contagemApo + '</td>' +
             '<td>' + dt + '</td>' +
             '<td><button type="button" class="btn-del-lid" data-id="' + l.id + '" title="Excluir">🗑</button></td>';
           body.appendChild(tr);
+          aplicarCorGeo(tr.querySelector('.select-geo'));
         });
         const totalPaginas = Math.max(1, Math.ceil(totalLiderancas / 20));
         document.getElementById('pgInfoLid').textContent = 'página ' + paginaAtualLid + ' de ' + totalPaginas;
@@ -3349,6 +3378,44 @@
       } catch (e) {
         alert('Erro ao excluir: ' + e.message);
         b.disabled = false;
+      }
+    });
+
+    function aplicarCorGeo(sel, buscando) {
+      if (!sel) return;
+      if (buscando) {
+        sel.style.background = 'var(--amber)';
+        sel.style.color = '#1f1503';
+        return;
+      }
+      const ok = sel.dataset.encontrado === '1';
+      sel.style.background = ok ? 'var(--green)' : 'var(--red)';
+      sel.style.color = ok ? '#03170c' : '#1f0606';
+    }
+
+    document.getElementById('liderancasBody').addEventListener('change', async e => {
+      const sel = e.target.closest('.select-geo');
+      if (!sel) return;
+
+      if (sel.value !== 'retry') {
+        // "✓ Confirmado" e "✗ Não encontrado" são só status — escolher um
+        // deles não faz nada, só "Tentar de novo" dispara a busca de novo
+        sel.value = sel.dataset.encontrado === '1' ? 'ok' : 'falta';
+        return;
+      }
+
+      const id = sel.dataset.id;
+      sel.disabled = true;
+      aplicarCorGeo(sel, true);
+      try {
+        const d = await api('/api/admin/liderancas?action=regeocode&id=' + id, { method: 'PUT' });
+        sel.dataset.encontrado = d.encontrado ? '1' : '0';
+      } catch (err) {
+        alert('Erro ao buscar localização: ' + err.message);
+      } finally {
+        sel.value = sel.dataset.encontrado === '1' ? 'ok' : 'falta';
+        sel.disabled = false;
+        aplicarCorGeo(sel);
       }
     });
 

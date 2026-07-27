@@ -21,6 +21,7 @@
 
     body {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
@@ -34,6 +35,17 @@
       animation: fadeIn 1.1s ease-out both;
     }
 
+    .aviso {
+      margin-top: 22px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: clamp(14px, 2.4vw, 18px);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #f2f2ec;
+      animation: fadeInSoft 1.1s ease-out both;
+      animation-delay: .15s;
+    }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -45,11 +57,22 @@
         transform: scale(1)
       }
     }
+
+    @keyframes fadeInSoft {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: .75;
+      }
+    }
   </style>
 </head>
 
 <body>
   <img class="logo" src="/img/logo.webp" alt="Gesiel Oliveira" />
+  <p class="aviso">Site em construção</p>
 </body>
 
 </html>
