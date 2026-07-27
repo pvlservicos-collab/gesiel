@@ -92,7 +92,7 @@ async function ensureSchemaImpl() {
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por TEXT;
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por_id BIGINT;
 
-      CREATE TABLE IF NOT EXISTS iadoaldo_config (
+      CREATE TABLE IF NOT EXISTS iadogesiel_config (
         id INT PRIMARY KEY,
         data JSONB NOT NULL,
         version INT NOT NULL DEFAULT 1,

@@ -4,9 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>IA do Aldo · Aldo Maurício</title>
+  <title>IA do Gesiel · Gesiel Oliveira</title>
   <link rel="icon" type="image/webp" href="img/logo.webp">
-  <meta name="description" content="Converse com a IA do Aldo Maurício e conheça as propostas do pré-candidato a deputado estadual." />
+  <meta name="description" content="Converse com a IA do Gesiel Oliveira e conheça as propostas do pré-candidato a deputado estadual." />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&family=Outfit:wght@500;600&family=Quicksand:wght@500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -266,9 +266,9 @@
   <header class="topo">
     <div class="foto-wrap" id="fotoWrap">
       <span class="onda"></span><span class="onda"></span><span class="onda"></span>
-      <img id="foto" src="img/fotocandidato.webp" alt="Aldo Maurício">
+      <img id="foto" src="img/fotocandidato.webp" alt="Gesiel Oliveira">
     </div>
-    <div class="nome" id="nome">Aldo Maurício</div>
+    <div class="nome" id="nome">Gesiel Oliveira</div>
     <div class="st"><span class="dot"></span><span id="statusTxt">Pode perguntar 👇</span></div>
   </header>
 
@@ -280,15 +280,16 @@
 
   <script>
     // conteúdo reserva: se a API falhar por qualquer motivo, a página nunca fica muda
-    // (é o mesmo conteúdo padrão de api/_iadoaldo.js)
+    // (é o mesmo conteúdo padrão de api/_iadogesiel.js — textos genéricos até o
+    // painel ser editado com a trajetória real do Gesiel)
     let CFG = {
-      nome: 'Aldo Maurício', status: 'Pode perguntar 👇', foto: 'img/fotocandidato.webp', inicio: 'p1',
+      nome: 'Gesiel Oliveira', status: 'Pode perguntar 👇', foto: 'img/fotocandidato.webp', inicio: 'p1',
       passos: [
-        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Aldo Maurício, pré-candidato a deputado estadual pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
-        { id: 'p2', titulo: 'Quem é Aldo Maurício', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Sou enfermeiro há 26 anos e professor há 15. Também sou bacharel em Direito pela UNIFAP.', 'Sou funcionário público, escritor, teólogo e participo de vários projetos sociais aqui na nossa terra.', 'Minha vida inteira foi servindo pessoas — na saúde, na sala de aula e na comunidade. Agora quero servir o nosso estado inteiro.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos que já saíram do papel, viu? 💪', 'Sou diretor da UBS Cláudio Leão e já fui voluntário da Cruz Vermelha — sempre na linha de frente da saúde.', 'Como sindicalista, lutei junto com a categoria pelo piso da enfermagem.', 'Na educação, idealizei o Aulão Solidário pra ajudar quem tá se preparando pra concursos — não à toa me chamam de amigo dos concurseiros 📚'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.', 'Sou líder evangélico na comunidade e vice-líder da UJAMA, a nossa juventude gospel.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
-        { id: 'p5', titulo: 'No que você vai ajudar a cidade', msgs: ['Vou trabalhar em cima de bandeiras bem claras pela nossa cidade:', '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.', '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.', '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.'], opcoes: [{ label: 'Quem é Aldo Maurício?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p1', titulo: 'Boas-vindas', msgs: ['Eae! Tudo beleza? 👋', 'Aqui é o Gesiel Oliveira, pré-candidato a deputado estadual pelo Amapá.', 'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }] },
+        { id: 'p2', titulo: 'Quem é Gesiel Oliveira', msgs: ['Boa! Deixa eu me apresentar direitinho 😄', 'Estou preparando essa apresentação com calma — em breve você vai conhecer minha trajetória aqui.', 'Minha vida tem sido dedicada a servir pessoas e a nossa comunidade. Agora quero servir o nosso estado inteiro.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p3', titulo: 'Quais são os seus projetos', msgs: ['Tenho vários projetos e conquistas pra mostrar — em breve atualizo essa parte com todos os detalhes 💪', 'Por enquanto, o resumo é esse: quero transformar a saúde, a educação, a segurança e o trabalho no nosso estado.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Fé e valores?', goto: 'p4' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p4', titulo: 'Fé e valores', msgs: ['Aqui é simples: fé, verdade, coragem e coerência 🙏', 'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.', '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.'], opcoes: [{ label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'No que você vai ajudar a cidade?', goto: 'p5' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
+        { id: 'p5', titulo: 'No que você vai ajudar a cidade', msgs: ['Vou trabalhar em cima de bandeiras bem claras pela nossa cidade:', '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.', '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.', '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.'], opcoes: [{ label: 'Quem é Gesiel Oliveira?', goto: 'p2' }, { label: 'Quais são os seus projetos?', goto: 'p3' }, { label: 'Fé e valores?', goto: 'p4' }, { label: '⟲ Voltar ao início', goto: 'p1' }] },
       ],
     };
 
@@ -334,8 +335,8 @@
     const WHATSAPP_LABEL = 'Fala com equipe Aldo Maurício';
     const WHATSAPP_LINK = 'https://wa.me/559681419718?text=' +
       encodeURIComponent('Olá, Aldo Maurício! Vim pelo chat da IA e quero falar com a equipe.');
-    const APOIAR_LABEL = 'Apoiar Aldo Maurício';
-    const APOIAR_LINK = 'https://aldomauricio.vercel.app/';
+    const APOIAR_LABEL = 'Apoiar Gesiel Oliveira';
+    const APOIAR_LINK = '/site';
 
     // cada resposta clicada "some" — uma vez visto aquele passo, a opção que
     // levava até ele não aparece mais em lugar nenhum. Quando não sobra mais
@@ -550,14 +551,14 @@
       CFG = cfg;
       porId = {};
       cfg.passos.forEach(p => { porId[p.id] = p; });
-      document.getElementById('nome').textContent = cfg.nome || 'Aldo Maurício';
+      document.getElementById('nome').textContent = cfg.nome || 'Gesiel Oliveira';
       document.getElementById('statusTxt').textContent = cfg.status || 'Pode perguntar 👇';
       if (cfg.foto) document.getElementById('foto').src = cfg.foto;
     }
 
     (async function iniciar() {
       try {
-        const res = await fetch('/api/iadoaldo');
+        const res = await fetch('/api/iadogesiel');
         const data = await res.json();
         if (data && data.config && Array.isArray(data.config.passos) && data.config.passos.length) {
           aplicarConfig(data.config);
@@ -571,11 +572,11 @@
       tocar(CFG.inicio);
     })();
 
-    /* rastreamento de visitas — aparece nas métricas do painel como /iadoaldo */
+    /* rastreamento de visitas — aparece nas métricas do painel como /iadogesiel */
     fetch('/api/track', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ path: '/iadoaldo', referrer: document.referrer || null })
+      body: JSON.stringify({ path: '/iadogesiel', referrer: document.referrer || null })
     }).catch(() => {});
   </script>
 </body>

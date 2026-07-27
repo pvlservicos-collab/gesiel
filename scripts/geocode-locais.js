@@ -89,7 +89,7 @@ function limpaEndereco(end) {
 async function geocode(query) {
   const url = `https://nominatim.openstreetmap.org/search?format=json&limit=3&countrycodes=br&q=${encodeURIComponent(query)}`;
   const res = await fetch(url, {
-    headers: { 'User-Agent': 'AldoMauricioMapaLocaisVotacao/1.0 (uso interno, script unico)' },
+    headers: { 'User-Agent': 'GesielOliveiraMapaLocaisVotacao/1.0 (uso interno, script unico)' },
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();

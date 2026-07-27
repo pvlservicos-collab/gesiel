@@ -1,8 +1,12 @@
-// Conteúdo padrão + validação da "IA do Aldo".
-// Usado por api/iadoaldo.js (GET público + PUT/DELETE do painel, protegidos por login).
+// Conteúdo padrão + validação da "IA do Gesiel".
+// Usado por api/iadogesiel.js (GET público + PUT/DELETE do painel, protegidos por login).
+//
+// Os textos de biografia/projetos abaixo são propositalmente genéricos (sem
+// nenhum dado específico do candidato anterior) — edite pela aba "IA do
+// Gesiel" no painel com a trajetória real do Gesiel antes de divulgar.
 
 const DEFAULT_CONFIG = {
-  nome: 'Aldo Maurício',
+  nome: 'Gesiel Oliveira',
   status: 'Pode perguntar 👇',
   foto: 'img/fotocandidato.webp',
   inicio: 'p1',
@@ -11,23 +15,22 @@ const DEFAULT_CONFIG = {
       id: 'p1', titulo: 'Boas-vindas',
       msgs: [
         'Eae! Tudo beleza? 👋',
-        'Aqui é o Aldo Maurício, pré-candidato a deputado estadual pelo Amapá.',
+        'Aqui é o Gesiel Oliveira, pré-candidato a deputado estadual pelo Amapá.',
         'Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
       ],
       opcoes: [
-        { label: 'Quem é Aldo Maurício?', goto: 'p2' },
+        { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
         { label: 'Quais são os seus projetos?', goto: 'p3' },
         { label: 'Fé e valores?', goto: 'p4' },
         { label: 'No que você vai ajudar a cidade?', goto: 'p5' },
       ],
     },
     {
-      id: 'p2', titulo: 'Quem é Aldo Maurício',
+      id: 'p2', titulo: 'Quem é Gesiel Oliveira',
       msgs: [
         'Boa! Deixa eu me apresentar direitinho 😄',
-        'Sou enfermeiro há 26 anos e professor há 15. Também sou bacharel em Direito pela UNIFAP.',
-        'Sou funcionário público, escritor, teólogo e participo de vários projetos sociais aqui na nossa terra.',
-        'Minha vida inteira foi servindo pessoas — na saúde, na sala de aula e na comunidade. Agora quero servir o nosso estado inteiro.',
+        'Estou preparando essa apresentação com calma — em breve você vai conhecer minha trajetória aqui.',
+        'Minha vida tem sido dedicada a servir pessoas e a nossa comunidade. Agora quero servir o nosso estado inteiro.',
       ],
       opcoes: [
         { label: 'Quais são os seus projetos?', goto: 'p3' },
@@ -38,13 +41,11 @@ const DEFAULT_CONFIG = {
     {
       id: 'p3', titulo: 'Quais são os seus projetos',
       msgs: [
-        'Tenho vários projetos que já saíram do papel, viu? 💪',
-        'Sou diretor da UBS Cláudio Leão e já fui voluntário da Cruz Vermelha — sempre na linha de frente da saúde.',
-        'Como sindicalista, lutei junto com a categoria pelo piso da enfermagem.',
-        'Na educação, idealizei o Aulão Solidário pra ajudar quem tá se preparando pra concursos — não à toa me chamam de amigo dos concurseiros 📚',
+        'Tenho vários projetos e conquistas pra mostrar — em breve atualizo essa parte com todos os detalhes 💪',
+        'Por enquanto, o resumo é esse: quero transformar a saúde, a educação, a segurança e o trabalho no nosso estado.',
       ],
       opcoes: [
-        { label: 'Quem é Aldo Maurício?', goto: 'p2' },
+        { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
         { label: 'Fé e valores?', goto: 'p4' },
         { label: 'No que você vai ajudar a cidade?', goto: 'p5' },
         { label: '⟲ Voltar ao início', goto: 'p1' },
@@ -55,7 +56,6 @@ const DEFAULT_CONFIG = {
       msgs: [
         'Aqui é simples: fé, verdade, coragem e coerência 🙏',
         'Defendo a família, a vida e a liberdade religiosa. Valores não se negociam.',
-        'Sou líder evangélico na comunidade e vice-líder da UJAMA, a nossa juventude gospel.',
         '"Posso tudo naquele que me fortalece" — Filipenses 4:13. É esse o combustível.',
       ],
       opcoes: [
@@ -73,7 +73,7 @@ const DEFAULT_CONFIG = {
         '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.',
       ],
       opcoes: [
-        { label: 'Quem é Aldo Maurício?', goto: 'p2' },
+        { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
         { label: 'Quais são os seus projetos?', goto: 'p3' },
         { label: 'Fé e valores?', goto: 'p4' },
         { label: '⟲ Voltar ao início', goto: 'p1' },
