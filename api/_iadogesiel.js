@@ -12,7 +12,7 @@ const DEFAULT_CONFIG = {
       msgs: [
         'Eae! Tudo beleza? 👋',
         'Aqui é o Gesiel Oliveira, candidato a Deputado Federal pelo PL no Amapá.',
-        '"O Amapá que sonhamos começa agora." Pode perguntar sem cerimônia — escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
+        '"O Amapá que sonhamos começa agora." Escolhe aí embaixo o que você quer saber. Tamo junto! 🙏',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
@@ -38,10 +38,19 @@ const DEFAULT_CONFIG = {
     {
       id: 'p3', titulo: 'Quais são os seus projetos',
       msgs: [
-        'Tenho vários projetos que já saíram do papel! 💪',
-        'Fundei a Base de Ação Social Getsêmani, que distribui cestas básicas, roupas e remédios pra quem mais precisa em Macapá.',
-        'Sou presidente internacional da APEBE — Aliança Pró-Evangélicos do Brasil e Exterior, presente em quase todo o Brasil e em 9 países.',
-        'Também toco o Projeto Valorizando Vida, de combate à depressão e ao suicídio entre jovens, e sou vice-presidente da COMADEZON, com milhares de membros na nossa região.',
+        'Tenho um plano de mandato com 13 eixos e 60 propostas pro Amapá entre 2027 e 2030! Alguns destaques:',
+        '⚡ ENERGIA MAIS BARATA\nTarifa justa e combate às tarifas abusivas e ações para reduzir a tarifa energética.',
+        '🔍 FISCALIZAÇÃO RIGOROSA DOS ROYALTIES\nTransparência total e investimentos onde o Amapá mais precisa.',
+        '🌱 APOIO AO AGRONEGÓCIO E AGRICULTURA FAMILIAR\nCrédito, tecnologia e valorização do produtor.',
+        '📈 INCENTIVO AO EMPREENDEDORISMO\nMais crédito, menos burocracia e geração de empregos.',
+        '🎓 EDUCAÇÃO DE QUALIDADE, SEM DOUTRINAÇÃO\nMais escolas, institutos e valorização dos professores.',
+        '❤️‍🩹 MAIS ACESSO À SAÚDE\nHospitais regionais, atendimento digno e medicamentos para todos.',
+        '🛡️ COMBATE FIRME À CRIMINALIDADE\nMais policiais, tecnologia e leis mais duras.',
+        '📶 INTERNET E INFRAESTRUTURA PARA TODOS\nConectividade, estradas e desenvolvimento para cada município.',
+        '🛣️ OBRAS ESTRUTURANTES\nBR-156, logística, portos e mobilidade para o progresso do Amapá.',
+        '♻️ DESENVOLVIMENTO COM RESPONSABILIDADE AMBIENTAL\nUso racional dos recursos naturais em favor do povo do Amapá.',
+        '👨‍👩‍👧‍👦 DEFESA DA FAMÍLIA E DOS VALORES CRISTÃOS\nContra as pautas que ameaçam nossos filhos e nossa sociedade.',
+        '📢 LIBERDADE DE EXPRESSÃO E DIREITOS INDIVIDUAIS\nContra abusos e censura. A liberdade é inegociável.',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
@@ -67,13 +76,10 @@ const DEFAULT_CONFIG = {
     {
       id: 'p5', titulo: 'No que você vai ajudar o Estado',
       msgs: [
-        'Meu plano de mandato tem 13 eixos e 60 propostas pro Amapá entre 2027 e 2030. Alguns destaques:',
-        '⚡ Energia mais barata — Tarifa justa e combate às tarifas abusivas e ações para reduzir a tarifa energética.\n🔍 Fiscalização rigorosa dos royalties — Transparência total e investimentos onde o Amapá mais precisa.',
-        '🌱 Apoio ao agronegócio e agricultura familiar — Crédito, tecnologia e valorização do produtor.\n📈 Incentivo ao empreendedorismo — Mais crédito, menos burocracia e geração de empregos.',
-        '🎓 Educação de qualidade, sem doutrinação — Mais escolas, institutos e valorização dos professores.\n❤️‍🩹 Mais acesso à saúde — Hospitais regionais, atendimento digno e medicamentos para todos.',
-        '🛡️ Combate firme à criminalidade — Mais policiais, tecnologia e leis mais duras.\n📶 Internet e infraestrutura para todos — Conectividade, estradas e desenvolvimento para cada município.',
-        '🛣️ Obras estruturantes — BR-156, logística, portos e mobilidade para o progresso do Amapá.\n♻️ Desenvolvimento com responsabilidade ambiental — Uso racional dos recursos naturais em favor do povo do Amapá.',
-        '👨‍👩‍👧‍👦 Defesa da família e dos valores cristãos — Contra as pautas que ameaçam nossos filhos e nossa sociedade.\n📢 Liberdade de expressão e direitos individuais — Contra abusos e censura. A liberdade é inegociável.',
+        'Vou trabalhar em cima de bandeiras bem claras pelo nosso Amapá:',
+        '🩺 Saúde — valorizar quem cuida da gente e melhorar o atendimento público.',
+        '📚 Educação — a maior ferramenta de transformação que existe, e quero investir pesado nela.',
+        '🛡️ Segurança e 💼 Trabalho — mais proteção pras famílias e mais oportunidade pra quem batalha todo dia.',
       ],
       opcoes: [
         { label: 'Quem é Gesiel Oliveira?', goto: 'p2' },
@@ -118,7 +124,7 @@ function sanitizeConfig(raw) {
     if (!id || vistos.has(id)) continue; // id duplicado: fica só o primeiro
     vistos.add(id);
 
-    const msgs = (Array.isArray(p.msgs) ? p.msgs.slice(0, 12) : [])
+    const msgs = (Array.isArray(p.msgs) ? p.msgs.slice(0, 20) : [])
       .map(m => str(m, 400)).filter(Boolean);
     if (!msgs.length) continue; // passo sem mensagem não existe
 
