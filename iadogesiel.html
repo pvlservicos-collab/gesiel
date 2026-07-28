@@ -332,9 +332,6 @@
     }
 
     const AJUDA_LABEL = 'Quero pedir uma ajuda / Relatar um problema!';
-    const WHATSAPP_LABEL = 'Fala com equipe Gesiel Oliveira';
-    const WHATSAPP_LINK = 'https://wa.me/559681419718?text=' + // TODO: número ainda é o antigo, trocar quando tiver o novo
-      encodeURIComponent('Olá, Gesiel Oliveira! Vim pelo chat da IA e quero falar com a equipe.');
     const APOIAR_LABEL = 'Apoiar Gesiel Oliveira';
     const APOIAR_LINK = '/apoiadores'; // site principal ainda não está pronto — manda pro cadastro por enquanto
 
@@ -401,20 +398,6 @@
       voltar.textContent = '⟲ Voltar ao início';
       voltar.onclick = () => escolher({ label: '⟲ Voltar ao início', goto: CFG.inicio });
       opcoesEl.appendChild(voltar);
-
-      const ajuda = document.createElement('button');
-      ajuda.type = 'button';
-      ajuda.className = 'btn-ajuda';
-      ajuda.textContent = AJUDA_LABEL;
-      ajuda.onclick = () => abrirAjuda();
-      opcoesEl.appendChild(ajuda);
-
-      const wpp = document.createElement('button');
-      wpp.type = 'button';
-      wpp.className = 'btn-ajuda';
-      wpp.textContent = WHATSAPP_LABEL;
-      wpp.onclick = () => window.open(WHATSAPP_LINK, '_blank');
-      opcoesEl.appendChild(wpp);
       ajustarEspaco();
       rolar();
     }
