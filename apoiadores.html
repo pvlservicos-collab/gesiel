@@ -121,6 +121,13 @@
       margin-bottom: 6px;
     }
 
+    .hint-bairro {
+      display: block;
+      font-size: .72rem;
+      color: #949494;
+      margin: -3px 0 6px;
+    }
+
     .fg input {
       width: 100%;
       padding: 13px 14px;
@@ -285,7 +292,8 @@
           <input type="tel" id="l-numero" placeholder="(00) 00000-0000" required>
         </div>
         <div class="fg ac-wrap" id="bairro-wrap">
-          <label for="l-bairro">Bairro</label>
+          <label for="l-bairro">Município-Bairro</label>
+          <small class="hint-bairro">Ex: Santana-Fonte Nova</small>
           <input type="text" id="l-bairro" placeholder="Digite seu bairro" autocomplete="off" required>
           <div class="ac-list" id="bairro-list"></div>
         </div>
@@ -332,36 +340,32 @@
     })();
 
     const BAIRROS_MACAPA = [
-      'Açaí', 'Alvorada', 'Amazonas', 'Araxá', 'Beirol', 'Bella Ville', 'Bioparque', 'Boné Azul',
-      'Brasil Novo', 'Buritis', 'Buritizal', 'Cabralzinho', 'Cajari', 'Central', 'Chefe Clodoaldo',
-      'Cidade Nova', 'Congós', 'Coração', 'Fazendinha', 'Goiabal', 'Igarapé de Fortaleza', 'Ilha Mirim',
-      'Infraero I', 'Infraero II', 'Ipê', 'Jardim América', 'Jardim das Acácias', 'Jardim Equatorial',
-      'Jardim Felicidade', 'Jardim Felicidade I', 'Jardim Felicidade II', 'Jardim Marco Zero',
-      'Jesus de Nazaré', 'Lago da Vaca', 'Lagoa Azul', 'Laguinho', 'Macapaba', 'Marabaixo I',
-      'Marabaixo II', 'Marabaixo III', 'Morada das Palmeiras', 'Muca', 'Murici', 'Nova Esperança',
-      'Novo Buritizal', 'Novo Horizonte', 'Pacoval', 'Palácio das Águas', 'Pantanal',
-      'Parque Aeroportuário', 'Parque dos Jardins', 'Pedrinhas', 'Perpétuo Socorro', 'Quilômetro Nove',
-      'Renascer', 'Santa Inês', 'Santa Rita', 'São José', 'São Lázaro', 'Sol Nascente', 'Trem',
-      'Universidade', 'Vale Verde', 'Zerão',
-      // municípios vizinhos (Região Metropolitana de Macapá) — prefixo evita
-      // confundir com bairro de mesmo nome em Macapá (ex.: Central, Novo Horizonte)
-      'Santana-Central', 'Santana-Comercial', 'Santana-Daniel', 'Santana-Distrito Industrial',
-      'Santana-Elesbão', 'Santana-Fonte Nova', 'Santana-Fortaleza', 'Santana-Hospitalidade',
-      'Santana-Ilha de Santana', 'Santana-Nova Brasília', 'Santana-Novo Horizonte', 'Santana-Paraíso',
-      'Santana-Provedor', 'Santana-Provedor I', 'Santana-Remédios', 'Santana-Vila Amazonas',
-      'Mazagão-Centro', 'Mazagão-Vila do Carvão', 'Mazagão-Mazagão Velho',
-      'Laranjal do Jari-Centro', 'Laranjal do Jari-Agreste', 'Laranjal do Jari-Bom Jesus',
-      'Laranjal do Jari-Sumaúma', 'Laranjal do Jari-Santarém', 'Laranjal do Jari-Guerreiros',
-      'Laranjal do Jari-Dos Atletas', 'Laranjal do Jari-Coração de Jesus', 'Laranjal do Jari-Liberdade',
-      'Laranjal do Jari-Novo Horizonte', 'Laranjal do Jari-Prosperidade',
-      'Oiapoque-Centro', 'Oiapoque-Clevelândia', 'Oiapoque-Vila Velha',
-      'Porto Grande-Centro', 'Porto Grande-Vila Nova', 'Porto Grande-Munguba',
-      'Porto Grande-Colônia Agrícola do Matapi', 'Porto Grande-Distrito do Cupixi',
-      'Calçoene-Centro', 'Calçoene-Vila Carnot',
-      'Serra do Navio-Vila Primária',
-      'Amapá-Centro', 'Cutias-Centro', 'Ferreira Gomes-Centro', 'Itaubal-Centro',
-      'Pedra Branca do Amapari-Centro', 'Pracuúba-Centro', 'Tartarugalzinho-Centro',
-      'Vitória do Jari-Centro'
+      'Macapá-Trem', 'Macapá-Açaí', 'Macapá-Alvorada', 'Macapá-Amazonas', 'Macapá-Araxá', 'Macapá-Beirol', 
+      'Macapá-Bella Ville', 'Macapá-Bioparque', 'Macapá-Boné Azul', 'Macapá-Brasil Novo', 'Macapá-Buritis', 
+      'Macapá-Buritizal', 'Macapá-Cabralzinho', 'Macapá-Cajari', 'Macapá-Central', 'Macapá-Chefe Clodoaldo', 
+      'Macapá-Cidade Nova', 'Macapá-Congós', 'Macapá-Coração', 'Macapá-Fazendinha', 'Macapá-Goiabal', 
+      'Macapá-Igarapé de Fortaleza', 'Macapá-Ilha Mirim', 'Macapá-Infraero I', 'Macapá-Infraero II', 
+      'Macapá-Ipê', 'Macapá-Jardim América', 'Macapá-Jardim das Acácias', 'Macapá-Jardim Equatorial', 
+      'Macapá-Jardim Felicidade', 'Macapá-Jardim Felicidade I', 'Macapá-Jardim Felicidade II', 'Macapá-Jardim Marco Zero', 
+      'Macapá-Jesus de Nazaré', 'Macapá-Lago da Vaca', 'Macapá-Lagoa Azul', 'Macapá-Laguinho', 'Macapá-Macapaba', 
+      'Macapá-Marabaixo I', 'Macapá-Marabaixo II', 'Macapá-Marabaixo III', 'Macapá-Morada das Palmeiras', 
+      'Macapá-Muca', 'Macapá-Murici', 'Macapá-Nova Esperança', 'Macapá-Novo Buritizal', 'Macapá-Novo Horizonte', 
+      'Macapá-Pacoval', 'Macapá-Palácio das Águas', 'Macapá-Pantanal', 'Macapá-Parque Aeroportuário', 
+      'Macapá-Parque dos Jardins', 'Macapá-Pedrinhas', 'Macapá-Perpétuo Socorro', 'Macapá-Quilômetro Nove', 
+      'Macapá-Renascer', 'Macapá-Santa Inês', 'Macapá-Santa Rita', 'Macapá-São José', 'Macapá-São Lázaro', 
+      'Macapá-Sol Nascente', 'Macapá-Universidade', 'Macapá-Vale Verde', 'Macapá-Zerão', 'Santana-Central', 
+      'Santana-Comercial', 'Santana-Daniel', 'Santana-Distrito Industrial', 'Santana-Elesbão', 'Santana-Fonte Nova', 
+      'Santana-Fortaleza', 'Santana-Hospitalidade', 'Santana-Ilha de Santana', 'Santana-Nova Brasília', 
+      'Santana-Novo Horizonte', 'Santana-Paraíso', 'Santana-Provedor', 'Santana-Provedor I', 'Santana-Remédios', 
+      'Santana-Vila Amazonas', 'Mazagão-Centro', 'Mazagão-Vila do Carvão', 'Mazagão-Mazagão Velho', 
+      'Laranjal do Jari-Centro', 'Laranjal do Jari-Agreste', 'Laranjal do Jari-Bom Jesus', 'Laranjal do Jari-Sumaúma', 
+      'Laranjal do Jari-Santarém', 'Laranjal do Jari-Guerreiros', 'Laranjal do Jari-Dos Atletas', 
+      'Laranjal do Jari-Coração de Jesus', 'Laranjal do Jari-Liberdade', 'Laranjal do Jari-Novo Horizonte', 
+      'Laranjal do Jari-Prosperidade', 'Oiapoque-Centro', 'Oiapoque-Clevelândia', 'Oiapoque-Vila Velha', 
+      'Porto Grande-Centro', 'Porto Grande-Vila Nova', 'Porto Grande-Munguba', 'Porto Grande-Colônia Agrícola do Matapi', 
+      'Porto Grande-Distrito do Cupixi', 'Calçoene-Centro', 'Calçoene-Vila Carnot', 'Serra do Navio-Vila Primária', 
+      'Amapá-Centro', 'Cutias-Centro', 'Ferreira Gomes-Centro', 'Itaubal-Centro', 'Pedra Branca do Amapari-Centro', 
+      'Pracuúba-Centro', 'Tartarugalzinho-Centro', 'Vitória do Jari-Centro'
     ];
 
     function normaliza(s) {
