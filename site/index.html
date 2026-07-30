@@ -425,8 +425,8 @@
     /* ── REVELAÇÃO NO SCROLL ────────────────────────────────── */
     .rv {
       opacity: 0;
-      transform: translateY(18px);
-      transition: opacity .6s ease, transform .6s ease;
+      transform: translateY(12px);
+      transition: opacity .3s ease, transform .3s ease;
     }
 
     .rv.on {
@@ -435,15 +435,15 @@
     }
 
     .rv[data-d="1"] {
-      transition-delay: .08s;
+      transition-delay: .05s;
     }
 
     .rv[data-d="2"] {
-      transition-delay: .16s;
+      transition-delay: .1s;
     }
 
     .rv[data-d="3"] {
-      transition-delay: .24s;
+      transition-delay: .15s;
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -462,7 +462,7 @@
     }
 
     .topo.colado {
-      box-shadow: 0 10px 34px rgba(0, 0, 0, .38);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .15);
       background: rgba(3, 26, 13, .98);
     }
 
@@ -684,27 +684,6 @@
       color: var(--amarelo);
     }
 
-    .gaveta .g-tit {
-      padding: 18px 4px 6px;
-      font-size: .64rem;
-      letter-spacing: .2em;
-      color: rgba(255, 255, 255, .42);
-      text-transform: uppercase;
-      font-variation-settings: 'wdth' 100, 'wght' 750;
-    }
-
-    .gaveta .g-seg {
-      text-transform: none;
-      letter-spacing: .02em;
-      font-variation-settings: 'wdth' 100, 'wght' 500;
-      font-size: .88rem;
-    }
-
-    .gaveta .btn {
-      width: 100%;
-      margin-top: 18px;
-    }
-
     /* ══════════════════════════════════════════════════════════
        HERO — imagem existente em full-bleed, texto à direita
        ══════════════════════════════════════════════════════════ */
@@ -870,11 +849,13 @@
       padding: 20px 54px;
       font-size: 1.2rem;
       font-family: 'Barlow Condensed', sans-serif;
-      font-weight: 600;
+      font-variation-settings: 'wght' 550;
+      font-weight: 550;
       border-radius: 14px;
       box-shadow: none;
       max-width: 100%;
       text-align: center;
+      margin-bottom: 20px;
     }
 
     .hero-cta:hover {
@@ -1075,13 +1056,7 @@
       font-variation-settings: 'wdth' 100, 'wght' 650;
     }
 
-    .bio p:first-of-type::first-letter {
-      font-family: 'Archivo', sans-serif;
-      font-variation-settings: 'wdth' 112, 'wght' 850;
-      font-size: 3.4rem;
-      line-height: .8;
-      float: left;
-      margin: 6px 12px 0 0;
+    .bio p b.nome-destaque {
       color: var(--verde);
     }
 
@@ -2130,7 +2105,7 @@
         padding: 8px var(--gut) 26px;
         align-items: center;
         text-align: center;
-        background: var(--verde-mata);
+        background: linear-gradient(180deg, #07361D 0%, var(--verde-fundo) 100%);
       }
 
       .hero-logo {
@@ -2403,10 +2378,6 @@
         padding: 16px 18px 20px;
       }
 
-      .bio p:first-of-type::first-letter {
-        font-size: 2.8rem;
-      }
-
       .total-card {
         flex-direction: column;
         align-items: flex-start;
@@ -2562,16 +2533,6 @@
     <a href="#propostas">66 Propostas</a>
     <a href="#metas">Metas em 4 anos</a>
     <a href="#contato">Contato</a>
-    <p class="g-tit">Fale por onde você se encaixa</p>
-    <a class="wa-seg g-seg" data-seg="Sou cristão/evangélico." href="#">Cristão / Evangélico</a>
-    <a class="wa-seg g-seg" data-seg="Falo em nome da minha família." href="#">Família</a>
-    <a class="wa-seg g-seg" data-seg="Sou jovem." href="#">Jovem</a>
-    <a class="wa-seg g-seg" data-seg="Sou trabalhador." href="#">Trabalhador</a>
-    <a class="wa-seg g-seg" data-seg="Sou produtor rural / agricultor familiar." href="#">Agricultor familiar</a>
-    <a class="wa-seg g-seg" data-seg="Sou de comunidade ribeirinha ou indígena." href="#">Comunidade ribeirinha</a>
-    <a class="wa-seg g-seg" data-seg="Sou servidor público." href="#">Servidor público</a>
-    <a class="wa-seg g-seg" data-seg="Sou estudante." href="#">Estudante</a>
-    <a href="#" class="btn btn--ouro wa-link" data-msg="Quero falar com você sobre a candidatura.">Falar no WhatsApp</a>
   </div>
 
   <!-- ═══════════════════ HERO ═══════════════════ -->
@@ -2736,7 +2697,7 @@
 
       <div class="quem-g">
         <div class="bio rv">
-          <p><b>Gesiel de Souza Oliveira</b> nasceu em Macapá em 3 de fevereiro de 1978. É geógrafo, bacharel em
+          <p><b class="nome-destaque">Gesiel de Souza Oliveira</b> nasceu em Macapá em 3 de fevereiro de 1978. É geógrafo, bacharel em
             Direito, teólogo, Oficial de Justiça do Tribunal de Justiça do Amapá e professor.</p>
 
           <p>Há 26 anos é casado com a <b>Pastora Berenice Rabelo</b>, com quem construiu uma família baseada na fé
@@ -3750,11 +3711,6 @@
           com todas as emendas e votações, e auditoria independente uma vez por ano.</p>
       </div>
 
-      <div style="text-align:center;margin-top:44px" class="rv">
-        <a href="/apoiadores" class="btn btn--verde">
-          Apoiar
-        </a>
-      </div>
     </div>
   </section>
 
@@ -4017,11 +3973,6 @@
 
     document.querySelectorAll('.wa-link').forEach(a => {
       a.href = waUrl(OLA + (a.dataset.msg || 'Quero saber mais sobre a candidatura.'));
-      a.target = '_blank';
-      a.rel = 'noopener';
-    });
-    document.querySelectorAll('.wa-seg').forEach(a => {
-      a.href = waUrl(OLA + a.dataset.seg + ' Como você vai me ajudar?');
       a.target = '_blank';
       a.rel = 'noopener';
     });
