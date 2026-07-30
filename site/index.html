@@ -1792,6 +1792,100 @@
       text-align: center;
     }
 
+    .ultimos-posts {
+      margin-top: clamp(56px, 7vw, 84px);
+    }
+
+    .insta-card {
+      background: var(--branco);
+      border: 1px solid var(--linha);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra-lg);
+      padding: clamp(28px, 4vw, 48px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .insta-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--verde), var(--amarelo) 60%, var(--azul));
+    }
+
+    .insta-perfil-destaque {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
+    }
+
+    .insta-avatar {
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      padding: 4px;
+      background: linear-gradient(135deg, #6a11cb, #e1306c, #f77737);
+      box-shadow: var(--sombra-sm);
+    }
+
+    .insta-handle {
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 110, 'wght' 780;
+      font-size: 1.35rem;
+      color: var(--tinta);
+      margin-bottom: 4px;
+    }
+
+    .insta-stats {
+      display: flex;
+      gap: 32px;
+    }
+
+    .insta-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .insta-stat b {
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 110, 'wght' 800;
+      font-size: 1.2rem;
+      color: var(--verde-mata);
+      line-height: 1.2;
+    }
+
+    .insta-stat span {
+      font-size: .68rem;
+      color: var(--tinta-3);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .insta-galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 20px;
+    }
+
+    .insta-post {
+      display: flex;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .insta-post .instagram-media {
+      min-width: 0 !important;
+      width: 100% !important;
+      margin: 0 !important;
+    }
+
     .cont-g {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -2009,6 +2103,10 @@
 
       .redes-g {
         grid-template-columns: 1fr;
+      }
+
+      .insta-galeria {
+        grid-template-columns: repeat(2, 1fr);
       }
 
       .eixo-corpo {
@@ -2251,6 +2349,14 @@
 
     @media (max-width: 640px) {
       .bandeiras {
+        grid-template-columns: 1fr;
+      }
+
+      .insta-galeria {
+        grid-template-columns: 1fr;
+      }
+
+      .grupos-g {
         grid-template-columns: 1fr;
       }
 
@@ -3783,8 +3889,708 @@
           <span>X (Twitter)</span><small>@PrGesiel_</small>
         </a>
       </div>
+
+      <div class="ultimos-posts">
+        <div class="insta-card rv">
+          <div class="cab" style="margin-bottom:30px">
+            <p class="olho">Redes sociais</p>
+            <h2 class="d2">Últimos posts<br />Gesiel Oliveira</h2>
+            <p class="lead">Veja e engaje com os últimos posts para apoiar a campanha.</p>
+          </div>
+
+          <div class="insta-perfil-destaque">
+            <img class="insta-avatar" src="/img/fotoperfil.jpg" alt="Gesiel Oliveira" />
+            <div class="insta-info">
+              <p class="insta-handle">@gesiel.oliveira.ofc</p>
+              <div class="insta-stats">
+                <div class="insta-stat"><b>1K</b><span>posts</span></div>
+                <div class="insta-stat"><b>7K</b><span>seguidores</span></div>
+                <div class="insta-stat"><b>6K</b><span>seguindo</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="insta-galeria">
+            <article class="insta-post">
+              <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DbY3KdzDuDe/"
+                data-instgrm-version="14"></blockquote>
+            </article>
+            <article class="insta-post">
+              <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/DbWy39klmpj/"
+                data-instgrm-version="14"></blockquote>
+            </article>
+            <article class="insta-post">
+              <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DbV_Z_rDYDd/"
+                data-instgrm-version="14"></blockquote>
+            </article>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
+
+  <!-- ícone do WhatsApp, reaproveitado pelas seções Apoio e Grupos -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="ico-zap" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm0 1.67c2.2 0 4.27.86 5.83 2.42a8.2 8.2 0 0 1 2.41 5.82c0 4.54-3.7 8.24-8.25 8.24a8.24 8.24 0 0 1-4.2-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.19 8.19 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.26-8.24zm-3.2 4.4c-.15 0-.4.06-.61.29-.21.23-.8.79-.8 1.92s.83 2.22.94 2.38c.12.15 1.6 2.45 3.89 3.44.54.24.97.38 1.3.48.55.17 1.05.15 1.44.09.44-.07 1.35-.55 1.54-1.09.19-.54.19-1 .13-1.09-.06-.1-.21-.15-.44-.27-.23-.11-1.35-.67-1.56-.74-.21-.08-.36-.12-.51.11-.15.23-.58.74-.71.89-.13.15-.26.17-.49.06-.23-.12-.97-.36-1.85-1.14-.68-.61-1.14-1.36-1.28-1.59-.13-.23-.01-.35.1-.47.1-.1.23-.27.34-.4.12-.14.15-.23.23-.39.08-.15.04-.29-.02-.4-.06-.12-.51-1.24-.7-1.7-.19-.44-.38-.38-.51-.39-.13 0-.28-.01-.43-.01z" />
+    </symbol>
+  </svg>
+
+  <style>
+    /* ── SEÇÃO APOIO ─────────────────────────────────────────── */
+    #apoio {
+      padding: clamp(46px, 5.4vw, 74px) var(--gut);
+    }
+
+    #apoio .cab {
+      margin-bottom: clamp(22px, 2.6vw, 34px);
+    }
+
+    .apoio-g {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .ap-card {
+      position: relative;
+      background: var(--branco);
+      border: 1px solid var(--linha);
+      border-radius: var(--raio);
+      box-shadow: var(--sombra-sm);
+      padding: 26px 28px 26px 32px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow .25s ease, transform .25s ease;
+    }
+
+    /* borda tricolor — verde / amarelo / azul na lateral de cada card */
+    .ap-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: 5px;
+      background: linear-gradient(180deg, var(--verde) 0 50%, var(--amarelo) 50% 80%, var(--azul) 80% 100%);
+    }
+
+    .ap-card:hover {
+      box-shadow: var(--sombra);
+      transform: translateY(-2px);
+    }
+
+    .ap-card--pix {
+      background:
+        radial-gradient(ellipse 70% 70% at 100% 0%, rgba(0, 156, 59, .06) 0%, transparent 70%),
+        var(--osso);
+    }
+
+    /* cabeçalho do card: ícone + título na mesma linha */
+    .ap-cab {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .ap-ico {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(0, 156, 59, .09);
+      border: 1px solid rgba(0, 156, 59, .18);
+      color: var(--verde);
+    }
+
+    .ap-ico svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .ap-ico--pix {
+      background: rgba(50, 188, 173, .12);
+      border-color: rgba(50, 188, 173, .35);
+      color: #0E9E90;
+    }
+
+    .ap-cab h3 {
+      color: var(--tinta);
+    }
+
+    .ap-sub {
+      font-size: .87rem;
+      line-height: 1.55;
+      color: var(--tinta-2);
+      margin-bottom: 18px;
+    }
+
+    .ap-card .btn {
+      width: 100%;
+      padding: 14px 22px;
+      font-size: .88rem;
+      border-radius: 10px;
+    }
+
+    .ap-card--zap .btn {
+      margin-top: auto;
+    }
+
+    /* card Pix: texto à esquerda, QR à direita */
+    .ap-pix-g {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: start;
+    }
+
+    .ap-pix-txt {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .ap-qr {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: clamp(124px, 13vw, 160px);
+    }
+
+    .ap-qr-cx {
+      background: var(--branco);
+      border: 1px solid var(--linha);
+      border-radius: var(--raio-sm);
+      box-shadow: var(--sombra-sm);
+      padding: 10px;
+      width: 100%;
+    }
+
+    .ap-qr-cx svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .ap-legenda {
+      text-align: center;
+      font-size: .6rem;
+      line-height: 1.4;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--tinta-3);
+      font-variation-settings: 'wdth' 100, 'wght' 700;
+    }
+
+    /* chave pix */
+    .ap-chave {
+      background: var(--branco);
+      border: 1px solid var(--linha);
+      border-radius: var(--raio-sm);
+      padding: 10px 15px;
+      margin-bottom: 10px;
+      margin-top: auto;
+    }
+
+    .ap-chave-rot {
+      display: block;
+      font-size: .58rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--tinta-3);
+      font-variation-settings: 'wdth' 100, 'wght' 750;
+      margin-bottom: 2px;
+    }
+
+    .ap-chave-val {
+      display: block;
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 105, 'wght' 800;
+      font-variant-numeric: tabular-nums;
+      font-size: 1.02rem;
+      color: var(--verde-mata);
+    }
+
+    .ap-card--pix .btn {
+      background: var(--branco);
+    }
+
+    .ap-card--pix .btn.copiado {
+      border-color: var(--verde);
+      color: var(--verde);
+      background: rgba(0, 156, 59, .07);
+    }
+
+    @media (max-width: 1000px) {
+      .apoio-g {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .ap-pix-g {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .ap-qr {
+        width: 100%;
+        max-width: 190px;
+        margin: 0 auto;
+        order: -1;
+      }
+
+      .ap-chave {
+        margin-top: 0;
+      }
+    }
+  </style>
+
+  <!-- ═══════════════════ APOIO ═══════════════════ -->
+  <section id="apoio" class="faixa faixa--branca">
+    <div class="wrap">
+
+      <div class="cab rv">
+        <p class="olho">Participe</p>
+        <h2 class="d2">Fale comigo ou apoie a campanha</h2>
+      </div>
+
+      <div class="apoio-g rv" data-d="1">
+
+        <!-- ── card 1: WhatsApp ───────────────────────────── -->
+        <article class="ap-card ap-card--zap">
+          <div class="ap-cab">
+            <span class="ap-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor">
+                <use href="#ico-zap" />
+              </svg>
+            </span>
+            <h3 class="d3">Falar com Gesiel Oliveira</h3>
+          </div>
+          <p class="ap-sub">Mande sua demanda ou a da sua comunidade. Toda mensagem é lida.</p>
+          <a class="btn btn--verde wa-link" href="https://wa.me/5596000000000"
+            data-msg="Quero falar com o candidato Gesiel Oliveira.">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <use href="#ico-zap" />
+            </svg>
+            Chamar no WhatsApp
+          </a>
+        </article>
+
+        <!-- ── card 2: apoio / Pix ────────────────────────── -->
+        <article class="ap-card ap-card--pix">
+          <div class="ap-pix-g">
+
+            <div class="ap-pix-txt">
+              <div class="ap-cab">
+                <span class="ap-ico ap-ico--pix" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M8 9.6 12 5.6l4 4" />
+                    <path d="M14.4 8 18.4 12l-4 4" />
+                    <path d="M16 14.4 12 18.4l-4-4" />
+                    <path d="M9.6 16 5.6 12l4-4" />
+                  </svg>
+                </span>
+                <h3 class="d3">Apoiar a campanha</h3>
+              </div>
+              <p class="ap-sub">Escaneie o QR Code ou copie a chave Pix abaixo.</p>
+
+              <div class="ap-chave">
+                <span class="ap-chave-rot">Chave Pix · Celular</span>
+                <span class="ap-chave-val">+55 96 8112-0025</span>
+              </div>
+
+              <button type="button" class="btn btn--linha-esc" id="ap-copiar" data-chave="+559681120025">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"
+                  stroke-linejoin="round" aria-hidden="true">
+                  <rect x="9" y="9" width="11" height="11" rx="2.5" />
+                  <path d="M6 15H5.5A1.5 1.5 0 0 1 4 13.5v-8A1.5 1.5 0 0 1 5.5 4h8A1.5 1.5 0 0 1 15 5.5V6" />
+                </svg>
+                <span>Copiar chave Pix</span>
+              </button>
+              <span class="sr-only" aria-live="polite" id="ap-aviso"></span>
+            </div>
+
+            <div class="ap-qr">
+              <div class="ap-qr-cx"><img src="/img/qrcode-pix.png" alt="QR Code Pix de Gesiel Oliveira" /></div>
+              <p class="ap-legenda">Aponte a câmera<br />do seu banco</p>
+            </div>
+
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* ── Copiar chave Pix ─────────────────────────────────── */
+    (function () {
+      const btn = document.getElementById('ap-copiar');
+      if (!btn) return;
+      const rot = btn.querySelector('span');
+      const aviso = document.getElementById('ap-aviso');
+      const original = rot.textContent;
+      let tempo;
+
+      btn.addEventListener('click', async () => {
+        const chave = btn.dataset.chave;
+        try {
+          await navigator.clipboard.writeText(chave);
+        } catch (e) {
+          const t = document.createElement('textarea');
+          t.value = chave;
+          t.style.position = 'fixed';
+          t.style.opacity = '0';
+          document.body.appendChild(t);
+          t.select();
+          document.execCommand('copy');
+          t.remove();
+        }
+        rot.textContent = 'Chave copiada!';
+        btn.classList.add('copiado');
+        aviso.textContent = 'Chave Pix copiada para a área de transferência.';
+        clearTimeout(tempo);
+        tempo = setTimeout(() => {
+          rot.textContent = original;
+          btn.classList.remove('copiado');
+          aviso.textContent = '';
+        }, 2500);
+      });
+    })();
+  </script>
+
+  <style>
+    /* ── SEÇÃO GRUPOS ────────────────────────────────────────── */
+    #grupos {
+      padding: clamp(46px, 5.4vw, 74px) var(--gut);
+    }
+
+    #grupos .cab {
+      margin-bottom: clamp(22px, 2.6vw, 34px);
+    }
+
+    .grupos-g {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(218px, 1fr));
+      gap: 12px;
+    }
+
+    .gr {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      padding: 11px 14px;
+      background: var(--branco);
+      border: 1px solid var(--linha);
+      border-radius: var(--raio-sm);
+      box-shadow: var(--sombra-sm);
+      text-decoration: none;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    .gr:hover {
+      border-color: var(--verde);
+      box-shadow: var(--sombra);
+      transform: translateY(-2px);
+    }
+
+    /* bandeira do município (com sigla de reserva caso a imagem falte) */
+    .gr-band {
+      position: relative;
+      width: 46px;
+      height: 32px;
+      flex-shrink: 0;
+      border-radius: 4px;
+      overflow: hidden;
+      background: var(--verde-mata);
+      border: 1px solid rgba(5, 52, 28, .18);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .gr-band img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .gr-sigla {
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 100, 'wght' 800;
+      font-size: .58rem;
+      letter-spacing: .06em;
+      color: var(--amarelo);
+    }
+
+    .gr-txt {
+      min-width: 0;
+    }
+
+    .gr-nome {
+      display: block;
+      font-family: 'Archivo', sans-serif;
+      font-variation-settings: 'wdth' 100, 'wght' 700;
+      font-size: .87rem;
+      line-height: 1.2;
+      color: var(--tinta);
+    }
+
+    .gr-cta {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-top: 3px;
+      font-size: .6rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--verde);
+      font-variation-settings: 'wdth' 100, 'wght' 700;
+    }
+
+    .gr-cta svg {
+      width: 11px;
+      height: 11px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .gr:hover .gr-nome {
+      color: var(--verde-mata);
+    }
+
+    @media (max-width: 560px) {
+      .grupos-g {
+        grid-template-columns: 1fr;
+        gap: 9px;
+      }
+
+      .gr {
+        padding: 9px 10px;
+        gap: 9px;
+      }
+
+      .gr-band {
+        width: 38px;
+        height: 27px;
+      }
+
+      .gr-nome {
+        font-size: .78rem;
+      }
+    }
+  </style>
+
+  <!-- ═══════════════════ GRUPOS ═══════════════════ -->
+  <!-- Bandeiras: coloque os arquivos em /img/bandeiras/<slug>.webp — sem o arquivo, o card mostra a sigla do município automaticamente. -->
+  <section id="grupos" class="faixa faixa--osso">
+    <div class="wrap">
+
+      <div class="cab rv">
+        <p class="olho">Grupos de apoio</p>
+        <h2 class="d2">Entre no grupo do seu município</h2>
+        <p class="lead">Um grupo em cada um dos 16 municípios do Amapá. Escolha o seu e acompanhe a campanha de perto.
+        </p>
+      </div>
+
+      <div class="grupos-g rv" data-d="1">
+        <a class="gr" href="https://chat.whatsapp.com/BiP81NdUi2Z3ioUHpmVpPV" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Macapá no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">MCP</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a4/Bandeira_de_Macap%C3%A1.svg" alt="Bandeira de Macapá" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Macapá</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/DrrH9o79sMq8TTyoaMX1FX" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Santana no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">STN</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Bandeira_de_Santana.jpg" alt="Bandeira de Santana" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Santana</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/ByGb5wLVj1kEw1EzmqcsEa" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Laranjal do Jari no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">LJI</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/9/95/Bandeira_de_Laranjal_do_Jari_-_AP.svg" alt="Bandeira de Laranjal do Jari" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Laranjal do Jari</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/K5o7AoPpOCO6xNS3FnMJNR" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Oiapoque no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">OIA</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Bandeira_de_Oiapoque_AP.svg" alt="Bandeira de Oiapoque" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Oiapoque</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/HsUj6oBAKMN0ATadIix9EG" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Mazagão no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">MZG</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/43/Bandeira_de_Mazag%C3%A3o.svg" alt="Bandeira de Mazagão" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Mazagão</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/GoF5t6PuHIHJJ6lR8BIVB5" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Porto Grande no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">PTG</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Bandeira_Oficial_Porto_Grande.jpg" alt="Bandeira de Porto Grande" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Porto Grande</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/BGAh8kjF4xy99KjcYwDNdU" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Pedra Branca do Amapari no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">PBA</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b3/Bandeira_de_Pedra_Branca_do_Amapari.jpg" alt="Bandeira de Pedra Branca do Amapari" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Pedra Branca do Amapari</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/JdYE79fFDi56sflO1dEbbp" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Tartarugalzinho no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">TTZ</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Bandeira_de_Tartarugalzinho_AP.svg" alt="Bandeira de Tartarugalzinho" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Tartarugalzinho</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/EUXw8TnNHFN5f8OBVrcwzX" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Vitória do Jari no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">VJI</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d5/Bandeira_de_Vit%C3%B3ria_do_Jari_-_AP.svg" alt="Bandeira de Vitória do Jari" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Vitória do Jari</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/BoqachQP6Qn9xfXpSsH4JP" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Calçoene no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">CLC</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/a/ab/Bandeira_de_Cal%C3%A7oene_AP.svg" alt="Bandeira de Calçoene" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Calçoene</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/BxAHV24L8YaKwv1j6fajFa" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Amapá no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">AMP</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Bandeira_Munic%C3%ADpio_de_Amap%C3%A1.jpg" alt="Bandeira de Amapá" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Amapá</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/HXlRRsF1bI48sNdOnvBCgS" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Ferreira Gomes no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">FGO</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/1d/Bandeira_de_Ferreira_Gomes_AP.svg" alt="Bandeira de Ferreira Gomes" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Ferreira Gomes</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/FAhlHBoPLsf7nyouNmy82T" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Itaubal no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">ITB</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d0/Itaubalbandeiraamabra.PNG" alt="Bandeira de Itaubal" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Itaubal</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/IdbO9Nm90Tl6R2fWWkCVF1" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Serra do Navio no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">SNV</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/1/10/Bandeira_de_Serra_do_Navio%2C_Amap%C3%A1.png" alt="Bandeira de Serra do Navio" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Serra do Navio</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/K1a4P08rET85SXdL0td7Gk" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Cutias no WhatsApp">
+          <span class="gr-band">
+            <span class="gr-sigla" aria-hidden="true">CTS</span>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/85/Cutiasbandeiramap.jpg" alt="Bandeira de Cutias" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Cutias</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+        <a class="gr" href="https://chat.whatsapp.com/CwFFjw2MozfGFh4Sbx2hfW" target="_blank" rel="noopener"
+          aria-label="Entrar no grupo de Pracuúba no WhatsApp">
+          <span class="gr-band" style="background:#fff">
+            <span class="gr-sigla" aria-hidden="true">PRC</span>
+            <img src="/img/pracuuba.png" alt="Bandeira de Pracuúba" loading="lazy" />
+          </span>
+          <span class="gr-txt">
+            <span class="gr-nome">Pracuúba</span>
+            <span class="gr-cta"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-zap" /></svg>Entrar no grupo</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    /* se a imagem da bandeira não existir, mostra a sigla do município */
+    document.querySelectorAll('.gr-band img').forEach(img => {
+      img.addEventListener('error', () => img.remove());
+    });
+  </script>
 
   <!-- ═══════════════════ CONTATO ═══════════════════ -->
   <section id="contato" class="faixa faixa--osso">
@@ -3883,6 +4689,7 @@
     </div>
   </footer>
 
+  <script async src="https://www.instagram.com/embed.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     /* ═══════════════════════════════════════════════════════
