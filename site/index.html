@@ -281,6 +281,10 @@
       margin-bottom: clamp(16px, 2vw, 24px);
     }
 
+    .br-mob {
+      display: none;
+    }
+
     /* ── BOTÕES ─────────────────────────────────────────────── */
     .btn {
       display: inline-flex;
@@ -1095,59 +1099,12 @@
 
     .ficha {
       background: var(--branco);
-      border: 1px solid var(--linha);
+      border: 2px solid var(--verde);
       border-radius: var(--raio);
       box-shadow: var(--sombra-sm);
       overflow: hidden;
       position: sticky;
       top: 96px;
-    }
-
-    .ficha-cab {
-      background: var(--verde-mata);
-      color: #fff;
-      padding: 18px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-    }
-
-    .ficha-cab span {
-      font-size: .68rem;
-      letter-spacing: .2em;
-      text-transform: uppercase;
-      font-variation-settings: 'wdth' 100, 'wght' 700;
-      color: var(--amarelo);
-    }
-
-    .ficha dl {
-      padding: 6px 24px 20px;
-    }
-
-    .ficha .li {
-      padding: 14px 0;
-      border-bottom: 1px solid var(--linha);
-    }
-
-    .ficha .li:last-child {
-      border-bottom: none;
-    }
-
-    .ficha dt {
-      font-size: .64rem;
-      letter-spacing: .16em;
-      text-transform: uppercase;
-      color: var(--tinta-3);
-      font-variation-settings: 'wdth' 100, 'wght' 700;
-      margin-bottom: 5px;
-    }
-
-    .ficha dd {
-      font-size: .93rem;
-      line-height: 1.5;
-      color: var(--tinta);
-      font-variation-settings: 'wdth' 100, 'wght' 500;
     }
 
     .selos {
@@ -1179,6 +1136,11 @@
       border: 1px solid var(--linha);
     }
 
+    .selo.azul {
+      background: var(--azul);
+      color: #fff;
+    }
+
     /* ══════════════════════════════════════════════════════════
        COMPROMISSOS — lista numerada (é uma pauta, não um tempo)
        ══════════════════════════════════════════════════════════ */
@@ -1195,6 +1157,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center top;
       display: block;
     }
 
@@ -1768,14 +1731,7 @@
       font-size: clamp(1.05rem, 1.8vw, 1.32rem);
       line-height: 1.45;
       color: #fff;
-    }
-
-    .estrela {
-      width: 16px;
-      height: 16px;
-      background: var(--amarelo);
-      margin-bottom: 16px;
-      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      text-align: center;
     }
 
     /* ══════════════════════════════════════════════════════════
@@ -1860,10 +1816,6 @@
       text-align: center;
     }
 
-    .redes-cta {
-      text-align: center;
-    }
-
     .cont-g {
       display: grid;
       grid-template-columns: .9fr 1.1fr;
@@ -1882,7 +1834,7 @@
       gap: 10px;
     }
 
-    .chip {
+    .valor-chip {
       background: var(--verde-mata);
       color: #fff;
       font-family: 'Archivo', sans-serif;
@@ -1894,7 +1846,7 @@
       border-radius: 100px;
     }
 
-    .chip.g {
+    .valor-chip.g {
       background: var(--amarelo);
       color: var(--verde-noite);
     }
@@ -2067,46 +2019,6 @@
       opacity: .45;
     }
 
-    .subir {
-      position: fixed;
-      right: 22px;
-      bottom: 22px;
-      z-index: 400;
-      width: 52px;
-      height: 52px;
-      border-radius: 50%;
-      background: var(--verde-mata);
-      color: var(--amarelo);
-      border: 2px solid var(--amarelo);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(12px);
-      transition: opacity .25s, transform .25s, visibility .25s, background .2s;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
-    }
-
-    .subir.on {
-      opacity: 1;
-      visibility: visible;
-      transform: none;
-    }
-
-    .subir:hover {
-      background: var(--verde);
-    }
-
-    .subir svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      fill: none;
-      stroke-width: 2.4;
-    }
-
     /* ══════════════════════════════════════════════════════════
        RESPONSIVO
        ══════════════════════════════════════════════════════════ */
@@ -2140,12 +2052,17 @@
         display: flex;
       }
 
+      .marca img {
+        height: 42px;
+      }
+
       .quem-g {
         grid-template-columns: 1fr;
       }
 
       .ficha {
         position: static;
+        order: -1;
       }
 
       .cont-g {
@@ -2185,37 +2102,72 @@
         position: relative;
         height: auto;
         aspect-ratio: 16 / 11;
-        object-position: 34% top;
+        object-position: center top;
       }
 
       .hero-veu,
-      .hero-ceu,
-      .hero-pl {
+      .hero-ceu {
         display: none;
+      }
+
+      .hero-pl {
+        top: 82px;
+        right: 14px;
+        width: clamp(26px, 7vw, 36px);
       }
 
       .hero-in {
         max-width: 100%;
-        padding: 30px var(--gut) 44px;
+        padding: 10px var(--gut) 44px;
         align-items: center;
         text-align: center;
-        background: linear-gradient(160deg, var(--verde-mata) 0%, var(--verde-fundo) 100%);
+        background: var(--verde-mata);
       }
 
-      .hero-lead,
-      .hero-frase {
+      .hero-logo {
+        padding-top: 0;
+        margin-top: -8px;
+      }
+
+      .hero-logo img {
+        height: clamp(88px, 10.6vw, 136px);
+      }
+
+      .lk-txt {
+        font-size: .54rem;
+        padding: 3px 8px;
+      }
+
+      .hero-tit {
+        font-size: clamp(3.3rem, 11vw, 4.4rem);
+      }
+
+      .hero-lead {
+        font-size: .8rem;
         text-align: center;
         margin-left: auto;
         margin-right: auto;
       }
 
       .hero-frase {
-        border-left: none;
-        border-top: 2px solid var(--amarelo);
-        padding: 16px 0 0;
+        text-align: left;
+        margin-left: auto;
+        margin-right: auto;
       }
 
-      .hero-tags,
+      .hero-tags {
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 4px;
+      }
+
+      .tag-linha {
+        font-size: .5rem;
+        padding: 4px 7px;
+        letter-spacing: .04em;
+        gap: 4px;
+      }
+
       .hero-btns {
         justify-content: center;
       }
@@ -2247,6 +2199,29 @@
         border-top: 1px solid rgba(255, 255, 255, .16);
       }
 
+      .br-mob {
+        display: block;
+      }
+
+      .d2 {
+        font-size: clamp(1.15rem, 4.8vw, 1.7rem);
+        line-height: 1.35;
+      }
+
+      #defende .cab h2.d2 {
+        white-space: nowrap;
+        line-height: 1.7;
+      }
+
+      .placar-i {
+        text-align: center;
+      }
+
+      .placar-i>div[aria-hidden] {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
       .comp-g {
         grid-template-columns: 1fr;
       }
@@ -2257,6 +2232,10 @@
 
       .crencas {
         grid-template-columns: 1fr;
+      }
+
+      .crenca p {
+        font-size: clamp(1.25rem, 5.5vw, 1.6rem);
       }
 
       .filtro {
@@ -2283,6 +2262,82 @@
         grid-template-columns: 1fr;
       }
 
+      .chip {
+        font-size: .7rem;
+        padding: 6px 12px;
+      }
+
+      /* chips de filtro dos eixos: todos do mesmo tamanho, quebrando linha, sem rolagem lateral */
+      .chips {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      /* tabela de metas vira lista de cards, sem precisar rolar pro lado */
+      .tabela-wrap {
+        overflow-x: visible;
+        border: none;
+        box-shadow: none;
+        background: none;
+      }
+
+      table.metas {
+        min-width: 0;
+      }
+
+      table.metas thead {
+        display: none;
+      }
+
+      table.metas,
+      table.metas tbody,
+      table.metas tr {
+        display: block;
+        width: 100%;
+      }
+
+      table.metas tr {
+        margin-bottom: 12px;
+        border: 1px solid var(--linha);
+        border-radius: var(--raio);
+        background: var(--branco);
+        box-shadow: var(--sombra-sm);
+        overflow: hidden;
+      }
+
+      table.metas td {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        text-align: right;
+        white-space: normal;
+        border-top: 1px solid var(--osso-2);
+      }
+
+      table.metas td:first-child {
+        border-top: none;
+      }
+
+      table.metas td::before {
+        content: attr(data-label);
+        font-size: .64rem;
+        font-variation-settings: 'wdth' 100, 'wght' 750;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        color: var(--tinta-3);
+        text-align: left;
+        white-space: normal;
+      }
+
+      table.metas tr.soma td {
+        border-top: 1px solid rgba(255, 223, 0, .4);
+      }
+
+      table.metas tr.soma td:first-child {
+        border-top: none;
+      }
+
       .form-row {
         grid-template-columns: 1fr;
       }
@@ -2304,6 +2359,28 @@
       .eixo summary {
         padding: 16px 18px;
         gap: 12px;
+      }
+
+      .contador {
+        font-size: .78rem;
+      }
+
+      .eixo-n {
+        font-size: .85rem;
+        width: 22px;
+      }
+
+      .eixo-nome {
+        font-size: .82rem;
+      }
+
+      #eixo-apoio-a-entidades-religiosas-e-sociais .eixo-nome {
+        font-size: .68rem;
+      }
+
+      .eixo-qtd {
+        font-size: .6rem;
+        padding: 4px 9px;
       }
 
       .eixo-corpo {
@@ -2346,7 +2423,6 @@
 
       .topo,
       .gaveta,
-      .subir,
       .filtro,
       .rolar {
         display: none !important;
@@ -2450,24 +2526,6 @@
           <li><a href="#quem">Quem sou</a></li>
           <li><a href="#compromissos">Meus compromissos</a></li>
           <li><a href="#propostas">66 Propostas</a></li>
-          <li id="dd-li">
-            <button id="dd-btn" aria-haspopup="true" aria-expanded="false" aria-controls="dd-menu">
-              O que muda pra você <span class="seta" aria-hidden="true"></span>
-            </button>
-            <div class="drop" id="dd-menu" role="menu">
-              <p class="drop-tit">Fale por onde você se encaixa</p>
-              <a class="wa-seg" data-seg="Sou cristão/evangélico." href="#" role="menuitem">Cristão / Evangélico</a>
-              <a class="wa-seg" data-seg="Falo em nome da minha família." href="#" role="menuitem">Família</a>
-              <a class="wa-seg" data-seg="Sou jovem." href="#" role="menuitem">Jovem</a>
-              <a class="wa-seg" data-seg="Sou trabalhador." href="#" role="menuitem">Trabalhador</a>
-              <a class="wa-seg" data-seg="Sou produtor rural / agricultor familiar." href="#" role="menuitem">Agricultor
-                familiar</a>
-              <a class="wa-seg" data-seg="Sou de comunidade ribeirinha ou indígena." href="#" role="menuitem">Comunidade
-                ribeirinha</a>
-              <a class="wa-seg" data-seg="Sou servidor público." href="#" role="menuitem">Servidor público</a>
-              <a class="wa-seg" data-seg="Sou estudante." href="#" role="menuitem">Estudante</a>
-            </div>
-          </li>
         </ul>
       </nav>
 
@@ -2503,8 +2561,11 @@
   <!-- ═══════════════════ HERO ═══════════════════ -->
   <section id="hero">
     <div id="particles-hero" aria-hidden="true"></div>
-    <img class="hero-img" src="/img/fundo01.webp"
-      alt="Gesiel Oliveira, candidato a Deputado Federal, com a bandeira do Brasil ao fundo" fetchpriority="high" />
+    <picture>
+      <source media="(max-width: 920px)" srcset="/img/foto1mob.webp" />
+      <img class="hero-img" src="/img/fundo01.webp"
+        alt="Gesiel Oliveira, candidato a Deputado Federal, com a bandeira do Brasil ao fundo" fetchpriority="high" />
+    </picture>
     <div class="hero-veu" aria-hidden="true"></div>
     <svg class="hero-ceu" aria-hidden="true">
       <use href="#ceu" />
@@ -2547,17 +2608,17 @@
       <div class="placar-i rv">
         <p class="pn"><span class="cont" data-n="26">26</span></p>
         <div aria-hidden="true" style="height:4px;width:46px;margin:7px 0 10px;border-radius:3px;background:linear-gradient(90deg,var(--verde) 0 33%,var(--amarelo) 33% 66%,#1F4D8C 66% 100%);"></div>
-        <p class="pt"><b>26 anos</b><br>Casado com a Pastora Berenice Rabelo</p>
+        <p class="pt"><b>Anos</b><br>Casado com a Pastora Berenice Rabelo</p>
       </div>
       <div class="placar-i rv" data-d="1">
         <p class="pn"><span class="cont" data-n="3">3</span></p>
         <div aria-hidden="true" style="height:4px;width:46px;margin:7px 0 10px;border-radius:3px;background:linear-gradient(90deg,var(--verde) 0 33%,var(--amarelo) 33% 66%,#1F4D8C 66% 100%);"></div>
-        <p class="pt"><b>3 filhos</b><br>Gabriel, Miguel e Larissa</p>
+        <p class="pt"><b>Filhos</b><br>Gabriel, Miguel e Larissa</p>
       </div>
       <div class="placar-i rv" data-d="2">
         <p class="pn"><span class="cont" data-n="20">20</span></p>
         <div aria-hidden="true" style="height:4px;width:46px;margin:7px 0 10px;border-radius:3px;background:linear-gradient(90deg,var(--verde) 0 33%,var(--amarelo) 33% 66%,#1F4D8C 66% 100%);"></div>
-        <p class="pt"><b>20 anos</b><br>Servindo comunidades ribeirinhas e indígenas da Amazônia</p>
+        <p class="pt"><b>Anos</b><br>Servindo comunidades ribeirinhas e indígenas da Amazônia</p>
       </div>
       <div class="placar-i rv" data-d="3">
         <p class="pn"><span class="cont" data-n="9">9</span></p>
@@ -2572,7 +2633,7 @@
     <div class="wrap">
       <div class="cab rv">
         <p class="olho olho--sem-marca">Bandeiras</p>
-        <h2 class="d2">Deus acima de tudo. Família como alicerce.<br />O Amapá em primeiro lugar.</h2>
+        <h2 class="d2">Deus acima de tudo.<br class="br-mob" /> Família como alicerce.<br />O Amapá em primeiro lugar.</h2>
         <p class="lead">Meu mandato terá uma direção clara. Não existe desenvolvimento sem princípios. Cada proposta
           apresentada nasce de valores que não mudam, independentemente do governo ou das circunstâncias.</p>
       </div>
@@ -2679,53 +2740,12 @@
           <div class="selos">
             <span class="selo">Fé</span>
             <span class="selo ouro">Estudo</span>
-            <span class="selo linha">Serviço</span>
+            <span class="selo azul">Serviço</span>
           </div>
         </div>
 
         <aside class="ficha rv" data-d="1">
-          <div class="ficha-cab">
-            <span>Ficha do candidato</span>
-            <div class="losangos" aria-hidden="true"><i></i><i></i><i></i></div>
-          </div>
-          <dl>
-            <div class="li">
-              <dt>Nome completo</dt>
-              <dd>Gesiel de Souza Oliveira</dd>
-            </div>
-            <div class="li">
-              <dt>Partido</dt>
-              <dd>PL, Partido Liberal · Amapá</dd>
-            </div>
-            <div class="li">
-              <dt>Cargo pretendido</dt>
-              <dd>Deputado Federal</dd>
-            </div>
-            <div class="li">
-              <dt>Naturalidade</dt>
-              <dd>Macapá, AP · 3 de fevereiro de 1978</dd>
-            </div>
-            <div class="li">
-              <dt>Formação</dt>
-              <dd>Geografia · Direito · Teologia</dd>
-            </div>
-            <div class="li">
-              <dt>Profissão</dt>
-              <dd>Oficial de Justiça (TJAP) e professor</dd>
-            </div>
-            <div class="li">
-              <dt>Atuação religiosa</dt>
-              <dd>Vice-presidente da COMADEZON</dd>
-            </div>
-            <div class="li">
-              <dt>Entidades que fundou</dt>
-              <dd>APEBE · Ação Social Getsêmani · Projeto Valorizando Vida</dd>
-            </div>
-            <div class="li">
-              <dt>Academia</dt>
-              <dd>ALEA, cadeira nº 19, membro vitalício</dd>
-            </div>
-          </dl>
+          <img src="/img/fito3.png" alt="Gesiel Oliveira" loading="lazy" style="width:100%;height:auto;display:block" />
         </aside>
       </div>
     </div>
@@ -2830,7 +2850,6 @@
             <input type="search" id="busca" class="busca" autocomplete="off"
               placeholder="Buscar por tema: energia, açaí, BR-156, professores…" aria-label="Buscar proposta" />
           </div>
-          <button class="chip" id="btn-tudo" type="button">Recolher tudo</button>
         </div>
         <div class="chips" role="group" aria-label="Filtrar por eixo">
           <button class="chip" type="button" data-f="todos" aria-pressed="true">Todos os eixos</button>
@@ -3648,59 +3667,59 @@
           </thead>
           <tbody>
             <tr>
-              <td>Energia</td>
-              <td>Redução da tarifa</td>
-              <td>−30%</td>
+              <td data-label="Área">Energia</td>
+              <td data-label="Indicador">Redução da tarifa</td>
+              <td data-label="Meta em 4 anos">−30%</td>
             </tr>
             <tr>
-              <td>Energia</td>
-              <td>Investimento em infraestrutura</td>
-              <td>R$ 200 mi</td>
+              <td data-label="Área">Energia</td>
+              <td data-label="Indicador">Investimento em infraestrutura</td>
+              <td data-label="Meta em 4 anos">R$ 200 mi</td>
             </tr>
             <tr>
-              <td>Empreendedorismo</td>
-              <td>Novos MEIs criados</td>
-              <td>+10.000</td>
+              <td data-label="Área">Empreendedorismo</td>
+              <td data-label="Indicador">Novos MEIs criados</td>
+              <td data-label="Meta em 4 anos">+10.000</td>
             </tr>
             <tr>
-              <td>Agricultura</td>
-              <td>Famílias no PRONAF especial</td>
-              <td>15.000</td>
+              <td data-label="Área">Agricultura</td>
+              <td data-label="Indicador">Famílias no PRONAF especial</td>
+              <td data-label="Meta em 4 anos">15.000</td>
             </tr>
             <tr>
-              <td>Educação</td>
-              <td>Novos campi do IFAP</td>
-              <td>5 campi</td>
+              <td data-label="Área">Educação</td>
+              <td data-label="Indicador">Novos campi do IFAP</td>
+              <td data-label="Meta em 4 anos">5 campi</td>
             </tr>
             <tr>
-              <td>Saúde</td>
-              <td>Hospitais regionais</td>
-              <td>2 hospitais</td>
+              <td data-label="Área">Saúde</td>
+              <td data-label="Indicador">Hospitais regionais</td>
+              <td data-label="Meta em 4 anos">2 hospitais</td>
             </tr>
             <tr>
-              <td>Segurança</td>
-              <td>Jovens no mercado de trabalho</td>
-              <td>50.000</td>
+              <td data-label="Área">Segurança</td>
+              <td data-label="Indicador">Jovens no mercado de trabalho</td>
+              <td data-label="Meta em 4 anos">50.000</td>
             </tr>
             <tr>
-              <td>Infraestrutura</td>
-              <td>Emendas para a BR-156</td>
-              <td>R$ 500 mi</td>
+              <td data-label="Área">Infraestrutura</td>
+              <td data-label="Indicador">Emendas para a BR-156</td>
+              <td data-label="Meta em 4 anos">R$ 500 mi</td>
             </tr>
             <tr>
-              <td>Assistência Social</td>
-              <td>Famílias no Bolsa Família ampliado</td>
-              <td>100.000</td>
+              <td data-label="Área">Assistência Social</td>
+              <td data-label="Indicador">Famílias no Bolsa Família ampliado</td>
+              <td data-label="Meta em 4 anos">100.000</td>
             </tr>
             <tr>
-              <td>Cultura / Esporte</td>
-              <td>Centros esportivos</td>
-              <td>20 centros</td>
+              <td data-label="Área">Cultura / Esporte</td>
+              <td data-label="Indicador">Centros esportivos</td>
+              <td data-label="Meta em 4 anos">20 centros</td>
             </tr>
             <tr class="soma">
-              <td>Total de emendas</td>
-              <td>Recursos direcionados ao Amapá</td>
-              <td>R$ 1,5 bi</td>
+              <td data-label="Área">Total de emendas</td>
+              <td data-label="Indicador">Recursos direcionados ao Amapá</td>
+              <td data-label="Meta em 4 anos">R$ 1,5 bi</td>
             </tr>
           </tbody>
         </table>
@@ -3716,8 +3735,8 @@
       </div>
 
       <div style="text-align:center;margin-top:44px" class="rv">
-        <a href="#" class="btn btn--verde wa-link" data-msg="Quero receber o plano completo com as 66 propostas.">
-          Receber o plano completo no WhatsApp
+        <a href="/apoiadores" class="btn btn--verde">
+          Apoiar
         </a>
       </div>
     </div>
@@ -3736,20 +3755,16 @@
       </div>
       <div class="crencas">
         <div class="crenca rv">
-          <div class="estrela" aria-hidden="true"></div>
           <p>“Deus acima de tudo. O Amapá em primeiro lugar.”</p>
         </div>
         <div class="crenca rv" data-d="1">
-          <div class="estrela" aria-hidden="true"></div>
           <p>“O Amapá que sonhamos começa agora.”</p>
         </div>
         <div class="crenca rv" data-d="2">
-          <div class="estrela" aria-hidden="true"></div>
           <p>“Brasília precisa ouvir a voz de quem trabalha, de quem produz, de quem cria os filhos com dignidade e de
             quem coloca Deus em primeiro lugar.”</p>
         </div>
         <div class="crenca rv" data-d="3">
-          <div class="estrela" aria-hidden="true"></div>
           <p>“A favor da vida em todas as suas fases, do início à velhice, sem exceções.”</p>
         </div>
       </div>
@@ -3762,41 +3777,38 @@
       <div class="cab rv">
         <p class="olho">Conecte-se</p>
         <h2 class="d2">Acompanhe o dia a dia<br />da campanha</h2>
+        <p style="margin-top:10px;font-size:.82rem;color:var(--tinta-3)">Clique na rede social abaixo para acessar</p>
       </div>
       <div class="redes-g rv" data-d="1">
-        <!-- TROQUE os href pelos links reais das redes -->
-        <a href="#" target="_blank" rel="noopener" class="rede-card ig">
+        <a href="https://www.instagram.com/gesiel.oliveira.ofc" target="_blank" rel="noopener" class="rede-card ig">
           <svg class="r-ico" viewBox="0 0 24 24">
             <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
             <circle cx="12" cy="12" r="4.5" />
             <circle cx="17.5" cy="6.5" r="1" fill="white" stroke="none" />
           </svg>
-          <span>Instagram</span><small>@gesieloliveira</small>
+          <span>Instagram</span><small>@gesiel.oliveira.ofc</small>
         </a>
-        <a href="#" target="_blank" rel="noopener" class="rede-card fb">
+        <a href="https://www.facebook.com/gesiel.oliveira.9" target="_blank" rel="noopener" class="rede-card fb">
           <svg class="r-ico" viewBox="0 0 24 24" fill="white" stroke="none">
             <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
           </svg>
           <span>Facebook</span><small>Gesiel Oliveira</small>
         </a>
-        <a href="#" target="_blank" rel="noopener" class="rede-card yt">
+        <a href="https://www.youtube.com/@GesielOliveira78" target="_blank" rel="noopener" class="rede-card yt">
           <svg class="r-ico" viewBox="0 0 24 24" fill="white" stroke="none">
             <path
               d="M22.54 6.42a2.78 2.78 0 0 0-1.94-1.96C18.88 4 12 4 12 4s-6.88 0-8.6.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.4 19.54C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
             <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
           </svg>
-          <span>YouTube</span><small>Gesiel Oliveira</small>
+          <span>YouTube</span><small>@GesielOliveira78</small>
         </a>
-        <a href="#" target="_blank" rel="noopener" class="rede-card x">
+        <a href="https://x.com/PrGesiel_" target="_blank" rel="noopener" class="rede-card x">
           <svg class="r-ico" viewBox="0 0 24 24" fill="white" stroke="none">
             <path
               d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
           </svg>
-          <span>X (Twitter)</span><small>Gesiel Oliveira</small>
+          <span>X (Twitter)</span><small>@PrGesiel_</small>
         </a>
-      </div>
-      <div class="redes-cta rv" data-d="2">
-        <a href="#" target="_blank" rel="noopener" class="btn btn--ouro">Seguir nas Redes</a>
       </div>
     </div>
   </section>
@@ -3811,11 +3823,11 @@
           <p class="lead">Quer acompanhar, apoiar ou levar uma demanda da sua comunidade? Preencha o formulário ou
             acompanhe pelas redes sociais.</p>
           <div class="chips2">
-            <span class="chip">Vida</span>
-            <span class="chip">Família</span>
-            <span class="chip">Liberdades</span>
-            <span class="chip">Princípios cristãos</span>
-            <span class="chip g">★ PL</span>
+            <span class="valor-chip">Vida</span>
+            <span class="valor-chip">Família</span>
+            <span class="valor-chip">Liberdades</span>
+            <span class="valor-chip">Princípios cristãos</span>
+            <span class="valor-chip g">★ PL</span>
           </div>
         </div>
 
@@ -3898,12 +3910,6 @@
     </div>
   </footer>
 
-  <button class="subir" id="subir" aria-label="Voltar ao topo">
-    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 19V5M5 12l7-7 7 7" />
-    </svg>
-  </button>
-
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
   <script>
     /* ═══════════════════════════════════════════════════════
@@ -3959,10 +3965,10 @@
         number: { value: 40, density: { enable: true, value_area: 900 } },
         color: { value: '#FFDF00' },
         shape: { type: 'circle' },
-        opacity: { value: 0.55, random: true, anim: { enable: true, speed: 1.6, opacity_min: 0.05, sync: false } },
+        opacity: { value: 0.55, random: true, anim: { enable: true, speed: 0.6, opacity_min: 0.05, sync: false } },
         size: { value: 2, random: true, anim: { enable: false } },
         line_linked: { enable: false },
-        move: { enable: true, speed: 2.5, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+        move: { enable: true, speed: 0.9, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
       },
       interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
       retina_detect: true
@@ -3973,10 +3979,10 @@
         number: { value: 30, density: { enable: true, value_area: 900 } },
         color: { value: '#ffffff' },
         shape: { type: 'circle' },
-        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 1.4, opacity_min: 0.05, sync: false } },
+        opacity: { value: 0.4, random: true, anim: { enable: true, speed: 0.5, opacity_min: 0.05, sync: false } },
         size: { value: 1.8, random: true, anim: { enable: false } },
         line_linked: { enable: false },
-        move: { enable: true, speed: 2.2, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
+        move: { enable: true, speed: 0.8, direction: 'none', random: true, straight: false, out_mode: 'out', bounce: false }
       },
       interactivity: { detect_on: 'canvas', events: { onhover: { enable: false }, onclick: { enable: false }, resize: true } },
       retina_detect: true
@@ -4004,22 +4010,8 @@
       a.rel = 'noopener';
     });
 
-    /* ── Menu suspenso (desktop) ─────────────────────────── */
-    const ddLi = document.getElementById('dd-li');
-    const ddBtn = document.getElementById('dd-btn');
-    ddBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      const aberto = ddLi.classList.toggle('aberto');
-      ddBtn.setAttribute('aria-expanded', aberto);
-    });
-    document.addEventListener('click', () => {
-      ddLi.classList.remove('aberto');
-      ddBtn.setAttribute('aria-expanded', 'false');
-    });
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
-        ddLi.classList.remove('aberto');
-        ddBtn.setAttribute('aria-expanded', 'false');
         fecharGaveta();
       }
     });
@@ -4048,7 +4040,6 @@
     let ticking = false;
     function aoRolar() {
       topo.classList.toggle('colado', window.scrollY > 40);
-      document.getElementById('subir').classList.toggle('on', window.scrollY > 900);
       const y = window.scrollY + 140;
       let atual = -1;
       secoes.forEach((s, i) => { if (s && s.offsetTop <= y) atual = i; });
@@ -4059,10 +4050,6 @@
       if (!ticking) { requestAnimationFrame(aoRolar); ticking = true; }
     }, { passive: true });
     aoRolar();
-
-    document.getElementById('subir').addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
 
     /* ── Revelação + contadores ──────────────────────────── */
     const reduz = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -4098,7 +4085,6 @@
       const chips = [...document.querySelectorAll('.chip[data-f]')];
       const contador = document.getElementById('contador');
       const vazio = document.getElementById('vazio');
-      const btnTudo = document.getElementById('btn-tudo');
       const TOTAL = itens.length;
       let filtroEixo = 'todos';
 
@@ -4150,12 +4136,6 @@
 
         contador.innerHTML = '<b>' + visiveis + '</b> de ' + TOTAL + ' propostas';
         vazio.hidden = visiveis > 0;
-        atualizaBtnTudo();
-      }
-
-      function atualizaBtnTudo() {
-        const abertos = eixos.filter(e => e.open && !e.classList.contains('oculto')).length;
-        btnTudo.textContent = abertos > 0 ? 'Recolher tudo' : 'Abrir tudo';
       }
 
       busca.addEventListener('input', aplica);
@@ -4166,16 +4146,6 @@
         aplica();
       }));
 
-      btnTudo.addEventListener('click', () => {
-        const abrir = btnTudo.textContent === 'Abrir tudo';
-        eixos.forEach(e => { if (!e.classList.contains('oculto')) e.open = abrir; });
-        atualizaBtnTudo();
-      });
-
-      eixos.forEach(e => e.addEventListener('toggle', atualizaBtnTudo));
-
-      /* índice dos 13 eixos → abre e rola até o eixo */
-      atualizaBtnTudo();
     })();
 
     /* ═══════════════════════════════════════════════════════
