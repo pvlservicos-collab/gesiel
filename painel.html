@@ -2397,8 +2397,9 @@
           </div>
           <button type="button" class="btn-add-agenda" onclick="adicionarAgenda()">+ Adicionar à agenda</button>
         </div>
-        <p class="agenda-nota">💡 A agenda fica salva neste navegador. O CSV exportado já sai no formato do Google My
-          Maps: importe em <b>mymaps.google.com</b> usando a coluna <b>Endereço</b> para posicionar os pontos.</p>
+        <p class="agenda-nota">💡 A agenda é compartilhada — qualquer pessoa com acesso ao painel vê os mesmos
+          compromissos. O CSV exportado já sai no formato do Google My Maps: importe em <b>mymaps.google.com</b>
+          usando a coluna <b>Endereço</b> para posicionar os pontos.</p>
         <div class="toolbar">
           <span style="font-size:13px;color:var(--muted)"><b id="agTotal" style="color:var(--ink)">0</b>
             compromissos</span>
@@ -2997,13 +2998,9 @@
       chartApo = desenharGraficoUnico('chartApo', chartApo, serie, 'apoiadores', 'Apoiadores', '#fde047');
     }
 
-    /* ===== agenda (salva no navegador) ===== */
-    const AGENDA_KEY = 'agenda_gesiel_v1';
-    function lerAgenda() {
-      try { return JSON.parse(localStorage.getItem(AGENDA_KEY) || '[]'); } catch (e) { return []; }
-    }
-    function salvarAgenda(itens) { localStorage.setItem(AGENDA_KEY, JSON.stringify(itens)); }
-    function adicionarAgenda() {
+    /* ===== agenda (compartilhada — salva no banco, via /api/admin/agenda) ===== */
+    let agendaCache = [];
+    async function adicionarAgenda() {
       const titulo = document.getElementById('ag-titulo').value.trim();
       const data = document.getElementById('ag-data').value;
       const hora = document.getElementById('ag-hora').value;
@@ -3011,9 +3008,15 @@
       const local = document.getElementById('ag-local').value.trim();
       const obs = document.getElementById('ag-obs').value.trim();
       if (!titulo || !data) { alert('Preencha pelo menos o compromisso e a data.'); return; }
-      const itens = lerAgenda();
-      itens.push({ id: Date.now(), titulo, data, hora, duracao, local, obs });
-      salvarAgenda(itens);
+      try {
+        await api('/api/admin/agenda', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ titulo, data, hora, duracao, local, obs })
+        });
+      } catch (e) {
+        alert('Erro ao salvar: ' + e.message);
+        return;
+      }
       document.getElementById('ag-titulo').value = '';
       document.getElementById('ag-data').value = '';
       document.getElementById('ag-hora').value = '';
@@ -3022,13 +3025,25 @@
       document.getElementById('ag-obs').value = '';
       carregarAgenda();
     }
-    function excluirAgenda(id) {
+    async function excluirAgenda(id) {
       if (!confirm('Excluir esse compromisso?')) return;
-      salvarAgenda(lerAgenda().filter(i => i.id !== id));
+      try {
+        await api('/api/admin/agenda?id=' + id, { method: 'DELETE' });
+      } catch (e) {
+        alert('Erro ao excluir: ' + e.message);
+        return;
+      }
       carregarAgenda();
     }
-    function carregarAgenda() {
-      const itens = lerAgenda().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
+    async function carregarAgenda() {
+      try {
+        const d = await api('/api/admin/agenda');
+        agendaCache = d.itens || [];
+      } catch (e) {
+        if (String(e.message).includes('autenticado')) return logout();
+        agendaCache = [];
+      }
+      const itens = agendaCache.slice().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
       const body = document.getElementById('agendaBody');
       const hoje = isoLocal(new Date());
       body.innerHTML = '';
@@ -3068,7 +3083,7 @@
       renderSemana();
     }
     function renderSemana() {
-      const itens = lerAgenda();
+      const itens = agendaCache;
       const hoje = isoLocal(new Date());
       const dias = [];
       for (let i = 0; i < 7; i++) {
@@ -3131,13 +3146,19 @@
     function fecharEvento() {
       document.getElementById('eventoOverlay').classList.remove('open');
     }
-    function salvarEventoRapido() {
+    async function salvarEventoRapido() {
       const titulo = document.getElementById('ev-titulo').value.trim();
       if (!titulo) { alert('Preencha o compromisso.'); return; }
       const local = document.getElementById('ev-local').value.trim();
-      const itens = lerAgenda();
-      itens.push({ id: Date.now(), titulo, data: eventoData, hora: eventoHora, local, obs: '' });
-      salvarAgenda(itens);
+      try {
+        await api('/api/admin/agenda', {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ titulo, data: eventoData, hora: eventoHora, local, obs: '' })
+        });
+      } catch (e) {
+        alert('Erro ao salvar: ' + e.message);
+        return;
+      }
       fecharEvento();
       carregarAgenda();
     }
@@ -3153,7 +3174,7 @@
     })();
     function csvCampo(s) { return '"' + String(s || '').replace(/"/g, '""') + '"'; }
     function exportarCsvAgenda() {
-      const itens = lerAgenda().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
+      const itens = agendaCache.slice().sort((a, b) => ((a.data + (a.hora || '')) < (b.data + (b.hora || ''))) ? -1 : 1);
       if (!itens.length) { alert('A agenda está vazia.'); return; }
       const linhas = ['Nome,Endereço,Data,Hora,Observações'];
       itens.forEach(i => {

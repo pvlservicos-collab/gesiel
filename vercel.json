@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/api/track", "destination": "/api/lead" },
+    { "source": "/", "destination": "/site/index.html" },
     { "source": "/site", "destination": "/site/index.html" }
   ]
 }

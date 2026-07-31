@@ -108,6 +108,18 @@ async function ensureSchemaImpl() {
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por TEXT;
       ALTER TABLE apoiadores ADD COLUMN IF NOT EXISTS indicado_por_id BIGINT;
 
+      CREATE TABLE IF NOT EXISTS agenda (
+        id BIGSERIAL PRIMARY KEY,
+        titulo TEXT NOT NULL,
+        data DATE NOT NULL,
+        hora TEXT,
+        duracao NUMERIC,
+        local TEXT,
+        obs TEXT,
+        criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
+      );
+      CREATE INDEX IF NOT EXISTS agenda_data_idx ON agenda (data, hora);
+
       CREATE TABLE IF NOT EXISTS iadogesiel_config (
         id INT PRIMARY KEY,
         data JSONB NOT NULL,
