@@ -839,14 +839,45 @@
       backdrop-filter: blur(4px);
     }
 
+    .hero-numero {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 22px;
+    }
+
+    .hn-rot {
+      font-family: 'Archivo', sans-serif;
+      font-size: .76rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .75);
+      font-variation-settings: 'wdth' 100, 'wght' 700;
+    }
+
+    .hn-val {
+      display: inline-block;
+      font-family: 'Barlow Condensed', 'Archivo', sans-serif;
+      font-variation-settings: 'wght' 900;
+      font-weight: 900;
+      font-size: clamp(4rem, 8vw, 6rem);
+      line-height: .85;
+      letter-spacing: -.02em;
+      color: #fff;
+      text-shadow: 0 6px 16px rgba(0, 0, 0, .45);
+    }
+
     .hero-btns {
       display: flex;
-      flex-wrap: wrap;
+      flex-wrap: nowrap;
       gap: 12px;
     }
 
     .hero-cta {
-      padding: 20px 54px;
+      flex: 1;
+      min-width: 0;
+      padding: 20px 30px;
       font-size: 1.2rem;
       font-family: 'Barlow Condensed', 'Archivo', sans-serif;
       font-variation-settings: 'wght' 850;
@@ -861,6 +892,16 @@
 
     .hero-cta:hover {
       box-shadow: none;
+    }
+
+    .hero-cta-2 {
+      flex: 1;
+      min-width: 0;
+      padding: 20px 20px;
+      font-size: 1rem;
+      border-width: 2px;
+      border-radius: 14px;
+      margin-bottom: 20px;
     }
 
     .hero-costura {
@@ -2147,6 +2188,46 @@
       color: rgba(255, 255, 255, .68);
     }
 
+    .disclaimer-registro {
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 0 var(--gut) 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .dr-tit {
+      font-size: .66rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .42);
+      font-variation-settings: 'wdth' 100, 'wght' 750;
+      margin-bottom: 10px;
+    }
+
+    .dr-sub {
+      font-size: .66rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, .42);
+      font-variation-settings: 'wdth' 100, 'wght' 750;
+      margin: 22px 0 10px;
+    }
+
+    .dr-endereco {
+      font-size: .78rem;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, .68);
+      margin-bottom: 10px;
+    }
+
+    .dr-sobre {
+      font-size: .78rem;
+      line-height: 1.7;
+      color: rgba(255, 255, 255, .68);
+      max-width: 74ch;
+    }
+
     .losangos {
       display: flex;
       gap: 9px;
@@ -2351,10 +2432,24 @@
         justify-content: center;
       }
 
+      .hero-btns {
+        flex-wrap: nowrap;
+        gap: 8px;
+      }
+
       .hero-cta {
-        width: 100%;
-        padding: 13px 20px;
-        font-size: .92rem;
+        flex: 1;
+        min-width: 0;
+        padding: 13px 10px;
+        font-size: .78rem;
+        border-radius: 10px;
+      }
+
+      .hero-cta-2 {
+        flex: 1;
+        min-width: 0;
+        padding: 13px 10px;
+        font-size: .78rem;
         border-radius: 10px;
       }
 
@@ -2765,8 +2860,14 @@
         <span class="tag-linha">Patriota</span>
       </div>
 
+      <div class="hero-numero">
+        <span class="hn-rot">Digite</span>
+        <span class="hn-val">2277</span>
+      </div>
+
       <div class="hero-btns">
         <a href="#defende" class="btn btn--ouro hero-cta">Conheça Minha História</a>
+        <a href="/apoiadores" class="btn btn--linha hero-cta-2">Cadastrar Apoio</a>
       </div>
     </div>
   </section>
@@ -2930,8 +3031,7 @@
         <div class="quem-video">
           <button type="button" class="video-facade" id="quemVideoFacade" onclick="carregarVideoQuemSou(this)"
             aria-label="Reproduzir vídeo de Gesiel Oliveira">
-            <img src="https://i.ytimg.com/vi/P6Dh_N5RGoY/maxresdefault.jpg" alt="" loading="lazy"
-              onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/P6Dh_N5RGoY/hqdefault.jpg'" />
+            <img src="https://i.ytimg.com/vi/P6Dh_N5RGoY/hqdefault.jpg" alt="" loading="lazy" />
             <span class="video-play" aria-hidden="true">
               <svg viewBox="0 0 24 24" fill="currentColor">
                 <path d="M8 5v14l11-7z" />
@@ -4803,6 +4903,34 @@
         <a href="/politicadeprivacidade">Política de privacidade</a> ·
         <a href="/exclusao-dados">Exclusão de dados</a>
       </p>
+    </div>
+
+    <div class="disclaimer-registro">
+      <p class="dr-tit">Suas informações da biblioteca de anúncios e rótulo</p>
+
+      <p class="dr-sub">Seu rótulo</p>
+      <p class="dr-endereco">Propaganda eleitoral ⋅ Eleição 2026 Gesiel de Souza Oliveira Deputado Federal</p>
+
+      <p class="dr-sub">Endereço</p>
+      <p class="dr-endereco">Avenida Avenida Carlos Almeida de Souza, 3191</p>
+
+      <p class="dr-sub">Telefone</p>
+      <p class="dr-endereco">+559691221378</p>
+
+      <p class="dr-sub">Email</p>
+      <p class="dr-endereco">prodmacapa@gmail.com</p>
+
+      <p class="dr-sub">Site</p>
+      <p class="dr-endereco">https://gesieloliveira.vercel.app/</p>
+
+      <p class="dr-sub">Informações adicionais</p>
+      <p class="dr-sub" style="margin-top:0">Número do CPF ou CNPJ</p>
+      <p class="dr-endereco">68.411.350/0001-84</p>
+
+      <p class="dr-sobre">Anúncios e conteúdos impulsionados desta campanha em redes sociais são pagos por Eleição
+        2026 Gesiel de Souza Oliveira Deputado Federal, CNPJ 68.411.350/0001-84, com identificação própria de
+        "Propaganda Eleitoral" exigida pela Lei nº 9.504/1997 e pela Resolução TSE nº 23.610/2019 em cada anúncio,
+        conforme as políticas de anúncios eleitorais da Meta.</p>
     </div>
   </footer>
 
